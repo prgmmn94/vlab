@@ -143,7 +143,7 @@
 
         <p class="text-center text-sm text-gray-600 mt-2 mb-16">
             Ikuti tahapan seleksi untuk bergabung sebagai<br>
-            Asisten atau Programmer di Laboratorium Manajemen Lanjut.
+            Asisten atau Programmer di Laboratorium Manajemen Lanjut..
         </p>
 
         {{-- TIMELINE --}}
