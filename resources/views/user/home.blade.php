@@ -325,7 +325,7 @@
 
                 {{-- ROLE --}}
                 <p class="text-xs text-gray-500 mb-4">
-                    asisten 3b
+                    prog 3b
                 </p>
 
                 {{-- ISI --}}
