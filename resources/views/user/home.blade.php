@@ -320,7 +320,7 @@
 
                 {{-- NAMA --}}
                 <h4 class="font-semibold text-sm">
-                    jeni bekping
+                    lisa bekping
                 </h4>
 
                 {{-- ROLE --}}
