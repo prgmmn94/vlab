@@ -20,7 +20,7 @@
 
     {{-- PAGE CONTENT --}}
     {{-- pt-20 biar konten gak ketiban navbar sticky --}}
-    <main class="pt-20">
+    <main class="pt-0">
         @yield('content')
     </main>
 
