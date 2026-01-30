@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+{{-- ================= TATA TERTIB ================= --}}
 <div class="bg-[#71268a] min-h-screen font-sans text-gray-800 p-8">
     <div class="max-w-4xl mx-auto">
         <div class="text-center text-white mb-10">
