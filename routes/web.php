@@ -25,9 +25,17 @@ Route::get('/profil', function () {
     return view('user.profil');
 })->name('profil');
 
-Route::get('/praktikum', function () {
-    return view('user.praktikum');
-})->name('praktikum');
+Route::prefix('praktikum')->group(function () {
+    Route::get('/tata-tertib', function () {
+        // Dot (.) di sini artinya masuk ke dalam folder
+        // user -> folder praktikum -> file tata-tertib.blade.php
+        return view('user.praktikum.tata-tertib'); 
+    })->name('praktikum.tata-tertib');
+
+    Route::get('/jadwal', function () {
+        return view('user.praktikum.jadwal');
+    })->name('praktikum.jadwal');
+});
 
 Route::get('/download', function () {
     return view('user.download');
