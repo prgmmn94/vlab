@@ -66,13 +66,13 @@
                 <div class="flex-1">
                     <h4 class="font-bold mb-4 text-center">Laki-laki</h4>
                     <div class="relative flex justify-center">
-                         <img src="{{ asset('images/pria.png') }}" alt="Aturan Pria" class="h-80 object-contain">
+                         <img src="{{ asset('images/aturan2.png') }}" alt="Aturan Pria" class="h-80 object-contain">
                     </div>
                     <div class="mt-4 text-xs space-y-2">
                         <p><strong>DILARANG:</strong></p>
                         <ul class="list-disc ml-4 opacity-90">
                             <li>Memakai kemeja bergambar, flannel, atau denim, serta celana denim dan chino.</li>
-                            <li>Gelang tidak diperbolehkan kecuali jam tangan dan cincin nikah.</li>
+                            <li>Gelang tidak diperbolehkan kecuali jam tangan dan cincin nikah.</li><br><br>
                         </ul>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                 <div class="flex-1">
                     <h4 class="font-bold mb-4 text-center">Perempuan</h4>
                     <div class="relative flex justify-center">
-                        <img src="{{ asset('images/wanita.png') }}" alt="Aturan Wanita" class="h-80 object-contain">
+                        <img src="{{ asset('images/aturan1.png') }}" alt="Aturan Wanita" class="h-80 object-contain">
                     </div>
                     <div class="mt-4 text-xs space-y-2">
                         <p><strong>DILARANG:</strong></p>
