@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- Tambahkan CDN Swiper.js di bagian atas atau di layout utama --}}
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 @php
@@ -10,27 +10,44 @@
             [
                 'matkul' => 'RISET OPERASIONAL 1',
                 'kelas' => '2EA24',
-                'icon' => 'icon_riset.png', 
+                'icon' => 'chart', 
                 'jadwal' => 'jadwal1.png'
             ],
             [
                 'matkul' => 'MANAJEMEN KEUANGAN 2',
                 'kelas' => '3DA01',
-                'icon' => 'icon_finance.png',
+                'icon' => 'finance',
                 'jadwal' => 'jadwal1.png'
             ],
+            [
+            'matkul' => 'MANAJEMEN KEUANGAN 2',
+                'kelas' => '3DA01',
+                'icon' => 'finance',
+                'jadwal' => 'jadwal1.png'
+            ],
+            [
+            'matkul' => 'MANAJEMEN KEUANGAN 2',
+                'kelas' => '3DA01',
+                'icon' => 'finance',
+                'jadwal' => 'jadwal1.png' 
+            ],
+            [
+            'matkul' => 'MANAJEMEN KEUANGAN 2',
+                'kelas' => '3DA01',
+                'icon' => 'finance',
+                'jadwal' => 'jadwal1.png'],
         ],
         'KALIMALANG' => [
             [
                 'matkul' => 'RISET OPERASIONAL 1',
                 'kelas' => '2EA24',
-                'icon' => 'icon_riset.png', 
+                'icon' => 'chart', 
                 'jadwal' => 'jadwal1.png'
             ],
             [
                 'matkul' => 'MANAJEMEN KEUANGAN 2',
                 'kelas' => '3DA01',
-                'icon' => 'icon_finance.png',
+                'icon' => 'finance',
                 'jadwal' => 'jadwal1.png'
             ],
         ],
@@ -38,38 +55,66 @@
             [
                 'matkul' => 'RISET OPERASIONAL 1',
                 'kelas' => '2EA24',
-                'icon' => 'icon_riset.png', 
+                'icon' => 'chart', 
                 'jadwal' => 'jadwal1.png'
             ],
             [
                 'matkul' => 'MANAJEMEN KEUANGAN 2',
                 'kelas' => '3DA01',
-                'icon' => 'icon_finance.png',
+                'icon' => 'finance',
                 'jadwal' => 'jadwal1.png'
             ],
             [
             'matkul' => 'MANAJEMEN KEUANGAN 2',
                 'kelas' => '3DA01',
-                'icon' => 'icon_finance.png',
+                'icon' => 'finance',
                 'jadwal' => 'jadwal1.png'
             ],
             [
             'matkul' => 'MANAJEMEN KEUANGAN 2',
                 'kelas' => '3DA01',
-                'icon' => 'icon_finance.png',
+                'icon' => 'finance',
                 'jadwal' => 'jadwal1.png' 
             ],
             [
             'matkul' => 'MANAJEMEN KEUANGAN 2',
                 'kelas' => '3DA01',
-                'icon' => 'icon_finance.png',
+                'icon' => 'finance',
                 'jadwal' => 'jadwal1.png'],
+        ],
+        'SALEMBA' => [
+            [
+                'matkul' => 'RISET OPERASIONAL 1',
+                'kelas' => '2EA24',
+                'icon' => 'chart', 
+                'jadwal' => 'jadwal1.png'
+            ],
+            [
+                'matkul' => 'MANAJEMEN KEUANGAN 2',
+                'kelas' => '3DA01',
+                'icon' => 'finance',
+                'jadwal' => 'jadwal1.png'
+            ],
+        ],
+        'CENGKARENG' => [
+            [
+                'matkul' => 'RISET OPERASIONAL 1',
+                'kelas' => '2EA24',
+                'icon' => 'chart', 
+                'jadwal' => 'jadwal1.png'
+            ],
+            [
+                'matkul' => 'MANAJEMEN KEUANGAN 2',
+                'kelas' => '3DA01',
+                'icon' => 'finance',
+                'jadwal' => 'jadwal1.png'
+            ],
         ],
     ];
 @endphp
 
-<div class="bg-[#71268a] min-h-screen w-full py-12 px-4">
-    <div class="bg-white max-w-7xl mx-auto rounded-[40px] shadow-2xl p-8 md:p-14 overflow-hidden">
+<div class="bg-gradient-to-b from-[#62286C] to-[#BF4ED2] min-h-screen font-sans text-gray-800 p-8">
+    <div class="bg-white max-w-6xl mx-auto rounded-[40px] shadow-2xl p-8 md:p-14 overflow-hidden">
         
         <div class="text-center mb-16">
             <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tighter text-gray-800">Jadwal Praktikum</h1>
@@ -89,15 +134,28 @@
                         @foreach($items as $item)
                             <div class="swiper-slide h-auto">
                                 <div class="bg-white rounded-[30px] p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-50 flex flex-col items-center h-full">
-                                    <h4 class="text-[#4c1d95] font-black text-center text-sm mb-2 px-2 uppercase tracking-tight">
+                                    <h4 class="text-[#4c1d95] font-black text-center text-[12px] md:text-sm mb-4 uppercase tracking-tight leading-none min-h-[2.5rem] flex items-center justify-center">
                                         {{ $item['matkul'] }}
                                     </h4>
                                     <div class="bg-[#F5A623] text-white text-[10px] font-black px-8 py-1.5 rounded-full mb-6 shadow-sm">
                                         {{ $item['kelas'] }}
                                     </div>
 
-                                    <div class="w-24 h-24 rounded-full bg-[#fdf4ff] flex items-center justify-center mb-8">
-                                        <img src="{{ asset('images/' . $item['icon']) }}" alt="icon" class="w-14 h-14 object-contain">
+                                    {{-- ICON BUAT CARD JADWALNYA --}}
+                                    <div class="w-24 h-24 rounded-full bg-[#fdf4ff] flex items-center justify-center mb-8 text-[#71268a]">
+                                        
+                                        {{-- Logika buat milih Icon --}}
+                                        @if($item['icon'] == 'chart')
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3">
+                                                <path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>
+                                            </svg>
+
+                                        @elseif($item['icon'] == 'finance')
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet">
+                                                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>
+                                            </svg>
+                                        @endif
+
                                     </div>
 
                                     <div class="w-full mt-auto rounded-xl overflow-hidden border border-gray-200 group/img relative">
@@ -135,7 +193,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         @foreach($jadwalData as $lokasi => $items)
             new Swiper('.mySwiper-{{ Str::slug($lokasi) }}', {
-                slidesPerView: 1,
+                slidesPerView: 1.2,
                 spaceBetween: 30,
                 watchOverflow: true,
                 navigation: {
