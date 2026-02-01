@@ -73,7 +73,7 @@
 
             {{-- DROPDOWN MENU --}}
             @if($hasSubmenu)
-                <div class="absolute left-0 mt-0 w-48 bg-white border border-gray-100 shadow-xl rounded-lg py-2 
+                <div class="absolute left-[-15%] mt-0 w-48 bg-white border border-gray-100 shadow-xl rounded-lg py-2 
                             opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 
                             transition-all duration-300 z-[60]">
                     @foreach($data['submenu'] as $subLabel => $subPath)

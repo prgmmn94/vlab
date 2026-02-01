@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Tata Tertib Praktikum')
+
 @section('content')
 
 {{-- ================= TATA TERTIB ================= --}}
-<div class="bg-[#71268a] min-h-screen font-sans text-gray-800 p-8">
+<div class="bg-gradient-to-b from-[#62286C] to-[#BF4ED2] min-h-screen font-sans text-gray-800 p-8">
     <div class="max-w-4xl mx-auto">
         <div class="text-center text-white mb-10">
             <h1 class="text-3xl font-bold uppercase tracking-widest">Tata Tertib</h1>
@@ -13,8 +15,9 @@
         <div class="mb-8">
             <h3 class="text-white text-xl font-bold mb-4 uppercase">Tata Tertib Praktikum</h3>
             
+            {{-- ================= BATAS KEHADIRAN ================= --}}
             <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
-                <h4 class="font-bold text-lg mb-2">Batas Kehadiran</h4>
+                <h4 class="font-bold text-lg mb-2">BATAS KEHADIRAN</h4>
                 <p class="text-sm mb-2 text-justify">Batas kehadiran praktikum adalah 2x tidak masuk. Jika sudah 2x tidak hadir di saat praktikum, diberikan toleransi sebagai berikut:</p>
                 <ol class="list-decimal ml-5 text-sm space-y-1">
                     <li>Jika ada keluarga atau orang tua yang meninggal dunia.</li>
@@ -27,6 +30,7 @@
                 </ol>
             </div>
 
+            {{-- ================= PRAKTIKUM OFFLINE ================= --}}
             <div class="grid md:grid-cols-2 gap-6 mb-6">
                 <div class="bg-white rounded-xl p-6 shadow-lg ">
                     <h4 class="font-bold text-center text-lg mb-4 uppercase">Praktikum Offline</h4>
@@ -38,6 +42,7 @@
                     </ul>
                 </div>
 
+                {{-- ================= PRAKTIKUM ONLINE ================= --}}
                 <div class="bg-white rounded-xl p-6 shadow-lg">
                     <h4 class="font-bold text-center text-lg mb-4 uppercase">Praktikum Online</h4>
                     <ul class="list-decimal ml-5 text-sm space-y-2">
@@ -48,6 +53,7 @@
                 </div>
             </div>
 
+            {{-- ================= PERLENGKAPAN YG DIBAWA ================= --}}
             <div class="bg-white rounded-xl p-6 shadow-lg mb-10">
                 <h4 class="font-bold text-center text-lg mb-4 uppercase">Perlengkapan yang Dibawa</h4>
                 <ul class="list-decimal ml-5 text-sm space-y-1">
@@ -61,30 +67,34 @@
             </div>
         </div>
 
+        {{-- ================= ATURAN BERPAKAIAN ================= --}}
         <div class="text-white">
             <h3 class="text-xl font-bold mb-8 uppercase text-left">Aturan Berpakaian</h3>
+
+                {{-- LAKI --}}
                 <div class="flex-1">
                     <h4 class="font-bold mb-4 text-center">Laki-laki</h4>
                     <div class="relative flex justify-center">
-                         <img src="{{ asset('images/aturan2.png') }}" alt="Aturan Pria" class="h-80 object-contain">
+                         <img src="{{ asset('images/aturan2.png') }}" alt="Aturan Pria" class="h-90 object-contain">
                     </div>
-                    <div class="mt-4 text-xs space-y-2">
+                    <div class="mt-8 text-sm space-y-2">
                         <p><strong>DILARANG:</strong></p>
-                        <ul class="list-disc ml-4 opacity-90">
+                        <ul class="list-disc ml-4 opacity-100">
                             <li>Memakai kemeja bergambar, flannel, atau denim, serta celana denim dan chino.</li>
                             <li>Gelang tidak diperbolehkan kecuali jam tangan dan cincin nikah.</li><br><br>
                         </ul>
                     </div>
                 </div>
 
+                {{-- PEREMPUAN --}}
                 <div class="flex-1">
                     <h4 class="font-bold mb-4 text-center">Perempuan</h4>
                     <div class="relative flex justify-center">
-                        <img src="{{ asset('images/aturan1.png') }}" alt="Aturan Wanita" class="h-80 object-contain">
+                        <img src="{{ asset('images/aturan1.png') }}" alt="Aturan Wanita" class="h-90 object-contain">
                     </div>
-                    <div class="mt-4 text-xs space-y-2">
+                    <div class="mt-8 text-sm space-y-2">
                         <p><strong>DILARANG:</strong></p>
-                        <ul class="list-disc ml-4 opacity-90">
+                        <ul class="list-disc ml-4 opacity-100">
                             <li>Memakai kemeja setengah kancing, model balon, V-neck, ketat, tembus pandang, atau berbahan denim serta kerudung bergo gelang.</li>
                             <li>Tidak diperbolehkan kecuali jam tangan dan cincin nikah.</li>
                         </ul>
