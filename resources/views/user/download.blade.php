@@ -1,18 +1,20 @@
 @extends('layouts.app')
 
+@section('title', 'Download Praktikum')
+
 @section('content')
 {{-- Load CSS Swiper --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 @php
-    // Data Download dikelompokkan per Kategori
+    // tes Pake dummy dlu
     $downloadData = [
         'MODUL DAN SOAL LAPORAN AKHIR' => [
             [
                 'judul' => 'E-Commerce',
                 'tanggal' => '25/08/2025',
                 'icon' => 'book',
-                'link' => 'https://drive.google.com/...' // Nanti kamu isi link GDrive di sini
+                'link' => 'https://drive.google.com/...'
             ],
             [
                 'judul' => 'Riset Operasional 1',
@@ -76,7 +78,7 @@
         {{-- Loop Kategori --}}
         @foreach($downloadData as $kategori => $items)
             <div class="mb-20 relative group">
-                {{-- Judul Kategori dengan Garis Ungu --}}
+                {{-- Judul Kategori --}}
                 <div class="flex items-center gap-3 mb-8 border-l-[6px] border-[#71268a] pl-4">
                     <h3 class="text-xl md:text-2xl font-black uppercase text-gray-800 tracking-tight">{{ $kategori }}</h3>
                 </div>

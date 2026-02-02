@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Jadwal Praktikum')
+
 @section('content')
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
+// TES PAKEKK DUMMY DLU GEYS
 @php
     $jadwalData = [
         'DEPOK' => [
@@ -121,9 +123,10 @@
             <h2 class="text-xl md:text-2xl font-black uppercase text-gray-800">Laboratorium Manajemen Menengah</h2>
             <p class="text-gray-500 font-bold mt-1 text-sm md:text-base">Periode PTA 2025/2026</p>
         </div>
-
+        
+        {{-- Group untuk kontrol hover panah --}}
         @foreach($jadwalData as $lokasi => $items)
-            <div class="mb-20 relative group"> {{-- Group untuk kontrol hover panah --}}
+            <div class="mb-20 relative group"> 
                 <div class="flex items-center gap-2 mb-8 border-l-[6px] border-[#71268a] pl-4">
                     <h3 class="text-2xl font-black uppercase text-gray-800 tracking-tight">{{ $lokasi }}</h3>
                 </div>
