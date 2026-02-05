@@ -33,10 +33,10 @@
         </div>
 
         <p class="text-gray-600 leading-relaxed text-sm">
-            Laboratorium Manajemen Menengah (Lab-Men) adalah unit kerja Universitas Gunadarma
+            Laboratorium Manajemen Menengah (Lab Mamen) adalah unit kerja Universitas Gunadarma
             yang menyelenggarakan praktikum penunjang bidang manajemen dan sistem informasi
-            untuk mahasiswa. Lab-Men berfokus pada praktik berbasis teknologi informasi untuk
-            mahasiswa D3-B, guna mendukung pemecahan masalah dan pengambilan keputusan manajerial.
+            untuk mahasiswa. Lab Mamen berfokus pada praktik berbasis teknologi informasi untuk
+            mahasiswa, guna mendukung pemecahan masalah dan pengambilan keputusan manajerial.
         </p>
 
     </div>
@@ -44,13 +44,13 @@
 
 
 {{-- ================= WAVE ================= --}}
-
+<x-wave />
 
 
 {{-- ================= VISI MISI ================= --}}
 <section class="text-white pt-16 pb-24" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
 
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
 
         <h2 class="text-center text-3xl font-extrabold mb-12 tracking-wide">
             VISI & MISI
@@ -108,7 +108,7 @@
 
             {{-- KIRI: JUDUL + DESKRIPSI --}}
             <div>
-                <div class="flex items-start gap-4 mb-6">
+                <div class="flex items-start gap-4 pt-20 mb-6">
                     <div class="w-1.5 h-16 bg-purple-600 rounded"></div>
 
                     <h2 class="text-3xl font-extrabold leading-tight">
@@ -128,9 +128,9 @@
             </div>
 
             {{-- KANAN: GAMBAR STRUKTUR --}}
-            <div class="flex justify-center md:justify-end">
+            <div class="flex justify-center md:justify-end ">
                 <img
-                    src="/images/struktur-organisasi.png"
+                    src="/images/struktur.png"
                     alt="Struktur Organisasi"
                     class="w-full max-w-xl object-contain drop-shadow-xl"
                 >
