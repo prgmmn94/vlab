@@ -37,7 +37,7 @@
                 </h4>
 
                 <p class="text-sm leading-relaxed">
-                    Laboratorium Manajemen Menengah (Lab-Men)
+                    Laboratorium Manajemen Menengah (Lab Mamen)
                     adalah unit kerja di Universitas Gunadarma
                     yang menyelenggarakan praktikum dan
                     pengembangan kompetensi mahasiswa.
