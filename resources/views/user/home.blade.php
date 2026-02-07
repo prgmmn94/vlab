@@ -5,12 +5,12 @@
 {{-- ================= --}}
 {{-- HERO PUTIH --}}
 {{-- ================= --}}
-<section class="bg-white">
-    <div class="max-w-7xl mx-auto  grid md:grid-cols-2 gap-12 items-center">
+<section class="bg-white ">
+    <div class="max-w-full mx-auto py-20 grid md:grid-cols-2 items-center">
 
         {{-- ILUSTRASI --}}
         <img src="/images/homewelcome.png"
-             class="w-full max-w-md mx-auto pt-3"
+             class="w-full max-w-lg mx-auto"
              alt="Hero">
 
         {{-- TEXT --}}
@@ -23,7 +23,7 @@
                 </span>
             </h1>
 
-            <p class="mt-4 text-gray-600">
+            <p class="mt-4 text-gray-600 text-base">
                 Bersama kita wujudkan masa depan yang lebih baik!
             </p>
         </div>
@@ -40,12 +40,12 @@
 {{-- SECTION UNGU --}}
 {{-- ================= --}}
 <section
-    class="text-white"
+    class="text-white -mt-1"
     style="background:linear-gradient(to bottom,#62286C,#BF4ED2)"
 >
 
     {{-- APA ITU V-LAB --}}
-   <div class="max-w-7xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
+   <div class="max-w-full mx-auto px-30 pt-30 pb-35 grid md:grid-cols-2 items-center">
 
 
         <div class="md:pl-20">
@@ -53,7 +53,7 @@
                 Apa Itu V-LAB?
             </h2>
 
-            <p class="text-3x1 leading-relaxed opacity-90">
+            <p class="text-base leading-relaxed opacity-90">
                 Portal Virtual Lab (V-Lab) merupakan layanan pembelajaran daring
                 yang digunakan untuk mendukung proses belajar mengajar oleh
                 asisten dan mahasiswa di lingkungan Laboratorium Manajemen
@@ -67,7 +67,7 @@
     </div>
 
     {{-- MATERI PRAKTIKUM --}}
-    <div class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="max-w-7xl mx-auto px-6 pb-40">
 
         <h2 class="text-3xl font-bold text-center mb-12">
             Materi Praktikum
@@ -84,11 +84,11 @@
             ] as [$icon, $label])
 
             <div
-                class="bg-white text-gray-800 rounded-xl p-6 text-center shadow-lg
+                class="bg-white text-gray-800 rounded-xl p-6 text-center shadow-lg 
                        transition hover:-translate-y-1"
             >
                 <div
-                    class="w-12 h-12 mx-auto mb-4 flex items-center justify-center
+                    class="w-20 h-18 mx-auto mb-4 flex items-center justify-center
                            rounded-full bg-purple-100 text-[#581D74]"
                 >
                     <i data-lucide="{{ $icon }}"></i>
@@ -109,7 +109,7 @@
 {{-- ================= --}}
 {{-- ALUR PENDAFTARAN --}}
 {{-- ================= --}}
-<section class="relative bg-white pt-28 pb-24">
+<section class="relative bg-white pt-28 pb-24 ">
 
     {{-- WAVE ATAS (PUTIH KE UNGU) --}}
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-1">
@@ -134,10 +134,10 @@
         </svg>
     </div>
 
-    <div class="max-w-4xl mx-auto px-6 relative">
+    <div class="max-w-4xl mx-auto px-6 pt-20 relative">
 
         {{-- JUDUL --}}
-        <h2 class="text-3xl font-extrabold text-center text-gray-900 pt-20">
+        <h2 class="text-4xl font-extrabold text-center text-gray-900 pt-20">
             Alur Pendaftaran
         </h2>
 
@@ -150,7 +150,7 @@
         <div class="relative">
 
             {{-- GARIS TENGAH --}}
-            <div class="absolute left-1/2 top-0 h-full w-0.5 bg-purple-200 -translate-x-1/2"></div>
+            <div class="absolute left-1/2 top-0 h-full w-1.5 bg-purple-200 -translate-x-1/2"></div>
 
             {{-- ITEM --}}
             @php
@@ -191,7 +191,7 @@
             @foreach ($steps as $i => $step)
                 <div class="relative mb-14 flex {{ $i % 2 === 0 ? 'justify-start pr-8' : 'justify-end pl-8' }}">
 
-                    <div class="w-full md:w-[48%] bg-white rounded-xl shadow-lg p-6">
+                    <div class="w-full md:w-[48%] bg-white rounded-xl shadow-lg p-6 border-1 border-[#ebebeb]">
                         <span class="text-xs font-semibold text-purple-600">
                             {{ $step['date'] }}
                         </span>
@@ -207,7 +207,7 @@
 
                     {{-- DOT --}}
                     <span
-                        class="absolute left-1/2 top-6 w-4 h-4 bg-[#581D74]
+                        class="absolute left-1/2 top-6 w-5 h-5 bg-[#581D74]
                                rounded-full -translate-x-1/2 border-4 border-white"
                     ></span>
 
@@ -236,7 +236,7 @@
 
             {{-- TEXT --}}
             <div>
-                <h2 class="text-3xl font-extrabold text-gray-900">
+                <h2 class="text-4xl font-extrabold text-gray-900">
                     Saatnya kamu berperan!
                 </h2>
 
@@ -249,7 +249,7 @@
                 <a
                     href="#"
                     class="inline-block mt-6 bg-[#F5A623] text-white
-                           font-semibold px-6 py-3 rounded-lg
+                           font-semibold px-8 py-3 rounded-lg
                            hover:bg-[#e0941d] transition"
                 >
                     Ayo Daftar!
@@ -267,16 +267,16 @@
 {{-- SUARA MEREKA --}}
 {{-- ================= --}}
 <section
-    class="text-white pt-28 pb-24"
+    class="text-white pt-40 pb-40 -mt-1"
     style="background:linear-gradient(to bottom,#7B2FA0,#62286C)"
 >
 
     {{-- HEADER --}}
-    <div class="max-w-7xl mx-auto px-6 mb-14">
+    <div class="max-w-7xl mx-auto px-6 mb-18">
         <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
 
             {{-- TITLE --}}
-            <h2 class="text-3xl font-bold whitespace-nowrap">
+            <h2 class="text-4xl font-bold whitespace-nowrap">
                 Suara Mereka
             </h2>
 

@@ -32,16 +32,16 @@
 @endphp
 
 {{-- Container Utama --}}
-<div class="bg-white min-h-screen w-full py-12 px-4 md:px-16 font-sans">
+<div class="bg-white min-h-screen w-full py-24 px-4 md:px-16 font-sans">
     <div class="max-w-5xl mx-auto">
 
         {{-- Grid Berita --}}
-        <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-24">
             @foreach($beritaData as $berita)
                 {{-- Card Berita --}}
                 {{-- Block Link: Klik dimanapun di card akan menuju detail --}}
                 <a href="/berita/{{ $berita['slug'] }}" class="group block">
-                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(113,38,138,0.15)] transition-all duration-300 transform ">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(113,38,138,0.15)] transition-all duration-300 transform border-1 border-[#cccccc]">
                         
                         {{-- Gambar Header --}}
                         <div class="w-full h-64 md:h-80 overflow-hidden relative">

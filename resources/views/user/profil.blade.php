@@ -48,7 +48,7 @@
 
 
 {{-- ================= VISI MISI ================= --}}
-<section class="text-white pt-16 pb-24" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
+<section class="text-white py-40" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
 
     <div class="max-w-7xl mx-auto px-6">
 
@@ -92,7 +92,7 @@
     </div>
 </section>
 
-<section class="relative bg-white pt-24 pb-20 overflow-hidden">
+<section class="relative bg-white py-40 overflow-hidden">
 
     {{-- WAVE ATAS --}}
     <div class="absolute top-0 left-0 w-full -mt-1">
@@ -104,7 +104,7 @@
 
     <div class="max-w-7xl mx-auto px-6 relative">
 
-        <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="grid md:grid-cols-2 gap-16  py-20">
 
             {{-- KIRI: JUDUL + DESKRIPSI --}}
             <div>
@@ -128,7 +128,7 @@
             </div>
 
             {{-- KANAN: GAMBAR STRUKTUR --}}
-            <div class="flex justify-center md:justify-end ">
+            <div class="flex justify-center md:justify-end items-center">
                 <img
                     src="/images/struktur.png"
                     alt="Struktur Organisasi"

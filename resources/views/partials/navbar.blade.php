@@ -1,9 +1,9 @@
 <nav
     class="sticky top-0 z-50 bg-white
-           shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+           shadow-[0_30px_22px_rgba(0,0,0,0.12)]"
 >
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="h-20 flex items-center justify-between">
+    <div class="max-w-full mx-auto px-35 py-1">
+        <div class="h-15 flex items-center justify-between">
 
             {{-- LOGO --}}
             <div class="flex items-center gap-3">
@@ -20,7 +20,7 @@
             </div>
 
             {{-- MENU --}}
-            <ul class="flex items-center gap-8 text-sm font-medium">
+            <ul class="flex items-center gap-8 text-xs font-medium">
                 @php
                     $menus = [
                         'Beranda' => '/',

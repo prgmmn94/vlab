@@ -7,16 +7,17 @@
 @source '../**/*.js';
 
 .icon-box {
-  @apply w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full bg-purple-100 text-purple-700;
+    @apply w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full bg-purple-100 text-purple-700;
 }
 
 .card-text {
-  @apply text-sm font-semibold;
+    @apply text-sm font-semibold;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
+
 .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
