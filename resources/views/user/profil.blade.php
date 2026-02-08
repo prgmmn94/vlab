@@ -163,17 +163,19 @@
             </p>
         </div>
 
-        {{-- CARD STAFF --}}
-        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+        {{-- CARD STAFF (SCROLLABLE) --}}
+        <div class="flex gap-8 overflow-x-auto scroll-smooth pb-4 staff-scroll">
 
             @foreach ([
-                ['img'=>'staff1.jpg','name'=>'Dr. Muh. Yanto, SE., MM.','role'=>'Kepala Lab. Manajemen Menengah'],
-                ['img'=>'staff2.jpg','name'=>'Hadi Hidayanto, SE., MMA.','role'=>'Wakil Kepala Lab. Manajemen Menengah'],
-                ['img'=>'staff3.jpg','name'=>'Darmadi, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'staff4.jpg','name'=>'Dr. Ahmad, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
+                ['img'=>'pak yunan.png','name'=>'Dr. Muh. Yanto, SE., MM.','role'=>'Kepala Lab. Manajemen Menengah'],
+                ['img'=>'pak hadir1.png','name'=>'Hadir Hidayanto, SE., MMA.','role'=>'Wakil Kepala Lab. Manajemen Menengah'],
+                ['img'=>'pak darmadi.png','name'=>'Darmadi, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
+                ['img'=>'pak suwardi.png','name'=>'Suwardi, SE','role'=>'Staff Lab. Manajemen Menengah'],
+                ['img'=>'staff5.png','name'=>'Aditya Rian Ramadhan, SE','role'=>'Staff Lab. Manajemen Menengah'],
+                ['img'=>'staff6.png','name'=>'Ridwan Z Agha','role'=>'Staff Lab. Manajemen Menengah'],
             ] as $s)
 
-            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center min-w-[250px] max-w-[250px]">
                 <img src="/images/staff/{{ $s['img'] }}"
                      class="w-full h-48 object-cover"
                      alt="Staff">
@@ -194,5 +196,6 @@
 
     </div>
 </section>
+
 
 @endsection
