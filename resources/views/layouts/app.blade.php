@@ -24,6 +24,14 @@
         @yield('content')
     </main>
 
+    {{-- LIGHTBOX --}}
+<div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50">
+    <button id="closeLB" class="absolute top-6 right-8 text-white text-4xl">&times;</button>
+    <button id="prevLB" class="absolute left-6 text-white text-4xl">&#10094;</button>
+    <img id="lightboxImg" class="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl">
+    <button id="nextLB" class="absolute right-6 text-white text-4xl">&#10095;</button>
+</div>
+
     {{-- FOOTER --}}
     <footer class="bg-[#0F0F0F] text-gray-400 pt-40">
 
@@ -85,6 +93,54 @@
             lucide.createIcons();
         });
     </script>
+
+<script>
+const images = document.querySelectorAll('.gallery-img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const closeBtn = document.getElementById('closeLB');
+const nextBtn = document.getElementById('nextLB');
+const prevBtn = document.getElementById('prevLB');
+
+let currentGroup = [];
+let currentIndex = 0;
+
+images.forEach(img => {
+    img.addEventListener('click', () => {
+        const groupName = img.dataset.group;
+        currentGroup = Array.from(document.querySelectorAll(`.gallery-img[data-group="${groupName}"]`));
+        currentIndex = currentGroup.indexOf(img);
+        showImage();
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+    });
+});
+
+function showImage() {
+    lightboxImg.src = currentGroup[currentIndex].src;
+}
+
+nextBtn.onclick = () => {
+    currentIndex = (currentIndex + 1) % currentGroup.length;
+    showImage();
+};
+
+prevBtn.onclick = () => {
+    currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length;
+    showImage();
+};
+
+closeBtn.onclick = () => {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+};
+
+lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeBtn.click();
+});
+</script>
+
+
 
 </body>
 </html>
