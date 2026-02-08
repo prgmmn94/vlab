@@ -4,79 +4,37 @@
 
 @section('content')
 
-@php
-    // TES PAKEKK DUMMY DLU GEYS
-    $beritaData = [
-        [
-            'judul' => 'Open Recruitment LABMAMEN 2025/2026',
-            'slug' => 'open-recruitment-2025', 
-            'excerpt' => 'Mengapa Bergabung dengan Labmamen? Karena kami lebih dari sekadar komunitas. Kami adalah keluarga yang bertumbuh bersama, berbagi motivasi, dan meraih cita-cita tanpa pamrih. Labmamen adalah ruang untuk berkembang...',
-            'tanggal' => '20 Januari 2026',
-            'gambar' => 'berita1.png' 
-        ],
-        [
-            'judul' => 'Open Recruitment LABMAMEN 2025/2026',
-            'slug' => 'open-recruitment-2025', 
-            'excerpt' => 'Mengapa Bergabung dengan Labmamen? Karena kami lebih dari sekadar komunitas. Kami adalah keluarga yang bertumbuh bersama, berbagi motivasi, dan meraih cita-cita tanpa pamrih. Labmamen adalah ruang untuk berkembang...',
-            'tanggal' => '20 Januari 2026',
-            'gambar' => 'berita1.png' 
-        ],
-        [
-            'judul' => 'Open Recruitment LABMAMEN 2025/2026',
-            'slug' => 'open-recruitment-2025', 
-            'excerpt' => 'Mengapa Bergabung dengan Labmamen? Karena kami lebih dari sekadar komunitas. Kami adalah keluarga yang bertumbuh bersama, berbagi motivasi, dan meraih cita-cita tanpa pamrih. Labmamen adalah ruang untuk berkembang...',
-            'tanggal' => '20 Januari 2026',
-            'gambar' => 'berita1.png' 
-        ],
-    ];
-@endphp
+<div class="bg-white min-h-screen w-full py-16 px-4 md:px-10 font-sans">
+    <div class="max-w-4xl mx-auto">
 
-{{-- Container Utama --}}
-<div class="bg-white min-h-screen w-full py-24 px-4 md:px-16 font-sans">
-    <div class="max-w-5xl mx-auto">
-
-        {{-- Grid Berita --}}
-        <div class="flex flex-col gap-24">
+        <div class="flex flex-col gap-14">
             @foreach($beritaData as $berita)
-                {{-- Card Berita --}}
-                {{-- Block Link: Klik dimanapun di card akan menuju detail --}}
-                <a href="/berita/{{ $berita['slug'] }}" class="group block">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(113,38,138,0.15)] transition-all duration-300 transform border-1 border-[#cccccc]">
+                <a href="{{ url('/berita/'.$berita['slug']) }}" class="group block">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-[0_3px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_22px_rgba(113,38,138,0.12)] transition-all duration-300 border border-[#e5e5e5]">
                         
-                        {{-- Gambar Header --}}
-                        <div class="w-full h-64 md:h-80 overflow-hidden relative">
-                            <img src="{{ asset('images/' . $berita['gambar']) }}" 
+                        <div class="w-full h-52 md:h-60 overflow-hidden relative">
+                            <img src="{{ asset('images/'.$berita['gambar']) }}" 
                                  alt="{{ $berita['judul'] }}" 
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            
-                            {{-- Overlay gradient tipis buat gambar --}}
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
                         </div>
 
-                        {{-- Konten Teks --}}
-                        <div class="p-8">
-                            {{-- Judul --}}
-                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 group-hover:text-[#71268a] transition-colors leading-tight">
+                        <div class="p-6">
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#71268a] transition-colors leading-snug">
                                 {{ $berita['judul'] }}
                             </h2>
 
-                            {{-- Deskripsi Singkat--}}
-                            <p class="text-gray-500 text-sm md:text-base leading-relaxed mb-8 line-clamp-3">
+                            <p class="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
                                 {{ $berita['excerpt'] }}
                             </p>
 
-                            {{-- Footer Card (Tanggal & Selengkapnya) --}}
-                            <div class="flex items-center justify-between border-t border-gray-100 pt-6">
-                                {{-- Tanggal --}}
-                                <div class="text-gray-400 text-xs md:text-sm font-medium flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+                                <div class="text-gray-400 text-xs font-medium flex items-center gap-2">
                                     {{ $berita['tanggal'] }}
                                 </div>
 
-                                {{-- Tombol Selengkapnya --}}
-                                <div class="text-[#71268a] font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                                    Selengkapnya
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                <div class="text-[#71268a] font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Selengkapnya →
                                 </div>
                             </div>
                         </div>
@@ -84,7 +42,8 @@
                 </a>
             @endforeach
         </div>
+
     </div>
 </div>
-@endsection
 
+@endsection

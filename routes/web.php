@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeritaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,8 @@ Route::get('/', function () {
 | PUBLIC PAGES (NAVBAR)
 |--------------------------------------------------------------------------
 */
-Route::get('/berita', function () {
-    return view('user.berita');
-})->name('berita');
+Route::get('/berita', [BeritaController::class, 'index']);
+Route::get('/berita/{slug}', [BeritaController::class, 'detail']);
 
 Route::get('/profil', function () {
     return view('user.profil');
