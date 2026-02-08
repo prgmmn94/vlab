@@ -22,3 +22,10 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+.staff-scroll::-webkit-scrollbar {
+    display: none;
+}
+.staff-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
