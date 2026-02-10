@@ -5,27 +5,66 @@
 {{-- ================= --}}
 {{-- HERO PUTIH --}}
 {{-- ================= --}}
-<section class="bg-white ">
-    <div class="max-w-full mx-auto py-20 grid md:grid-cols-2 items-center">
+<section class="relative bg-white overflow-hidden">
+    
+    {{-- ORNAMEN BLUR --}}
+    <div class="absolute -top-20 -left-20 w-72 h-72 bg-purple-200 rounded-full blur-3xl opacity-40"></div>
+    <div class="absolute top-32 right-0 w-72 h-72 bg-pink-200 rounded-full blur-3xl opacity-30"></div>
 
-        {{-- ILUSTRASI --}}
-        <img src="/images/homewelcome.png"
-             class="w-full max-w-lg mx-auto"
-             alt="Hero">
+    <div class="max-w-6xl mx-auto py-17 px-6 grid md:grid-cols-2 items-center gap-12 relative z-10">
 
-        {{-- TEXT --}}
+        {{-- ILUSTRASI (KIRI) --}}
+        <div class="flex justify-center md:justify-start">
+            <img src="/images/homewelcome.png"
+                 class="w-full max-w-md drop-shadow-xl"
+                 alt="Hero">
+        </div>
+
+        {{-- TEXT (KANAN) --}}
         <div>
-            <h1 class="text-4xl font-extrabold leading-tight text-gray-900">
-                SELAMAT DATANG DI<br>
-                <span class="text-[#581D74]">
-                    LABORATORIUM<br>
-                    MANAJEMEN MENENGAH
+            <span class="inline-block px-3 py-1 mb-5 text-[11px] font-semibold tracking-wider text-purple-700 bg-purple-100 rounded-full">
+                Portal Virtual Lab
+            </span>
+
+            <h1 class="text-3xl md:text-4xl font-extrabold leading-snug text-gray-900">
+                SELAMAT DATANG DI <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#62286C] to-[#BF4ED2]">
+                    LABORATORIUM MANAJEMEN MENENGAH
                 </span>
             </h1>
 
-            <p class="mt-4 text-gray-600 text-base">
-                Bersama kita wujudkan masa depan yang lebih baik!
+            <p class="mt-5 text-gray-600 text-base leading-relaxed max-w-md">
+                Ruang belajar, berkembang, dan berproses bersama untuk
+                menciptakan pengalaman praktikum yang lebih nyata dan bermakna.
             </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+
+    <!-- BUTTON UTAMA -->
+    <a href="/berita"
+       class="inline-flex items-center gap-2 px-7 py-3 rounded-xl 
+              bg-gradient-to-r from-[#62286C] to-[#BF4ED2] 
+              text-white font-semibold text-sm
+              shadow-md hover:shadow-xl 
+              hover:-translate-y-0.5 transition-all duration-300">
+        Lihat Jadwal
+    </a>
+
+    <!-- BUTTON KEDUA -->
+    <a href="/download"
+       class="inline-flex items-center px-7 py-3 rounded-xl 
+              border border-[#62286C]/40 
+              text-[#62286C] font-semibold text-sm
+              bg-white/60 backdrop-blur-sm
+              hover:bg-[#62286C] hover:text-white
+              hover:border-[#62286C]
+              transition-all duration-300">
+        Lihat Materi
+    </a>
+
+</div>
+
+           
         </div>
 
     </div>
@@ -246,14 +285,11 @@
                     Daftarkan dirimu sekarang dan jadilah bagian dari tim kami.
                 </p>
 
-                <a
-                    href="#"
-                    class="inline-block mt-6 bg-[#F5A623] text-white
-                           font-semibold px-8 py-3 rounded-lg
-                           hover:bg-[#e0941d] transition"
-                >
-                    Ayo Daftar!
-                </a>
+                <a href="{{ route('oprec') }}"
+   class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#e0941d] transition">
+    Ayo Daftar!
+</a>
+
             </div>
 
         </div>
