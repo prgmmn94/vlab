@@ -18,7 +18,7 @@
             ['nama' => 'ULTRAMEN', 'tahun' => '31', 'folder' => '31'],
             ['nama' => 'MENTARI', 'tahun' => '32', 'folder' => '32'],
             ['nama' => 'PERMEN', 'tahun' => '33', 'folder' => '33'],
-            ['nama' => 'MAKRAB', 'tahun' => '25/26', 'folder' => '2526'],
+            ['nama' => 'MAKRAB', 'tahun' => '25/26', 'folder' => 'makrab'],
         ];
         @endphp
 
