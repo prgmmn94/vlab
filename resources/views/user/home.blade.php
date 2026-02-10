@@ -41,14 +41,15 @@
           <div class="mt-8 flex flex-wrap items-center gap-4">
 
     <!-- BUTTON UTAMA -->
-    <a href="/berita"
-       class="inline-flex items-center gap-2 px-7 py-3 rounded-xl 
-              bg-gradient-to-r from-[#62286C] to-[#BF4ED2] 
-              text-white font-semibold text-sm
-              shadow-md hover:shadow-xl 
-              hover:-translate-y-0.5 transition-all duration-300">
-        Lihat Jadwal
-    </a>
+   <a href="{{ route('praktikum.jadwal') }}"
+   class="inline-flex items-center gap-2 px-7 py-3 rounded-xl 
+          bg-gradient-to-r from-[#62286C] to-[#BF4ED2] 
+          text-white font-semibold text-sm
+          shadow-md hover:shadow-xl 
+          hover:-translate-y-0.5 transition-all duration-300">
+    Lihat Jadwal
+</a>
+
 
     <!-- BUTTON KEDUA -->
     <a href="/download"
