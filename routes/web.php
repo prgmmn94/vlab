@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\OprecController; // ⬅ WAJIB (tadi belum ada)
 
 /*
 |--------------------------------------------------------------------------
@@ -13,56 +14,64 @@ Route::get('/', function () {
     return view('user.home');
 })->name('beranda');
 
+
 /*
 |--------------------------------------------------------------------------
 | PUBLIC PAGES (NAVBAR)
 |--------------------------------------------------------------------------
 */
-Route::get('/berita', [BeritaController::class, 'index']);
-Route::get('/berita/{slug}', [BeritaController::class, 'detail']);
 
-Route::get('/profil', function () {
-    return view('user.profil');
-})->name('profil');
+// ===== OPEN RECRUITMENT =====
+Route::get('/oprec', [OprecController::class, 'index'])->name('oprec');
+Route::post('/oprec/submit', [OprecController::class, 'submit'])->name('oprec.submit');
 
-Route::prefix('praktikum')->group(function () {
-    Route::get('/tata-tertib', function () {
-        // Dot (.) di sini artinya masuk ke dalam folder
-        // user -> folder praktikum -> file tata-tertib.blade.php
-        return view('user.praktikum.tata-tertib'); 
-    })->name('praktikum.tata-tertib');
 
-    Route::get('/jadwal', function () {
-        return view('user.praktikum.jadwal');
-    })->name('praktikum.jadwal');
+// ===== BERITA =====
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('/berita/{slug}', [BeritaController::class, 'detail'])->name('berita.detail');
+
+
+// ===== PROFIL =====
+Route::view('/profil', 'user.profil')->name('profil');
+
+
+// ===== PRAKTIKUM =====
+Route::prefix('praktikum')->name('praktikum.')->group(function () {
+
+    Route::view('/tata-tertib', 'user.praktikum.tata-tertib')
+        ->name('tata-tertib');
+
+    Route::view('/jadwal', 'user.praktikum.jadwal')
+        ->name('jadwal');
 });
 
-Route::get('/download', function () {
-    return view('user.download');
-})->name('download');
 
-Route::get('/kontak', function () {
-    return view('user.kontak');
-})->name('kontak');
+// ===== DOWNLOAD =====
+Route::view('/download', 'user.download')->name('download');
 
-Route::get('/galeri', function () {
-    return view('user.galeri');
-})->name('galeri');
+
+// ===== KONTAK =====
+Route::view('/kontak', 'user.kontak')->name('kontak');
+
+
+// ===== GALERI =====
+Route::view('/galeri', 'user.galeri')->name('galeri');
+
 
 /*
 |--------------------------------------------------------------------------
 | AUTH
 |--------------------------------------------------------------------------
 */
-Route::get('/login', [AuthController::class, 'loginForm'])
-    ->name('login')
-    ->middleware('guest');
-
-Route::post('/login', [AuthController::class, 'login'])
-    ->middleware('guest');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
 Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->name('logout');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -72,5 +81,5 @@ Route::post('/logout', [AuthController::class, 'logout'])
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
-    });
+    })->name('dashboard');
 });
