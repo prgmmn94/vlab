@@ -5,7 +5,8 @@
 @section('content')
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-// TES PAKEKK DUMMY DLU GEYS
+
+<!-- TES PAKEKK DUMMY DLU GEYS -->
 @php
     $jadwalData = [
         'DEPOK' => [
@@ -199,6 +200,7 @@
                 slidesPerView: 1.2,
                 spaceBetween: 30,
                 watchOverflow: true,
+                grabCursor: true, 
                 navigation: {
                     nextEl: '.swiper-button-next-{{ Str::slug($lokasi) }}',
                     prevEl: '.swiper-button-prev-{{ Str::slug($lokasi) }}',
