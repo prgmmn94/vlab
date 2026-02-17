@@ -48,19 +48,19 @@
                 'judul' => 'POM-QM',
                 'tanggal' => '15/09/2025',
                 'icon' => 'monitor',
-                'link' => '#'
+                'link' => 'https://drive.google.com/drive/folders/1fheFFX6milSZY46OmCX8tNBpKzbIFs7l'
             ],
             [
                 'judul' => 'DosBox',
                 'tanggal' => '20/09/2025',
                 'icon' => 'box',
-                'link' => '#'
+                'link' => 'https://drive.google.com/drive/folders/1vWL8WO5BvilrE0aAaFI26V1bsuArDWb0'
             ],
             [
                 'judul' => 'SMM',
                 'tanggal' => '05/10/2025',
                 'icon' => 'app-window',
-                'link' => '#'
+                'link' => 'https://drive.google.com/drive/folders/1JVD8hqvPkKXO4WrzBZrEBkEyjvhq3h6I'
             ],
             [
                 'judul' => 'E-Commerce',
@@ -89,7 +89,7 @@
                         @foreach($items as $item)
                             <div class="swiper-slide h-auto">
                                 {{-- Card Utama --}}
-                                <a href="{{ $item['link'] }}" target="_blank" class="block h-full group/card">
+                                <div class="block h-full group/card">
                                     <div class="bg-white rounded-[30px] p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col items-center h-full transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-purple-200">
                                         
                                         {{-- Icon Besar di Tengah --}}
@@ -120,13 +120,13 @@
                                             <span>{{ $item['tanggal'] }}</span>
                                         </div>
 
-                                        {{-- Tombol Download Palsu (Visual) --}}
-                                        <div class="mt-auto w-full bg-[#71268a] text-white py-2 rounded-xl text-center font-bold text-xs uppercase tracking-wider group-hover/card:bg-[#5b1e6e] transition-colors">
+                                        {{-- Tombol Download --}}
+                                        <a href="{{ $item['link'] }}" target="_blank" class="mt-auto w-full bg-[#71268a] text-white py-2 rounded-xl text-center font-bold text-xs uppercase tracking-wider hover:bg-[#5b1e6e] transition-colors">
                                             Download
-                                        </div>
+                                        </a>
 
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -151,9 +151,9 @@
     document.addEventListener('DOMContentLoaded', function () {
         @foreach($downloadData as $kategori => $items)
             new Swiper('.mySwiper-{{ Str::slug($kategori) }}', {
-                slidesPerView: 1.2, // Default HP
+                slidesPerView: 1.2, 
                 spaceBetween: 30,
-                watchOverflow: true, // Hilang navigasi kalau item sedikit
+                watchOverflow: true, 
                 navigation: {
                     nextEl: '.swiper-button-next-{{ Str::slug($kategori) }}',
                     prevEl: '.swiper-button-prev-{{ Str::slug($kategori) }}',
