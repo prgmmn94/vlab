@@ -6,6 +6,9 @@
 
     <title>@yield('title', 'V-LAB')</title>
 
+    {{-- Alpine.js --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     {{-- Tailwind v4 via Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -13,7 +16,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="font-sans text-gray-800 bg-white antialiased">
+<body class="font-sans text-gray-800 bg-white antialiased overflow-x-hidden">
 
     {{-- NAVBAR --}}
     @include('partials.navbar')
@@ -33,18 +36,17 @@
 </div>
 
     {{-- FOOTER --}}
-    <footer class="bg-[#0F0F0F] text-gray-400 pt-40">
+    <footer class="bg-[#0F0F0F] text-gray-400 pt-20 md:pt-40">
 
-        <div class="max-w-full mx-auto px-6 grid gap-10 pb-20
-                    md:grid-cols-3">
+        <div class="max-w-7xl mx-auto px-6 grid gap-10 pb-16 md:pb-20 grid-cols-1 md:grid-cols-3">
 
             {{-- ABOUT --}}
-            <div class="ps-20">
+            <div class="md:ps-10">
                 <h4 class="text-white font-semibold mb-3 text-base">
                     Laboratorium Manajemen Menengah
                 </h4>
 
-                <p class="text-sm leading-relaxed pe-15">
+                <p class="text-sm leading-relaxed md:pe-10">
                     Laboratorium Manajemen Menengah (Lab Mamen)
                     adalah unit kerja di Universitas Gunadarma
                     yang menyelenggarakan praktikum dan
@@ -53,7 +55,7 @@
             </div>
 
             {{-- QUICK LINKS --}}
-            <div>
+            <div class="md:ps-10">
                 <h4 class="text-white font-semibold mb-3 text-base">
                     Tautan Cepat
                 </h4>
@@ -66,7 +68,7 @@
             </div>
 
             {{-- CONTACT --}}
-            <div class="pe-25 justify-self-end ">
+            <div class="md:justify-self-end md:pe-10 ">
             <h4 class="text-white font-semibold mb-3 text-base">
                 Kontak Kami
             </h4>
@@ -81,7 +83,7 @@
         </div>
 
         {{-- COPYRIGHT --}}
-        <div class="border-t border-white/15 py-4 text-xs ps-25 text-[#DC9A39] py-10">
+        <div class="border-t border-white/15 py-6 text-xs text-center md:text-left md:ps-16 text-[#DC9A39]">
             © 2025 Laboratorium Manajemen Menengah. All rights reserved.
         </div>
 
