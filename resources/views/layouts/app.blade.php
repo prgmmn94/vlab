@@ -14,6 +14,11 @@
 
     {{-- Lucide --}}
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
 
 <body class="font-sans text-gray-800 bg-white antialiased overflow-x-hidden">
