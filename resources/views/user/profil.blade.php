@@ -5,66 +5,50 @@
 @section('content')
 
 {{-- ================= HERO FOTO ================= --}}
-<section class="relative w-full h-[220px] md:h-[520px] overflow-hidden">
-
+<section class="relative w-full h-[250px] md:h-[520px] overflow-hidden">
     <img src="/images/heroprofil.jpg"
          class="absolute inset-0 w-full h-full object-cover"
-         alt="Tim Lab">
-
+         alt="Tim Lab Mamen">
     {{-- overlay gelap --}}
     <div class="absolute inset-0 bg-black/45"></div>
-
 </section>
-
-
-
 
 {{-- ================= APA ITU LAB ================= --}}
 <section class="bg-white relative">
-    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-16 items-start">
-
+    <div class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid md:grid-cols-2 gap-6 md:gap-16 items-center text-center md:text-left">
         <div>
-            <h2 class="text-3xl font-extrabold text-gray-900 leading-tight">
-                Apa itu — <br>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+                Apa itu — <br class="hidden md:block">
                 <span class="text-[#581D74]">
-                    Laboratorium<br>Manajemen Menengah?
+                    Laboratorium<br class="hidden md:block">Manajemen Menengah?
                 </span>
             </h2>
         </div>
-
-        <p class="text-gray-600 leading-relaxed text-sm">
+        <p class="text-gray-600 leading-relaxed text-sm md:text-base mx-auto md:mx-0 max-w-md md:max-w-none">
             Laboratorium Manajemen Menengah (Lab Mamen) adalah unit kerja Universitas Gunadarma
             yang menyelenggarakan praktikum penunjang bidang manajemen dan sistem informasi
             untuk mahasiswa. Lab Mamen berfokus pada praktik berbasis teknologi informasi untuk
             mahasiswa, guna mendukung pemecahan masalah dan pengambilan keputusan manajerial.
         </p>
-
     </div>
 </section>
-
 
 {{-- ================= WAVE ================= --}}
 <x-wave />
 
-
 {{-- ================= VISI MISI ================= --}}
-<section class="text-white py-40" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
-
+<section class="text-white py-16 md:py-32" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
     <div class="max-w-7xl mx-auto px-6">
-
-        <h2 class="text-center text-3xl font-extrabold mb-12 tracking-wide">
+        <h2 class="text-center text-3xl md:text-4xl font-extrabold mb-10 md:mb-16 tracking-wide drop-shadow-md">
             VISI & MISI
         </h2>
-
-        <div class="grid md:grid-cols-2 gap-8">
-
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12">
             {{-- VISI --}}
-            <div class="bg-white text-gray-800 rounded-xl p-8 shadow-xl relative">
-                <h3 class="font-bold text-lg mb-4 border-l-4 border-[#581D74] pl-3">
+            <div class="bg-white text-gray-800 rounded-2xl p-6 md:p-10 shadow-2xl relative transform transition hover:-translate-y-1">
+                <h3 class="font-bold text-lg md:text-xl mb-4 border-l-4 border-[#581D74] pl-4 text-[#581D74]">
                     Visi Kami
                 </h3>
-
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm md:text-base leading-relaxed text-justify md:text-left">
                     Unit penyelenggara... tahun 2017 menjadi laboratorium pengembangan praktikum
                     yang berpusat interaksi, memiliki jejaring global, dan memberikan kontribusi
                     signifikan bagi peningkatan daya saing bangsa khususnya bidang Manajemen
@@ -73,12 +57,11 @@
             </div>
 
             {{-- MISI --}}
-            <div class="bg-white text-gray-800 rounded-xl p-8 shadow-xl relative">
-                <h3 class="font-bold text-lg mb-4 border-l-4 border-[#581D74] pl-3">
+            <div class="bg-white text-gray-800 rounded-2xl p-6 md:p-10 shadow-2xl relative transform transition hover:-translate-y-1">
+                <h3 class="font-bold text-lg md:text-xl mb-4 border-l-4 border-[#581D74] pl-4 text-[#581D74]">
                     Misi Kami
                 </h3>
-
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm md:text-base leading-relaxed text-justify md:text-left">
                     Melaksanakan praktikum untuk menghasilkan sarjana Manajemen dan Akuntansi
                     yang profesional dan mampu mengikuti perkembangan ilmu pengetahuan dan
                     teknologi serta mampu bersaing di lingkup global. Melaksanakan kegiatan
@@ -86,38 +69,32 @@
                     kepada kemajuan ilmu pengetahuan.
                 </p>
             </div>
-
         </div>
-
     </div>
 </section>
 
-<section class="relative bg-white py-40 overflow-hidden">
-
+{{-- ================= STRUKTUR ORGANISASI ================= --}}
+<section class="relative bg-white pt-24 pb-16 md:pt-40 md:pb-40 overflow-hidden">
     {{-- WAVE ATAS --}}
     <div class="absolute top-0 left-0 w-full -mt-1">
-        <svg viewBox="0 0 1440 120" class="w-full h-[120px]" preserveAspectRatio="none">
-            <path fill="#BF4ED2"
-                  d="M0,40 C240,120 480,0 720,50 C960,100 1200,120 1440,60 L1440,0 L0,0 Z"/>
+        <svg viewBox="0 0 1440 120" class="w-full h-[60px] md:h-[120px]" preserveAspectRatio="none">
+            <path fill="#BF4ED2" d="M0,40 C240,120 480,0 720,50 C960,100 1200,120 1440,60 L1440,0 L0,0 Z"/>
         </svg>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 relative">
-
-        <div class="grid md:grid-cols-2 gap-16  py-20">
-
+        <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+            
             {{-- KIRI: JUDUL + DESKRIPSI --}}
-            <div>
-                <div class="flex items-start gap-4 pt-20 mb-6">
-                    <div class="w-1.5 h-16 bg-purple-600 rounded"></div>
-
-                    <h2 class="text-3xl font-extrabold leading-tight">
+            <div class="order-2 md:order-1">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-1.5 h-16 bg-purple-600 rounded mt-1"></div>
+                    <h2 class="text-2xl md:text-4xl font-extrabold leading-tight text-gray-900">
                         Struktur Organisasi <br>
                         <span class="text-purple-700">Laboratorium</span>
                     </h2>
                 </div>
-
-                <p class="text-gray-600 text-sm leading-relaxed max-w-md">
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed max-w-lg">
                     Laboratorium Manajemen Menengah melakukan penyusunan dan
                     pengembangan program aplikasi komputer dengan sistem berbasis
                     jaringan internet. Layanan praktikum meliputi pelatihan aplikasi
@@ -128,74 +105,66 @@
             </div>
 
             {{-- KANAN: GAMBAR STRUKTUR --}}
-            <div class="flex justify-center md:justify-end items-center">
-                <img
-                    src="/images/struktur.png"
-                    alt="Struktur Organisasi"
-                    class="w-full max-w-xl object-contain drop-shadow-xl"
-                >
+            <div class="flex justify-center order-1 md:order-2">
+                <img src="/images/struktur.png"
+                     alt="Struktur Organisasi"
+                     class="w-full max-w-[400px] md:max-w-xl object-contain drop-shadow-xl">
             </div>
-
         </div>
     </div>
 </section>
 
-<section class="bg-white pb-28">
-
+{{-- ================= STAFF LAB ================= --}}
+<section class="bg-white pb-20 md:pb-32">
     <div class="max-w-7xl mx-auto px-6">
-
-        {{-- HEADER --}}
-        <div class="grid md:grid-cols-2 gap-10 items-center mb-12">
-
-            <div>
-                <div class="flex items-center gap-4">
-                    <h2 class="text-3xl font-extrabold">
-                        STAFF — <span class="text-purple-700">LAB MAMEN</span>
-                    </h2>
-                    <div class="flex-1 h-px bg-gray-300"></div>
-                </div>
+        
+        {{-- HEADER STAFF --}}
+        <div class="grid md:grid-cols-2 gap-6 md:gap-10 items-center mb-10 md:mb-12">
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900">
+                    STAFF — <span class="text-purple-700">LAB MAMEN</span>
+                </h2>
+                <div class="hidden md:flex flex-1 h-px bg-gray-300"></div>
             </div>
-
-            <p class="text-sm text-gray-600">
+            <p class="text-sm text-gray-600 text-center md:text-left mx-auto md:mx-0 max-w-sm md:max-w-none">
                 Staff Laboratorium Manajemen Menengah bertanggung jawab dalam
                 mendukung pelaksanaan praktikum serta membantu kelancaran proses
                 pembelajaran mahasiswa.
             </p>
         </div>
 
-        {{-- CARD STAFF (SCROLLABLE) --}}
-        <div class="flex gap-8 overflow-x-auto scroll-smooth pb-4 staff-scroll">
+        {{-- CARD STAFF --}}
+        <div class="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 hide-scrollbar">
+            
+            @php
+                $staffs = [
+                    ['img'=>'pak yunan.png','name'=>'Dr. Muh. Yanto, SE., MM.','role'=>'Kepala Lab. Manajemen Menengah'],
+                    ['img'=>'pak hadir1.png','name'=>'Hadir Hidayanto, SE., MMA.','role'=>'Wakil Kepala Lab. Manajemen Menengah'],
+                    ['img'=>'pak darmadi.png','name'=>'Darmadi, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
+                    ['img'=>'pak suwardi.png','name'=>'Suwardi, SE','role'=>'Staff Lab. Manajemen Menengah'],
+                    ['img'=>'staff5.png','name'=>'Aditya Rian Ramadhan, SE','role'=>'Staff Lab. Manajemen Menengah'],
+                    ['img'=>'staff6.png','name'=>'Ridwan Z Agha','role'=>'Staff Lab. Manajemen Menengah'],
+                ];
+            @endphp
 
-            @foreach ([
-                ['img'=>'pak yunan.png','name'=>'Dr. Muh. Yanto, SE., MM.','role'=>'Kepala Lab. Manajemen Menengah'],
-                ['img'=>'pak hadir1.png','name'=>'Hadir Hidayanto, SE., MMA.','role'=>'Wakil Kepala Lab. Manajemen Menengah'],
-                ['img'=>'pak darmadi.png','name'=>'Darmadi, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'pak suwardi.png','name'=>'Suwardi, SE','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'staff5.png','name'=>'Aditya Rian Ramadhan, SE','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'staff6.png','name'=>'Ridwan Z Agha','role'=>'Staff Lab. Manajemen Menengah'],
-            ] as $s)
-
-            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center min-w-[250px] max-w-[250px]">
+            @foreach ($staffs as $s)
+            <div class="snap-center bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden text-center min-w-[220px] md:min-w-[260px] max-w-[220px] md:max-w-[260px] flex-shrink-0 transition-transform hover:-translate-y-2">
                 <img src="/images/staff/{{ $s['img'] }}"
-                     class="w-full h-48 object-cover"
-                     alt="Staff">
-
-                <div class="p-4">
-                    <h4 class="font-semibold text-sm text-gray-900">
+                     class="w-full h-48 md:h-56 object-cover object-top bg-gray-50"
+                     alt="{{ $s['name'] }}">
+                <div class="p-4 md:p-5">
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-snug mb-1">
                         {{ $s['name'] }}
                     </h4>
-                    <p class="text-xs text-gray-500 mt-1">
+                    <p class="text-xs md:text-sm text-purple-600 font-medium">
                         {{ $s['role'] }}
                     </p>
                 </div>
             </div>
-
             @endforeach
 
         </div>
-
     </div>
 </section>
-
 
 @endsection
