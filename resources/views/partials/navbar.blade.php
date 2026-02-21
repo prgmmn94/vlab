@@ -1,9 +1,11 @@
-<nav class="sticky top-0 z-50 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.05)]" x-data="{ open: false }">
-    <div class="max-w-7xl mx-auto px-4 md:px-10 lg:px-20">
-        <div class="h-20 flex items-center justify-between">
+<nav class="sticky top-0 z-50 w-full" x-data="{ open: false }">
+
+    {{-- BARIS NAVBAR UTAMA (Logo & Hamburger) --}}
+    <div class="relative z-[60] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] h-20">
+        <div class="max-w-7xl mx-auto px-4 md:px-10 lg:px-20 h-full flex items-center justify-between">
 
             {{-- LOGO DESKTOP & MOBILE --}}
-            <div class="flex items-center gap-3 relative z-[70]">
+            <div class="flex items-center gap-3">
                 <img src="/images/logo.png" alt="Logo" class="w-10 h-10">
                 <div class="text-[10px] md:text-xs font-bold leading-tight uppercase tracking-tighter">
                     V-LAB MAMEN<br>
@@ -12,9 +14,14 @@
             </div>
 
             {{-- HAMBURGER BUTTON --}}
-            <button @click="open = true" class="md:hidden p-2 text-gray-800 hover:text-[#71268a] transition-colors relative z-[70]">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="open = !open" class="md:hidden p-2 text-gray-800 transition-transform duration-300" :class="open ? 'rotate-180' : ''">
+                {{-- Icon Hamburger --}}
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!open">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+                {{-- Icon silang --}}
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="open">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
@@ -52,9 +59,8 @@
                         <a href="{{ $hasSubmenu ? '#' : '/'.ltrim($path,'/') }}"
                            class="pb-2 flex items-center gap-1 transition
                            {{ $isActive ? 'font-bold text-gray-900' : 'text-gray-600 hover:text-gray-900' }}">
-
                             {{ $label }}
-                            
+
                             {{-- Buat icon panah ke bawah (khusus submenu) --}}
                             @if($hasSubmenu)
                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,37 +97,27 @@
                 @endforeach
             </ul>
 
+            {{-- BACKDROP (Fungsi buat nutup pas klik area luar) --}}
+            <div x-show="open" 
+                 @click="open = false" 
+                 x-transition.opacity.duration.300ms
+                 class="fixed inset-0 top-20 bg-gray-900/30 backdrop-blur-sm z-[40] md:hidden cursor-pointer"
+                 style="display: none;">
+            </div>
+            
             {{-- TAMPILAN MENU MOBILE --}}
             <div x-show="open" 
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 translate-x-full"
-                 x-transition:enter-end="opacity-100 translate-x-0"
-                 x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100 translate-x-0"
-                 x-transition:leave-end="opacity-0 translate-x-full"
-                 class="fixed inset-0 bg-white z-[100] md:hidden flex flex-col"
+                 x-transition:enter="transition ease-out duration-300 origin-top"
+                 x-transition:enter-start="scale-y-0 opacity-0"
+                 x-transition:enter-end="scale-y-100 opacity-100"
+                 x-transition:leave="transition ease-in duration-200 origin-top"
+                 x-transition:leave-start="scale-y-100 opacity-100"
+                 x-transition:leave-end="scale-y-0 opacity-0"
+                 class="absolute top-20 left-0 w-full bg-white z-[50] shadow-xl rounded-b-3xl border-t border-gray-100 md:hidden overflow-hidden"
                  style="display: none;">
-                
-                {{-- HEADER MOBILE MENU (tampilan klo hamburger di klik)--}}
-                <div class="h-20 px-4 flex items-center justify-between border-b border-gray-100">
-                    <div class="flex items-center gap-3">
-                        <img src="/images/logo.png" alt="Logo" class="w-10 h-10">
-                        <div class="text-[10px] font-bold leading-tight uppercase tracking-tighter text-gray-900">
-                            V-LAB MAMEN<br>
-                            <span class="text-[#71268a]">UNIVERSITAS GUNADARMA</span>
-                        </div>
-                    </div>
-                    
-                    {{-- Tombol buat nutup navbar mobile --}}
-                    <button @click="open = false" class="p-2 text-gray-800 hover:text-red-500 transition-colors">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
 
                 {{-- ISI DAFTAR MENU MOBILE --}}
-                <div class="flex-1 overflow-y-auto px-4 py-8 bg-white">
+                <div class="max-h-[75vh] overflow-y-auto px-6 py-6">
                     <ul class="space-y-1">
                         @foreach ($menus as $label => $data)
                             @php
@@ -147,10 +143,10 @@
                                     {{-- TIPE MENU A: PUNYA SUBMENU (Contoh: Praktikum) --}}
                                     {{-- Bisa diklik untuk lipat/buka ke bawah --}}
                                     <details class="group [&_summary::-webkit-details-marker]:hidden" {{ $isActive ? 'open' : '' }}>
-                                        <summary class="group flex items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 cursor-pointer transition-colors">
-                                            <div class="flex items-center gap-2">
+                                        <summary class="group flex items-center justify-between rounded-xl px-4 py-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
+                                            <div class="flex items-center gap-3">
                                                 <i data-lucide="{{ $iconName }}" class="size-5 opacity-75"></i>
-                                                <span class="text-sm font-medium tracking-wide">{{ $label }}</span>
+                                                <span class="text-sm font-medium">{{ $label }}</span>
                                             </div>
                                             
                                             {{-- Icon panah pas submenu diklik --}}
@@ -162,7 +158,7 @@
                                         </summary>
 
                                         {{-- LIST SUBMENU MOBILE --}}
-                                        <ul class="mt-2 space-y-1 px-4 border-l border-gray-100 ml-6">
+                                        <ul class="mt-1 space-y-1 px-3 border-l-2 border-purple-100 ml-6 mb-2">
                                             @foreach($data['submenu'] as $subLabel => $subPath)
                                             @php
                                                 // Cek apakah link eksternal (seperti ILab)
@@ -173,10 +169,8 @@
                                             @endphp
                                                 <li>
                                                     <a href="{{ $isExternal ? $subPath : '/'.ltrim($subPath,'/') }}" 
-                                                    {{ $isExternal ? 'target=_blank rel=noopener' : '' }}
-                                                    @click="{{ $isExternal ? '' : 'open = false' }}"
                                                     class="block rounded-lg px-4 py-2 text-sm font-medium transition-colors
-                                                    {{ $isSubActive ? 'bg-purple-50 text-[#71268a]' : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700' }}">
+                                                    {{ $isSubActive ? 'bg-purple-50 text-[#71268a]' : 'text-gray-500 hover:bg-gray-50' }}">
                                                         {{ $subLabel }}
                                                     </a>
                                                 </li>
@@ -188,11 +182,10 @@
                                     {{-- TIPE MENU B: LINK LANGSUNG (Contoh: Beranda, Berita, Kontak) --}}
                                     {{-- Langsung pindah halaman saat diklik --}}
                                     <a href="/{{ ltrim($path,'/') }}" @click="open = false" 
-                                    class="flex items-center gap-2 rounded-lg px-4 py-2 transition-colors
-                                    {{ $isActive ? 'bg-purple-50 text-[#71268a]' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700' }}">
-                                        
-                                        <i data-lucide="{{ $iconName }}" class="size-5 opacity-70 stroke-[1.5px]"></i>
-                                        <span class="text-sm font-medium tracking-wide">{{ $label }}</span>
+                                    class="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors
+                                    {{ $isActive ? 'bg-purple-50 text-[#71268a]' : 'text-gray-500 hover:bg-gray-50' }}">
+                                        <i data-lucide="{{ $iconName }}" class="size-5 opacity-70"></i>
+                                        <span class="text-sm font-medium">{{ $label }}</span>
                                     </a>
                                 @endif
                             </li>
