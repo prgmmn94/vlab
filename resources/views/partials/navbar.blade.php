@@ -17,7 +17,7 @@
             <button @click="open = !open" class="md:hidden p-2 text-gray-800 transition-transform duration-300" :class="open ? 'rotate-180' : ''">
                 {{-- Icon Hamburger --}}
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!open">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
                 {{-- Icon silang --}}
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="open">
@@ -141,7 +141,6 @@
                             <li>
                                 @if($hasSubmenu)
                                     {{-- TIPE MENU A: PUNYA SUBMENU (Contoh: Praktikum) --}}
-                                    {{-- Bisa diklik untuk lipat/buka ke bawah --}}
                                     <details class="group [&_summary::-webkit-details-marker]:hidden" {{ $isActive ? 'open' : '' }}>
                                         <summary class="group flex items-center justify-between rounded-xl px-4 py-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
                                             <div class="flex items-center gap-3">
@@ -180,7 +179,6 @@
                                 @else
 
                                     {{-- TIPE MENU B: LINK LANGSUNG (Contoh: Beranda, Berita, Kontak) --}}
-                                    {{-- Langsung pindah halaman saat diklik --}}
                                     <a href="/{{ ltrim($path,'/') }}" @click="open = false" 
                                     class="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors
                                     {{ $isActive ? 'bg-purple-50 text-[#71268a]' : 'text-gray-500 hover:bg-gray-50' }}">
