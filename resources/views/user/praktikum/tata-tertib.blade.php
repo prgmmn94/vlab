@@ -21,7 +21,7 @@
                 <p class="text-[13px] md:text-sm mb-2 text-justify">Batas kehadiran praktikum adalah 2x tidak masuk. Jika sudah 2x tidak hadir di saat praktikum, diberikan toleransi sebagai berikut:</p>
                 <ol class="list-decimal ml-4 md:ml-5 text-[13px] md:text-sm space-y-1">
                     <li>Jika ada keluarga atau orang tua yang meninggal dunia.</li>
-                    <li>Jika praktikan sakit: membawa surat keterangan sakit dari dokter terdekat, bersifat (surat dapat diserahkan pada pertemuan selanjutnya).</li>
+                    <li>Jika praktikan sakit: membawa surat keterangan sakit dari dokter tempat berobat (surat dapat diserahkan pada pertemuan selanjutnya).</li>
                 </ol>
                 <p class="text-[13px] md:text-sm mt-3 font-medium">Jika ada acara keluarga yang mendesak:</p>
                 <ol class="list-decimal ml-4 md:ml-5 text-[13px] md:text-sm space-y-1">
@@ -35,7 +35,7 @@
                 <div class="bg-white rounded-xl p-5 md:p-6 shadow-lg ">
                     <h4 class="font-bold text-center text-base md:text-lg mb-3 md:mb-4 uppercase">Praktikum Offline</h4>
                     <ul class="list-decimal ml-4 md:ml-5 text-[13px] md:text-sm space-y-2">
-                        <li>Hadir ke ruangan praktikum Labmanemen dengan tepat waktu, maksimal keterlambatan 10 menit.</li>
+                        <li>Hadir ke ruangan praktikum Lab Manajemen Menengah dengan tepat waktu, maksimal keterlambatan 10 menit.</li>
                         <li>Wajib mengenakan pakaian sesuai dengan ketentuan yang berlaku.</li>
                         <li>Wajib membawa kartu praktikum yang sudah ditempel foto 2x3 dan dicap di setiap pertemuan praktikum.</li>
                         <li>Mengerjakan tugas sesuai dengan waktu yang diinstruksikan oleh asisten.</li>
@@ -58,7 +58,7 @@
                 <h4 class="font-bold text-center text-base md:text-lg mb-3 md:mb-4 uppercase">Perlengkapan yang Dibawa</h4>
                 <ul class="list-decimal ml-4 md:ml-5 text-[13px] md:text-sm space-y-1">
                     <li>Modul Praktikum (wajib di print dan dijilid bagian depan bening dan bagian belakang putih)</li>
-                    <li>Buku Tulis (disampul putih dan diberi logo Labmanemen)</li>
+                    <li>Buku Tulis (disampul putih dan diberi logo Lab Manajemen Menengah)</li>
                     <li>Map Bening Letter L</li>
                     <li>Alat Tulis</li>
                     <li>Kalkulator</li>
@@ -78,7 +78,7 @@
                     <div class="relative flex justify-center">
                          <img src="{{ asset('images/aturan2.png') }}" alt="Aturan Pria" class="h-64 md:h-90 object-contain">
                     </div>
-                    <div class="mt-6 md:mt-8 text-[13px] md:text-sm space-y-2">
+                    <div class="mt-6 md:mt-8 text-[13px] md:text-sm space-y-2 pl-6 md:pl-10">
                         <p><strong>DILARANG:</strong></p>
                         <ul class="list-disc ml-4 opacity-100">
                             <li>Memakai kemeja bergambar, flannel, atau denim, serta celana denim dan chino.</li>
@@ -94,8 +94,8 @@
                     <div class="relative flex justify-center">
                         <img src="{{ asset('images/aturan1.png') }}" alt="Aturan Wanita" class="h-64 md:h-90 object-contain">
                     </div>
-                    {{-- pl-10 diubah menjadi md:pl-10 agar hanya berlaku di desktop --}}
-                    <div class="mt-6 md:mt-8 text-[13px] md:text-sm space-y-2 md:pl-10">
+                    
+                    <div class="mt-6 md:mt-8 text-[13px] md:text-sm space-y-2 pl-6 md:pl-10">
                         <p><strong>DILARANG:</strong></p>
                         <ul class="list-disc ml-4 opacity-100">
                             <li>Memakai kemeja setengah kancing, model balon, V-neck, ketat, tembus pandang, atau berbahan denim serta kerudung bergo gelang.</li>
