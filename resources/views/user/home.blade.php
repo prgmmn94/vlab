@@ -379,9 +379,6 @@
 
 </section>
 
-
-
-@endsection
 <script>
 function scrollSlider(direction) {
     const slider = document.getElementById('slider');
@@ -392,3 +389,5 @@ function scrollSlider(direction) {
     });
 }
 </script>
+
+@endsection
