@@ -115,10 +115,11 @@
 </section>
 
 {{-- ================= STAFF LAB ================= --}}
-<section class="bg-white pb-20 md:pb-32">
+{{-- ================= STAFF LAB ================= --}}
+<section class="bg-white pb-20 md:pb-32 relative z-10">
     <div class="max-w-7xl mx-auto px-6">
         
-        {{-- HEADER STAFF --}}
+        {{-- HEADER --}}
         <div class="grid md:grid-cols-2 gap-6 md:gap-10 items-center mb-10 md:mb-12">
             <div class="flex items-center gap-4 justify-center md:justify-start">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900">
@@ -126,80 +127,97 @@
                 </h2>
                 <div class="hidden md:flex flex-1 h-px bg-gray-300"></div>
             </div>
-            <p class="text-sm text-gray-600 text-center md:text-left mx-auto md:mx-0 max-w-sm md:max-w-none">
+            <p class="text-sm text-gray-600 text-center md:text-left max-w-sm md:max-w-none">
                 Staff Laboratorium Manajemen Menengah bertanggung jawab dalam
                 mendukung pelaksanaan praktikum serta membantu kelancaran proses
                 pembelajaran mahasiswa.
             </p>
         </div>
 
-       <div class="relative max-w-7xl mx-auto">
+        {{-- WRAPPER SLIDER --}}
+        <div class="relative">
 
-    {{-- BUTTON LEFT --}}
-    <button onclick="scrollStaff(-1)"
-        class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20
-               w-10 h-10 bg-white rounded-full shadow-xl
-               items-center justify-center
-               hover:scale-110 transition">
-        <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M15 18l-6-6 6-6"/>
-        </svg>
-    </button>
+            {{-- BUTTON LEFT --}}
+            <button type="button"
+                onclick="scrollStaff(-1)"
+                class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                       z-50
+                       w-10 h-10 bg-white rounded-full shadow-xl
+                       items-center justify-center
+                       hover:scale-110 transition duration-200">
+                <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
 
-    {{-- SLIDER --}}
-    <div id="staffSlider"
-        class="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory
-               scroll-smooth pb-6 hide-scrollbar px-6 md:px-0">
+            {{-- SLIDER --}}
+            <div id="staffSlider"
+                class="flex gap-6 overflow-x-auto scroll-smooth
+                       snap-x snap-mandatory
+                       scrollbar-hide">
 
-        @php
-            $staffs = [
-                ['img'=>'pak yunan.png','name'=>'Dr. Muh. Yanto, SE., MM.','role'=>'Kepala Lab. Manajemen Menengah'],
-                ['img'=>'pak hadir1.png','name'=>'Hadir Hidayanto, SE., MMA.','role'=>'Wakil Kepala Lab. Manajemen Menengah'],
-                ['img'=>'pak darmadi.png','name'=>'Darmadi, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'pak suwardi.png','name'=>'Suwardi, SE','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'staff5.png','name'=>'Aditya Rian Ramadhan, SE','role'=>'Staff Lab. Manajemen Menengah'],
-                ['img'=>'staff6.png','name'=>'Ridwan Z Agha','role'=>'Staff Lab. Manajemen Menengah'],
-            ];
-        @endphp
+                @php
+                    $staffs = [
+                        ['img'=>'pak yunan.png','name'=>'Dr. Muh. Yanto, SE., MM.','role'=>'Kepala Lab. Manajemen Menengah'],
+                        ['img'=>'pak hadir1.png','name'=>'Hadir Hidayanto, SE., MMA.','role'=>'Wakil Kepala Lab. Manajemen Menengah'],
+                        ['img'=>'pak darmadi.png','name'=>'Darmadi, SE., MM.','role'=>'Staff Lab. Manajemen Menengah'],
+                        ['img'=>'pak suwardi.png','name'=>'Suwardi, SE','role'=>'Staff Lab. Manajemen Menengah'],
+                        ['img'=>'staff5.png','name'=>'Aditya Rian Ramadhan, SE','role'=>'Staff Lab. Manajemen Menengah'],
+                        ['img'=>'staff6.png','name'=>'Ridwan Z Agha','role'=>'Staff Lab. Manajemen Menengah'],
+                    ];
+                @endphp
 
-        @foreach ($staffs as $s)
-        <div
-            class="snap-center bg-white border border-gray-100 rounded-2xl shadow-lg
-                   overflow-hidden text-center
-                   min-w-[220px] md:min-w-[260px]
-                   max-w-[220px] md:max-w-[260px]
-                   flex-shrink-0 transition hover:-translate-y-2"
-        >
-            <img src="/images/staff/{{ $s['img'] }}"
-                 class="w-full h-48 md:h-56 object-cover object-top bg-gray-50"
-                 alt="{{ $s['name'] }}">
+                @foreach ($staffs as $s)
+                <div
+                    class="snap-center bg-white border border-gray-100 rounded-2xl shadow-lg
+                           overflow-hidden text-center
+                           min-w-[250px] max-w-[250px]
+                           flex-shrink-0
+                           transition hover:-translate-y-2 duration-300"
+                >
+                    <img src="/images/staff/{{ $s['img'] }}"
+                         class="w-full h-56 object-cover object-top"
+                         alt="{{ $s['name'] }}">
 
-            <div class="p-4 md:p-5">
-                <h4 class="font-bold text-sm md:text-base text-gray-900 mb-1">
-                    {{ $s['name'] }}
-                </h4>
-                <p class="text-xs md:text-sm text-purple-600 font-medium">
-                    {{ $s['role'] }}
-                </p>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base text-gray-900 mb-1">
+                            {{ $s['name'] }}
+                        </h4>
+                        <p class="text-sm text-purple-600 font-medium">
+                            {{ $s['role'] }}
+                        </p>
+                    </div>
+                </div>
+                @endforeach
+
             </div>
+
+            {{-- BUTTON RIGHT --}}
+            <button type="button"
+                onclick="scrollStaff(1)"
+                class="absolute right-0 top-1/2 -translate-y-1/2
+                       z-50
+                       w-10 h-10 bg-white rounded-full shadow-xl
+                       flex items-center justify-center
+                       hover:scale-110 transition duration-200">
+                <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M9 6l6 6-6 6"/>
+                </svg>
+            </button>
+
         </div>
-        @endforeach
-
-    </div>
-
-    {{-- BUTTON RIGHT --}}
-    <button onclick="scrollStaff(1)"
-        class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20
-               w-10 h-10 bg-white rounded-full shadow-xl
-               flex items-center justify-center
-               hover:scale-110 transition">
-        <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M9 6l6 6-6 6"/>
-        </svg>
-    </button>
-
-</div>
     </div>
 </section>
 
+<script>
+function scrollStaff(direction) {
+    const slider = document.getElementById('staffSlider');
+    if (!slider) return;
+
+    slider.scrollBy({
+        left: direction * 300,
+        behavior: 'smooth'
+    });
+}
+</script>
 @endsection
