@@ -326,58 +326,69 @@
         </div>
     </div>
 
-    {{-- TESTIMONI SLIDER (HIDDEN SLIDER STYLE) --}}
-    <div class="max-w-7xl mx-auto pl-6 md:px-6">
+    <div class="relative max-w-7xl mx-auto pl-6 md:px-6">
+
+    {{-- BUTTON LEFT --}}
+    <button onclick="scrollSlider(-1)"
+        class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10
+               w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center
+               hover:scale-110 transition">
+        <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </button>
+
+    {{-- SLIDER --}}
+    <div id="slider"
+        class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth
+               snap-x snap-proximity scrollbar-hide pb-4">
+
+        @foreach (range(1,6) as $i)
         <div
-            class="flex gap-4 md:gap-6 overflow-x-auto
-                   snap-x snap-proximity
-                   scrollbar-hide
-                   cursor-grab active:cursor-grabbing pb-4 pr-6 md:pr-0"
+            class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px]
+                   snap-center bg-white text-gray-800
+                   rounded-xl p-5 md:p-6 shadow-xl
+                   flex-shrink-0 text-center"
         >
+            <img src="/images/testimoni/user{{ $i }}.jpg"
+                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
 
-            @foreach (range(1,6) as $i)
-            <div
-                class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px]
-                       snap-center
-                       bg-white text-gray-800
-                       rounded-xl p-5 md:p-6 shadow-xl
-                       flex-shrink-0 text-center"
-            >
+            <h4 class="font-semibold text-sm">lisa bekping</h4>
+            <p class="text-xs text-gray-500 mb-3">prog 3b</p>
 
-                {{-- FOTO --}}
-                <img
-                    src="/images/testimoni/user{{ $i }}.jpg"
-                    class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 md:mb-4 object-cover"
-                    alt="User"
-                >
-
-                {{-- NAMA --}}
-                <h4 class="font-semibold text-xs md:text-sm">
-                    lisa bekping
-                </h4>
-
-                {{-- ROLE --}}
-                <p class="text-[10px] md:text-xs text-gray-500 mb-3 md:mb-4">
-                    prog 3b
-                </p>
-
-                {{-- ISI --}}
-                <p class="text-[11px] md:text-xs leading-relaxed text-gray-600">
-                    “mamen seru! bukan hanya tempat belajar teori,
-                    tapi ruang untuk berproses. Di sini saya belajar
-                    bekerja dalam tim, mengelola tanggung jawab,
-                    dan berkembang menjadi pribadi yang lebih siap
-                    menghadapi tantangan.”
-                </p>
-
-            </div>
-            @endforeach
-
+            <p class="text-xs leading-relaxed text-gray-600">
+                “mamen seru! bukan hanya tempat belajar teori,
+                tapi ruang untuk berkembang dan berproses.”
+            </p>
         </div>
+        @endforeach
+
     </div>
+
+    {{-- BUTTON RIGHT --}}
+    <button onclick="scrollSlider(1)"
+        class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10
+               w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center
+               hover:scale-110 transition">
+        <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 6l6 6-6 6"/>
+        </svg>
+    </button>
+
+</div>
 
 </section>
 
 
 
 @endsection
+<script>
+function scrollSlider(direction) {
+    const slider = document.getElementById('slider');
+    const scrollAmount = 300; // jarak geser
+    slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+</script>
