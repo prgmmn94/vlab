@@ -20,11 +20,23 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->createMany([
             [
-                'name' => 'Admin1',
-                'email' => 'admin1@admin.com',
-                'password' => Hash::make('password123'),
+                'name' => 'Super Admin',
+                'email' => 'super@admin.com',
+                'password' => Hash::make('super123'),
                 'role' => 'Super Admin',
             ],
+            [
+                'name' => 'Admin',
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin123'),
+                'role' => 'Admin',
+            ],
+            [
+                'name' => 'Oprec Admin',
+                'email' => 'oprec@admin.com',
+                'password' => Hash::make('oprec123'),
+                'role' => 'Oprec Admin',
+            ]
         ]);
     }
 }
