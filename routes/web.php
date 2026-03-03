@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecruitmentPeriodController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,9 +29,23 @@ Route::view('/berita', 'home.berita')->name('berita');
 
 // Route::view('/profil', 'home.profil')->name('profil');
 
-Route::get('/dashboard', function () {
-    return view('admin/home');
+Route::get('/admin/dashboard', function () {
+    return view('admin.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/admin/recruitment', function () {
+    return view('admin.recruitment.index');
+})->middleware(['auth', 'verified'])->name('recruitment.index');
+
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    Route::resource('recruitment_periods', RecruitmentPeriodController::class)
+        ->middleware(['auth', 'verified']);
+
+    Route::middleware('role:Super Admin')->group(function () {
+        Route::resource('recruitment_periods', RecruitmentPeriodController::class)
+            ->only(['create', 'store', 'edit', 'update', 'destroy']);
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

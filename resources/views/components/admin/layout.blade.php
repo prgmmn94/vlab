@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin Peohai</title>
+    <title>Admin MaMen</title>
 
     <!--Icons -->
     <link rel="icon" href="{{ asset('img/logo2.png') }}" type="image/png">
