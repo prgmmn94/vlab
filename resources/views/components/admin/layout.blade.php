@@ -8,7 +8,7 @@
     <title>Admin MaMen</title>
 
     <!--Icons -->
-    <link rel="icon" href="{{ asset('img/logo2.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('/images/logo.png') }}" type="image/png">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 

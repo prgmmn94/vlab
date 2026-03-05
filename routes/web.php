@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecruitmentPeriodController;
+use App\Http\Controllers\RecruitmentController;
+use App\Http\Controllers\CandidateRecruitmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,33 +22,52 @@ Route::prefix('praktikum')->name('praktikum.')->group(function () {
 });
 
 Route::view('/download', 'home.download')->name('download');
-
 Route::view('/kontak', 'home.kontak')->name('kontak');
-
 Route::view('/galeri', 'home.galeri')->name('galeri');
-
 Route::view('/berita', 'home.berita')->name('berita');
-
-// Route::view('/profil', 'home.profil')->name('profil');
 
 Route::get('/admin/dashboard', function () {
     return view('admin.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/recruitment', function () {
-    return view('admin.recruitment.index');
-})->middleware(['auth', 'verified'])->name('recruitment.index');
-
+// Admin Routes - Recruitment Management
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+
+    // Recruitment Periods
     Route::resource('recruitment_periods', RecruitmentPeriodController::class)
-        ->middleware(['auth', 'verified']);
+        ->names('recruitment_periods')
+        ->except(['show']);
 
     Route::middleware('role:Super Admin')->group(function () {
         Route::resource('recruitment_periods', RecruitmentPeriodController::class)
+            ->names('recruitment_periods')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
     });
+
+    // Admin Recruitments (Full CRUD)
+    Route::controller(RecruitmentController::class)->group(function () {
+        Route::get('recruitment_periods/{recruitmentPeriod}/recruitments/export', 'export')
+            ->name('admin.recruitments.export');
+    });
+
+    Route::resource('recruitment_periods.recruitments', RecruitmentController::class)
+        ->parameters(['recruitment_periods' => 'recruitmentPeriod', 'recruitments' => 'recruitment'])
+        ->names('admin.recruitments');
 });
 
+// Candidate Routes (Public - Tanpa Auth)
+Route::prefix('recruitments')->group(function () {
+    Route::get('/', [CandidateRecruitmentController::class, 'index'])
+        ->name('candidate.recruitments.index');
+
+    Route::post('/', [CandidateRecruitmentController::class, 'store'])
+        ->name('candidate.recruitments.store');
+
+    Route::get('success', [CandidateRecruitmentController::class, 'success'])
+        ->name('candidate.recruitments.success');
+});
+
+// Profile Routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

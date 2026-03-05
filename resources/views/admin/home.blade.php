@@ -78,7 +78,7 @@
                                 <div class="flex-1">
                                     <p class="text-sm font-medium text-gray-600 mb-1">Total Users</p>
                                     <p class="text-2xl font-bold text-gray-900">
-                                        {{ \App\Models\User::whereIn('role', ['Admin', 'Super Admin'])->count() }}
+                                        {{ \App\Models\User::whereIn('role', ['Super Admin', 'Operation Admin', 'Oprec Admin'])->count() }}
                                     </p>
                                 </div>
                             </div>

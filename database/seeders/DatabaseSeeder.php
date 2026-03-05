@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
                 'role' => 'Super Admin',
             ],
             [
-                'name' => 'Admin',
-                'email' => 'admin@admin.com',
-                'password' => Hash::make('admin123'),
-                'role' => 'Admin',
+                'name' => 'Operation Admin',
+                'email' => 'operation@admin.com',
+                'password' => Hash::make('operation123'),
+                'role' => 'Operation Admin',
             ],
             [
                 'name' => 'Oprec Admin',

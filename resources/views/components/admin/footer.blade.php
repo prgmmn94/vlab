@@ -2,13 +2,12 @@
     <div class="px-6 py-6">
         <div class="flex items-center justify-between text-sm">
             <div class="flex items-center space-x-3 text-gray-600">
-                <div
-                    class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                    <img src="{{ asset('img/logo.png') }}" alt="Logo">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                    <img src="/images/logo.png" alt="Logo">
                 </div>
                 <div>
                     <div class="font-semibold text-gray-900">
-                        MaMen</div>
+                        V-Lab MaMen</div>
                     <div class="text-xs text-gray-500">© 2026 Prog MaMen 32 - 33</div>
                 </div>
             </div>

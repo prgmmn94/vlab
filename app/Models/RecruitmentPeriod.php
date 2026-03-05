@@ -18,4 +18,9 @@ class RecruitmentPeriod extends Model
     protected $casts = [
         'tahun' => 'integer',
     ];
+
+    public function recruitments()
+    {
+        return $this->hasMany(Recruitment::class, 'recruitment_period_id');
+    }
 }

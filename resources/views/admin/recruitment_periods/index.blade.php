@@ -108,11 +108,11 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{ $period->recruitment_count ?? 0 }} data
+                                        {{ $period->recruitment_count ?? 0 }} pendaftar
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <a href="{{ route('recruitment_periods.show', $period->id) }}"
+                                    <a href="{{ route('admin.recruitments.index', $period->id) }}"
                                         class="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24">

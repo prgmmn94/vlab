@@ -3,10 +3,10 @@
     <!-- Sidebar Header -->
     <div class="flex items-center justify-center h-16 px-4 bg-black bg-opacity-20">
         <div class="flex items-center">
-            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <img src="{{ asset('img/logo.png') }}" alt="Logo">
+            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-1">
+                <img src="/images/logo.png" alt="Logo">
             </div>
-            <span class="ml-3 text-white font-bold text-lg">{{ config('app.name', 'MaMen') }}</span>
+            <span class="ml-3 text-white font-bold text-md">V-Lab MaMen</span>
         </div>
     </div>
 
@@ -30,9 +30,7 @@
                     <div class="mt-2 space-y-2">
                         <a href="/admin/recruitment_periods"
                             class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('recruitment_periods*') ||
-                            request()->routeIs('admin.entries.*') ||
-                            request()->routeIs('finance.entries.*') ||
-                            request()->routeIs('marketing.entries.*')
+                            request()->routeIs('admin.entries.*')
                                 ? 'bg-white bg-opacity-20 text-white'
                                 : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                             <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"

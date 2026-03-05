@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recruitment;
+use App\Models\RecruitmentPeriod;
 use Illuminate\View\View;
 
 class RecruitmentController extends Controller
@@ -11,20 +12,26 @@ class RecruitmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(RecruitmentPeriod $recruitmentPeriod, Request $request)
     {
-        $search = $request->input('search');
+        $query = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id);
 
-        $recruitments = Recruitment::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', "%{$search}%")
-                ->orWhere('npm', 'like', "%{$search}%")
-                ->orWhere('jurusan', 'like', "%{$search}%");
-        })
-            ->latest()
-            ->paginate(50)
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhere('npm', 'like', "%{$search}%")
+                    ->orWhere('jurusan', 'like', "%{$search}%")
+                    ->orWhere('id_calas', 'like', "%{$search}%");
+            });
+        }
+
+        $recruitments = $query->orderBy('created_at', 'desc')
+            ->paginate(10)
             ->withQueryString();
 
-        return view('admin.recruitment.index', compact('recruitments', 'search'));
+        return view('admin.recruitments.index', compact('recruitmentPeriod', 'recruitments'));
     }
 
     /**
