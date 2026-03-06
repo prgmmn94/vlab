@@ -84,17 +84,17 @@ class RecruitmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
-        //
+        return view('admin.recruitments.show', compact('recruitmentPeriod', 'recruitment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
-        //
+        return view('admin.recruitments.edit', compact('recruitmentPeriod', 'recruitment'));
     }
 
     /**
@@ -104,15 +104,15 @@ class RecruitmentController extends Controller
     {
         $validated = $request->validate([
             'id_calas' => 'nullable|string|max:255',
-            'nama' => 'required|string|max:255',
-            'npm' => 'required|string|max:255|unique:recruitments,npm,' . $recruitment->id,
-            'email' => 'required|email|max:255|unique:recruitments,email,' . $recruitment->id,
-            'no_hp' => 'required|string|max:255',
-            'jurusan' => 'required|string|max:255',
+            'nama' => 'nullable|string|max:255',
+            'npm' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'no_hp' => 'nullable|string|max:255',
+            'jurusan' => 'nullable|string|max:255',
             'kelas' => 'nullable|string|max:255',
-            'region' => 'required|string|max:255',
-            'posisi_dilamar' => 'required|string|max:255',
-            'alamat' => 'required|string',
+            'region' => 'nullable|string|max:255',
+            'posisi_dilamar' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string',
             'tempat_lahir' => 'nullable|string|max:255',
             'tanggal_lahir' => 'nullable|date',
             'agama' => 'nullable|string|max:255',

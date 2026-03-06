@@ -5,13 +5,13 @@
         <div class="max-w-7xl mx-auto px-4 md:px-10 lg:px-20 h-full flex items-center justify-between">
 
             {{-- LOGO DESKTOP & MOBILE --}}
-            <div class="flex items-center gap-3">
+            <a href="/" class="flex items-center gap-3">
                 <img src="/images/logo.png" alt="Logo" class="w-10 h-10">
                 <div class="text-[10px] md:text-xs font-bold leading-tight uppercase tracking-tighter">
                     V-LAB MAMEN<br>
                     <span class="text-[#71268a]">UNIVERSITAS GUNADARMA</span>
                 </div>
-            </div>
+            </a>
 
             {{-- HAMBURGER BUTTON --}}
             <button @click="open = !open" class="md:hidden p-2 text-gray-800 transition-transform duration-300"

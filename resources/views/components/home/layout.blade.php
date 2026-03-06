@@ -46,6 +46,11 @@
         <button id="nextLB" class="absolute right-6 text-white text-4xl">&#10095;</button>
     </div>
 
+    <button onclick="liveChat()" id="livechat" >
+        <a href="https://www.instagram.com/labmamen/" target="_blank">
+            <i data-lucide="instagram" class="w-10 h-10"></i></a>
+    </button>
+
     {{-- FOOTER --}}
     @include('components.home.footer')
 
@@ -102,8 +107,6 @@
             if (e.target === lightbox) closeBtn.click();
         });
     </script>
-
-
 
 </body>
 

@@ -7,9 +7,7 @@ window.Alpine = Alpine;
 Alpine.start();
 
 // Auto Logout after idle
-let idleTime = 0;
-const maxIdleTime = 20 * 60 * 1000; // 15 menit
-
+const maxIdleTime = 20 * 60 * 1000; // 20 menit
 let idleTimer;
 
 function resetTimer() {
@@ -19,14 +17,14 @@ function resetTimer() {
 
 function logoutUser() {
     // Kirim permintaan logout ke server
-    fetch("{{ route('logout') }}", {
+    fetch("/logout", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": "{{ csrf_token() }}",
             "Content-Type": "application/json",
         },
     }).then(() => {
-        window.location.href = "{{ route('login') }}";
+        window.location.href = "/login";
     });
 }
 
