@@ -18,22 +18,22 @@ return new class extends Migration
             $table->string('id_calas')->nullable();
 
             $table->string('nama');
-            $table->string('npm')->unique();
+            $table->string('npm');
             $table->string('jurusan');
-            $table->string('kelas')->nullable();
+            $table->string('kelas');
             $table->string('region');
             $table->string('posisi_dilamar');
 
-            $table->string('agama')->nullable();
-            $table->string('email')->unique();
+            $table->string('agama');
+            $table->string('email');
             $table->string('no_hp');
             $table->text('alamat');
 
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
 
-            $table->string('sosial_media')->nullable();
-            $table->string('berkas')->nullable();
+            $table->string('sosial_media');
+            $table->string('berkas');
 
             $table->timestamps();
 

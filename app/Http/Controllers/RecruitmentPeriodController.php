@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RecruitmentPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RecruitmentPeriodController extends Controller
 {
@@ -110,10 +111,16 @@ class RecruitmentPeriodController extends Controller
 
     public function destroy(RecruitmentPeriod $recruitmentPeriod)
     {
+        // Hapus semua file berkas di folder periode ini
+        $folderPath = 'recruitments/' . $recruitmentPeriod->tahun;
+        if (Storage::disk('public')->exists($folderPath)) {
+            Storage::disk('public')->deleteDirectory($folderPath);
+        }
+
         $recruitmentPeriod->delete();
 
         return redirect()->route('recruitment_periods.index')
-            ->with('success', 'Periode berhasil dihapus!');
+            ->with('success', 'Periode berhasil dihapus beserta semua file!');
     }
 
     /**

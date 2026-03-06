@@ -74,7 +74,7 @@ class CandidateRecruitmentController extends Controller
         $validated['recruitment_period_id'] = $recruitmentPeriod->id;
         $validated['tahun'] = $recruitmentPeriod->tahun;
 
-        // Handle file upload
+        // Handle file upload dengan folder per periode
         if ($request->hasFile('berkas')) {
             $file = $request->file('berkas');
 
@@ -85,10 +85,14 @@ class CandidateRecruitmentController extends Controller
             $cleanRegion = ucfirst($validated['region']);
 
             // Format: IDCalas_Nama_Region.extension
-            // Contoh: ASGD1_Kemal_Depok.rar
+            // Contoh: ASD1_Kemal_Depok.rar
             $fileName = $validated['id_calas'] . '_' . $cleanNama . '_' . $cleanRegion . '.' . $file->getClientOriginalExtension();
 
-            $filePath = $file->storeAs('recruitments', $fileName, 'public');
+            // Simpan ke folder: recruitments/{tahun}/
+            // Path lengkap: storage/app/public/recruitments/2026/ASD1_Kemal_Depok.rar
+            $folderPath = 'recruitments/' . $recruitmentPeriod->tahun;
+            $filePath = $file->storeAs($folderPath, $fileName, 'public');
+
             $validated['berkas'] = $filePath;
         }
 
