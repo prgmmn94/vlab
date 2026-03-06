@@ -38,6 +38,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         ->names('recruitment_periods')
         ->except(['show']);
 
+    // Toggle active status
+    Route::patch('recruitment_periods/{recruitmentPeriod}/toggle', [RecruitmentPeriodController::class, 'toggleActive'])
+        ->name('recruitment_periods.toggle');
+
     Route::middleware('role:Super Admin')->group(function () {
         Route::resource('recruitment_periods', RecruitmentPeriodController::class)
             ->names('recruitment_periods')

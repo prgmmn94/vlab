@@ -10,29 +10,26 @@ class CandidateRecruitmentController extends Controller
 {
     public function index()
     {
-        // Ambil periode terbaru yang aktif
-        $recruitmentPeriod = RecruitmentPeriod::where('tahun', '>=', now()->year)
-            ->orderBy('tahun', 'desc')
-            ->first();
+        // Ambil periode yang AKTIF saja
+        $recruitmentPeriod = RecruitmentPeriod::where('is_active', true)->first();
 
         // Jika tidak ada periode aktif, redirect dengan pesan
         if (!$recruitmentPeriod) {
-            return redirect()->back()->with('error', 'Belum ada periode recruitment yang dibuka.');
+            return view('home.candidate_recruitments.closed');
         }
 
-        // Langsung ke form create dengan periode terbaru
+        // Langsung ke form create dengan periode aktif
         return view('home.candidate_recruitments.create', compact('recruitmentPeriod'));
     }
 
     public function store(Request $request)
     {
-        // Ambil periode terbaru
-        $recruitmentPeriod = RecruitmentPeriod::where('tahun', '>=', now()->year)
-            ->orderBy('tahun', 'desc')
-            ->first();
+        // Ambil periode yang AKTIF saja
+        $recruitmentPeriod = RecruitmentPeriod::where('is_active', true)->first();
 
         if (!$recruitmentPeriod) {
-            return redirect()->back()->with('error', 'Belum ada periode recruitment yang dibuka.');
+            return redirect()->route('candidate.recruitments.index')
+                ->with('error', 'Belum ada periode recruitment yang dibuka.');
         }
 
         $validated = $request->validate([

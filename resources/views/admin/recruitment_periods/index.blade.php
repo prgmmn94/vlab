@@ -86,6 +86,8 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Tahun</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Jumlah Pendaftar</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Lihat Data</th>
@@ -103,12 +105,29 @@
                                     {{ $periods->firstItem() + $index }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $period->tahun }}
+                                    <div class="flex items-center gap-2">
+                                        <span>{{ $period->tahun }}</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <div class="flex items-center gap-2">
+                                        @if ($period->is_active)
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                                Aktif
+                                            </span>
+                                        @else
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                Nonaktif
+                                            </span>
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{ $period->recruitment_count ?? 0 }} pendaftar
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                        {{ $period->recruitments_count ?? 0 }} pendaftar
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -123,6 +142,30 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                     @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Oprec Admin')
+                                        {{-- Toggle Active Button --}}
+                                        <form action="{{ route('recruitment_periods.toggle', $period->id) }}"
+                                            method="POST" class="inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit"
+                                                class="{{ $period->is_active ? 'bg-orange-600 hover:bg-orange-500' : 'bg-green-600 hover:bg-green-500' }} text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2"
+                                                title="{{ $period->is_active ? 'Nonaktifkan' : 'Aktifkan' }}">
+                                                @if ($period->is_active)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24">
+                                                        <path fill="currentColor"
+                                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24">
+                                                        <path fill="currentColor"
+                                                            d="m9.55 15.15l8.475-8.475q.3-.3.7-.3t.7.3t.3.713t-.3.712l-9.175 9.2q-.3.3-.7.3t-.7-.3L4.55 13q-.3-.3-.288-.712t.313-.713t.713-.3t.712.3z" />
+                                                    </svg>
+                                                @endif
+                                            </button>
+                                        </form>
+
                                         <a href="{{ route('recruitment_periods.edit', $period->id) }}"
                                             class="bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -131,6 +174,7 @@
                                                     d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-1 2q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
                                             </svg>
                                         </a>
+
                                         <form action="{{ route('recruitment_periods.destroy', $period->id) }}"
                                             method="POST" class="inline"
                                             onsubmit="return confirm('Yakin ingin menghapus periode ini?')">
@@ -150,7 +194,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">
+                                <td colspan="5">
                                     <div
                                         class="bg-gradient-to-l from-white to-red-50 text-red-800 px-6 py-5 w-full text-lg font-semibold">
                                         Data belum tersedia!

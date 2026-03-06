@@ -9,7 +9,7 @@ class RecruitmentPeriodController extends Controller
 {
     public function index(Request $request)
     {
-        $query = RecruitmentPeriod::query();
+        $query = RecruitmentPeriod::withCount('recruitments');
 
         // Filter by tahun
         if ($request->filled('filter_tahun')) {
@@ -19,7 +19,7 @@ class RecruitmentPeriodController extends Controller
         // Order by latest
         $query->orderBy('tahun', 'desc');
 
-        $periods = $query->paginate(3)->withQueryString();
+        $periods = $query->paginate(10)->withQueryString();
 
         // Get available years for filter dropdown
         $years = RecruitmentPeriod::distinct()
@@ -38,6 +38,7 @@ class RecruitmentPeriodController extends Controller
     {
         $validated = $request->validate([
             'tahun' => 'required|integer|min:2000|max:2100',
+            'is_active' => 'nullable|boolean',
         ], [
             'tahun.required' => 'Tahun wajib diisi',
             'tahun.integer' => 'Tahun harus berupa angka',
@@ -54,10 +55,16 @@ class RecruitmentPeriodController extends Controller
                 ->withInput();
         }
 
+        // Jika dicentang aktif, non-aktifkan semua periode lain
+        if ($request->has('is_active') && $request->is_active) {
+            RecruitmentPeriod::query()->update(['is_active' => false]);
+            $validated['is_active'] = true;
+        } else {
+            $validated['is_active'] = false;
+        }
+
         // Simpan data
-        RecruitmentPeriod::create([
-            'tahun' => $validated['tahun'],
-        ]);
+        RecruitmentPeriod::create($validated);
 
         return redirect()->route('recruitment_periods.index')
             ->with('success', 'Periode berhasil ditambahkan!');
@@ -72,6 +79,7 @@ class RecruitmentPeriodController extends Controller
     {
         $validated = $request->validate([
             'tahun' => 'required|integer|min:2000|max:2100',
+            'is_active' => 'nullable|boolean',
         ]);
 
         // Cek duplikasi kecuali data sendiri
@@ -85,9 +93,16 @@ class RecruitmentPeriodController extends Controller
                 ->withInput();
         }
 
-        $recruitmentPeriod->update([
-            'tahun' => $validated['tahun'],
-        ]);
+        // Jika dicentang aktif, non-aktifkan semua periode lain
+        if ($request->has('is_active') && $request->is_active) {
+            RecruitmentPeriod::where('id', '!=', $recruitmentPeriod->id)
+                ->update(['is_active' => false]);
+            $validated['is_active'] = true;
+        } else {
+            $validated['is_active'] = false;
+        }
+
+        $recruitmentPeriod->update($validated);
 
         return redirect()->route('recruitment_periods.index')
             ->with('success', 'Periode berhasil diperbarui!');
@@ -99,5 +114,23 @@ class RecruitmentPeriodController extends Controller
 
         return redirect()->route('recruitment_periods.index')
             ->with('success', 'Periode berhasil dihapus!');
+    }
+
+    /**
+     * Toggle status aktif periode
+     */
+    public function toggleActive(RecruitmentPeriod $recruitmentPeriod)
+    {
+        if (!$recruitmentPeriod->is_active) {
+            // Aktifkan periode ini dan non-aktifkan yang lain
+            $recruitmentPeriod->activate();
+            $message = 'Periode ' . $recruitmentPeriod->tahun . ' berhasil diaktifkan!';
+        } else {
+            // Non-aktifkan periode ini
+            $recruitmentPeriod->update(['is_active' => false]);
+            $message = 'Periode ' . $recruitmentPeriod->tahun . ' berhasil dinonaktifkan!';
+        }
+
+        return redirect()->back()->with('success', $message);
     }
 }

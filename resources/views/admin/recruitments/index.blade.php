@@ -7,6 +7,107 @@
             </div>
         </div>
 
+        {{-- Statistik Card --}}
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {{-- Total Pendaftar --}}
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Total Pendaftar</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ $recruitments->total() }}</h3>
+                    </div>
+                    <div class="bg-blue-100 rounded-full p-3">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Programmer --}}
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Programmer</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ $stats['programmer'] ?? 0 }}</h3>
+                    </div>
+                    <div class="bg-green-100 rounded-full p-3">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Asisten --}}
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Asisten</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ $stats['asisten'] ?? 0 }}</h3>
+                    </div>
+                    <div class="bg-purple-100 rounded-full p-3">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Berkas Uploaded --}}
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Berkas Uploaded</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ $stats['with_berkas'] ?? 0 }}</h3>
+                    </div>
+                    <div class="bg-yellow-100 rounded-full p-3">
+                        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Detail per Region & Posisi --}}
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Detail per Region & Posisi</h3>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                @foreach ($regionStats as $region => $data)
+                    <div class="border rounded-lg p-4 hover:shadow-md transition">
+                        <h4 class="font-semibold text-gray-900 mb-3 border-b pb-2">{{ ucfirst($region) }}</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Programmer:</span>
+                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                                    {{ $data['programmer'] ?? 0 }}
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Asisten:</span>
+                                <span
+                                    class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-semibold">
+                                    {{ $data['asisten'] ?? 0 }}
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between pt-2 border-t">
+                                <span class="text-sm font-semibold text-gray-900">Total:</span>
+                                <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">
+                                    {{ ($data['programmer'] ?? 0) + ($data['asisten'] ?? 0) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Search Form --}}
         <div class="bg-white p-4 rounded-lg shadow-md mb-4">
             <form method="GET" action="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}">
                 <div class="flex gap-2">
@@ -34,15 +135,6 @@
         </div>
 
         <div class="flex justify-end space-x-2">
-            @if (Auth::user()->role === 'Super Admin')
-                <a href="{{ route('admin.recruitments.create', $recruitmentPeriod->id) }}"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Tambah Data
-                </a>
-            @endif
             <a href="{{ route('admin.recruitments.export', $recruitmentPeriod->id) }}"
                 class="inline-flex items-center px-4 py-2 border border-yellow-500 bg-blue-50 text-yellow-600 hover:text-white hover:bg-yellow-500 font-medium rounded-md shadow-md">
                 <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -50,10 +142,11 @@
                     <path fill="currentColor"
                         d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7L14.6 7H7q-.425 0-.712-.288T6 6t.288-.712T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17t-.712-.288T16 16z" />
                 </svg>
-                Ekspor
+                Ekspor Excel
             </a>
         </div>
 
+        {{-- Table --}}
         <div class="bg-white overflow-hidden shadow-md rounded-lg">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-gray-200">
@@ -86,7 +179,10 @@
                                     {{ $recruitments->firstItem() + $index }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $recruitment->id_calas }}
+                                    <span
+                                        class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-mono font-semibold">
+                                        {{ $recruitment->id_calas }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $recruitment->nama }}
@@ -101,7 +197,11 @@
                                     {{ $recruitment->kelas }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $recruitment->posisi_dilamar }}
+                                    <span
+                                        class="px-2 py-1 rounded-full text-xs font-semibold
+                                        {{ $recruitment->posisi_dilamar == 'programmer' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800' }}">
+                                        {{ ucfirst($recruitment->posisi_dilamar) }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $recruitment->no_hp }}

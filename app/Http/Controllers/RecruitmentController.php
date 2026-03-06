@@ -31,11 +31,41 @@ class RecruitmentController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.recruitments.index', compact('recruitmentPeriod', 'recruitments'));
+        // Statistik umum
+        $stats = [
+            'programmer' => Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+                ->where('posisi_dilamar', 'programmer')
+                ->count(),
+            'asisten' => Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+                ->where('posisi_dilamar', 'asisten')
+                ->count(),
+            'with_berkas' => Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+                ->whereNotNull('berkas')
+                ->count(),
+        ];
+
+        // Statistik per region
+        $regions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
+        $regionStats = [];
+
+        foreach ($regions as $region) {
+            $regionStats[$region] = [
+                'programmer' => Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+                    ->where('region', $region)
+                    ->where('posisi_dilamar', 'programmer')
+                    ->count(),
+                'asisten' => Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+                    ->where('region', $region)
+                    ->where('posisi_dilamar', 'asisten')
+                    ->count(),
+            ];
+        }
+
+        return view('admin.recruitments.index', compact('recruitmentPeriod', 'recruitments', 'stats', 'regionStats'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show thekspor form for creating a new resource.
      */
     public function create()
     {

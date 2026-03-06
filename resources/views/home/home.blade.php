@@ -61,11 +61,9 @@
 
     {{-- SECTION UNGU --}}
     <section class="py-16 text-white -mt-1" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
-        <div class="container">
-            <div
-                class="max-w-full mx-auto px-6 md:px-30 pt-16 md:pt-30 pb-20 md:pb-35 grid md:grid-cols-2 lg:grid-cols-2 items-center gap-10 md:gap-0">
-
-                <div class="md:pl-20 text-center md:text-left order-2 md:order-none">
+        <div class="max-w-7xl mx-auto px-6 ">
+            <div class="pt-16 md:pt-30 pb-20 md:pb-35 grid md:grid-cols-2 lg:grid-cols-2 items-center gap-10 md:gap-0">
+                <div class="text-center md:text-left order-2 md:order-none">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">
                         Apa Itu V-LAB?
                     </h2>
@@ -81,14 +79,11 @@
                 <img src="/images/apaitu.png"
                     class="w-[85%] md:w-full max-w-md mx-auto order-1 md:order-none drop-shadow-xl" alt="Ilustrasi">
             </div>
-            <div class="max-w-7xl mx-auto px-6 pb-20 md:pb-40">
-
+            <div class="pb-20 md:pb-40">
                 <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">
                     Materi Praktikum
                 </h2>
-
                 <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-
                     @foreach ([['shopping-cart', 'E-Commerce'], ['briefcase', 'Jasa'], ['wallet', 'Manajemen Keuangan'], ['megaphone', 'Marketing Komunikasi'], ['bar-chart-3', 'Riset Operasional']] as [$icon, $label])
                         <div
                             class="bg-white text-gray-800 rounded-xl p-4 md:p-6 text-center shadow-lg 
@@ -98,7 +93,6 @@
                            rounded-full bg-purple-100 text-[#581D74]">
                                 <i data-lucide="{{ $icon }}" class="w-6 h-6 md:w-8 md:h-8"></i>
                             </div>
-
                             <p class="text-xs md:text-sm font-semibold">
                                 {{ $label }}
                             </p>
@@ -109,7 +103,6 @@
             </div>
         </div>
     </section>
-
     {{-- ================= --}}
     {{-- ALUR PENDAFTARAN --}}
     {{-- ================= --}}
@@ -118,14 +111,15 @@
         {{-- WAVE ATAS (PUTIH KE UNGU) --}}
         <div class="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-1">
             <svg viewBox="0 0 1440 160" class="w-full h-[80px] md:h-[160px]" preserveAspectRatio="none">
-                <path fill="url(#gradWave)" d="
-                                                                                            M0,80
-                                                                                            C120,20 240,140 360,120
-                                                                                            C480,100 600,20 720,60
-                                                                                            C840,100 960,160 1080,120
-                                                                                            C1200,80 1320,40 1440,60
-                                                                                            L1440,0 L0,0 Z
-                                                                                        " />
+                <path fill="url(#gradWave)"
+                    d="
+                                                                                                                                                                        M0,80
+                                                                                                                                                                        C120,20 240,140 360,120
+                                                                                                                                                                        C480,100 600,20 720,60
+                                                                                                                                                                        C840,100 960,160 1080,120
+                                                                                                                                                                        C1200,80 1320,40 1440,60
+                                                                                                                                                                        L1440,0 L0,0 Z
+                                                                                                                                                                    " />
                 <defs>
                     <linearGradient id="gradWave" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stop-color="#BF4ED2" />
@@ -215,8 +209,7 @@
 
                         {{-- DOT --}}
                         <span
-                            class="absolute left-1/2 top-4 md:top-6 w-3 h-3 md:w-5 md:h-5 bg-[#581D74]
-                               rounded-full -translate-x-1/2 border-2 md:border-4 border-white"></span>
+                            class="absolute left-1/2 top-4 md:top-6 w-3 h-3 md:w-5 md:h-5 bg-[#581D74] rounded-full -translate-x-1/2 border-2 md:border-4 border-white"></span>
 
                     </div>
                 @endforeach
@@ -229,7 +222,6 @@
     {{-- CTA + TESTIMONI --}}
     {{-- ================= --}}
     <section class="relative">
-
         {{-- CTA PUTIH --}}
         <div class="bg-white pt-16 md:pt-24 pb-20 md:pb-40 relative z-10">
             <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -250,109 +242,101 @@
                         Daftarkan dirimu sekarang dan jadilah bagian dari tim kami.
                     </p>
 
-                    {{-- <a href="{{ route('oprec') }}"
-                   class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg hover:bg-[#e0941d] transition w-full sm:w-auto">
-                    Ayo Daftar!
-                </a> --}}
+                    <a href="/recruitments"
+                        class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg hover:bg-[#e0941d] transition w-full sm:w-auto">
+                        Ayo Daftar!
+                    </a>
                 </div>
 
             </div>
         </div>
+    </section>
 
-        {{-- WAVE PUTIH KE UNGU --}}
-        <x-wave2 />
+    {{-- WAVE PUTIH KE UNGU --}}
+    <x-wave2 />
 
 
-        {{-- ================= --}}
-        {{-- SUARA MEREKA --}}
-        {{-- ================= --}}
-        <section class="text-white pt-20 pb-20 md:pt-40 md:pb-40 -mt-1"
-            style="background:linear-gradient(to bottom,#7B2FA0,#62286C)">
+    {{-- ================= --}}
+    {{-- SUARA MEREKA --}}
+    {{-- ================= --}}
+    <section class="text-white pt-20 pb-20 md:pt-40 md:pb-40 -mt-1"
+        style="background:linear-gradient(to bottom,#7B2FA0,#62286C)">
 
-            {{-- HEADER --}}
-            <div class="max-w-7xl mx-auto px-6 mb-10 md:mb-18">
-                <div class="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
+        {{-- HEADER --}}
+        <div class="max-w-7xl mx-auto px-6 mb-10 md:mb-18">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
 
-                    {{-- TITLE --}}
-                    <h2 class="text-3xl md:text-4xl font-bold whitespace-nowrap text-center md:text-left">
-                        Suara Mereka
-                    </h2>
+                {{-- TITLE --}}
+                <h2 class="text-3xl md:text-4xl font-bold whitespace-nowrap text-center md:text-left">
+                    Suara Mereka
+                </h2>
 
-                    {{-- LINE --}}
-                    <div class="hidden md:block w-px bg-white/40 h-14"></div>
+                {{-- LINE --}}
+                <div class="hidden md:block w-px bg-white/40 h-14"></div>
 
-                    {{-- DESC --}}
-                    <p class="text-xs md:text-sm opacity-90 max-w-md text-center md:text-left">
-                        Cerita dari mereka yang belajar, berproses,
-                        dan berkembang bersama Laboratorium
-                        Manajemen Menengah.
-                    </p>
+                {{-- DESC --}}
+                <p class="text-xs md:text-sm opacity-90 max-w-md text-center md:text-left">
+                    Cerita dari mereka yang belajar, berproses,
+                    dan berkembang bersama Laboratorium
+                    Manajemen Menengah.
+                </p>
 
-                </div>
             </div>
+        </div>
 
-            <div class="relative max-w-7xl mx-auto pl-6 md:px-6">
+        <div class="relative max-w-7xl mx-auto pl-6 md:px-6">
 
-                {{-- BUTTON LEFT --}}
-                <button onclick="scrollSlider(-1)"
-                    class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10
-               w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center
-               hover:scale-110 transition">
-                    <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
+            {{-- BUTTON LEFT --}}
+            <button onclick="scrollSlider(-1)"
+                class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center   hover:scale-110 transition">
+                <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
 
-                {{-- SLIDER --}}
-                <div id="slider"
-                    class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth
-               snap-x snap-proximity scrollbar-hide pb-4">
+            {{-- SLIDER --}}
+            <div id="slider"
+                class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-proximity scrollbar-hide pb-4">
 
-                    @foreach (range(1, 6) as $i)
-                        <div
-                            class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px]
-                   snap-center bg-white text-gray-800
-                   rounded-xl p-5 md:p-6 shadow-xl
-                   flex-shrink-0 text-center">
-                            <img src="/images/testimoni/user{{ $i }}.jpg"
-                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
+                @foreach (range(1, 6) as $i)
+                    <div
+                        class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px] snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl flex-shrink-0 text-center">
+                        <img src="/images/testimoni/user{{ $i }}.jpg"
+                            class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
 
-                            <h4 class="font-semibold text-sm">lisa bekping</h4>
-                            <p class="text-xs text-gray-500 mb-3">prog 3b</p>
+                        <h4 class="font-semibold text-sm">lisa bekping</h4>
+                        <p class="text-xs text-gray-500 mb-3">prog 3b</p>
 
-                            <p class="text-xs leading-relaxed text-gray-600">
-                                “mamen seru! bukan hanya tempat belajar teori,
-                                tapi ruang untuk berkembang dan berproses.”
-                            </p>
-                        </div>
-                    @endforeach
-
-                </div>
-
-                {{-- BUTTON RIGHT --}}
-                <button onclick="scrollSlider(1)"
-                    class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10
-               w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center
-               hover:scale-110 transition">
-                    <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path d="M9 6l6 6-6 6" />
-                    </svg>
-                </button>
+                        <p class="text-xs leading-relaxed text-gray-600">
+                            “mamen seru! bukan hanya tempat belajar teori,
+                            tapi ruang untuk berkembang dan berproses.”
+                        </p>
+                    </div>
+                @endforeach
 
             </div>
 
-        </section>
+            {{-- BUTTON RIGHT --}}
+            <button onclick="scrollSlider(1)"
+                class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition">
+                <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path d="M9 6l6 6-6 6" />
+                </svg>
+            </button>
 
-        <script>
-            function scrollSlider(direction) {
-                const slider = document.getElementById('slider');
-                const scrollAmount = 300; // jarak geser
-                slider.scrollBy({
-                    left: direction * scrollAmount,
-                    behavior: 'smooth'
-                });
-            }
-        </script>
-    @endsection
+        </div>
+    </section>
+
+    <script>
+        function scrollSlider(direction) {
+            const slider = document.getElementById('slider');
+            const scrollAmount = 300; // jarak geser
+            slider.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+@endsection

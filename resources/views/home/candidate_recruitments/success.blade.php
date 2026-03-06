@@ -30,7 +30,7 @@
                     </p>
 
                     <div class="space-x-4">
-                        <a href="{{ route('candidate.recruitments.index') }}"
+                        <a href="/"
                             class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md">
                             Kembali ke Halaman Utama
                         </a>

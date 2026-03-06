@@ -2,10 +2,10 @@
 
 @section('content')
     <section class="py-16">
-        <div class="container">
+        <div class="max-w-7xl mx-auto px-6 ">
             <div class="text-center mb-12">
                 <h1 class="text-4xl font-extrabold text-gray-900">
-                    Pendaftaran Calon Asisten & Programmer 2026
+                    Pendaftaran Calon Asisten & Programmer {{ $recruitmentPeriod->tahun }}
                 </h1>
                 <p class="text-gray-600 mt-3">
                     Lengkapi data berikut untuk mengikuti proses seleksi Laboratorium Manajemen Menengah.
@@ -345,8 +345,8 @@
 
             // Display mapping
             const posisiDisplayMapping = {
-                'asisten': 'Asisten',
-                'programmer': 'Programmer'
+                'Asisten': 'Asisten',
+                'Programmer': 'Programmer'
             };
 
             function updatePosisi() {

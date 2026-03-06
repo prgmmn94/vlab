@@ -50,13 +50,13 @@ class Recruitment extends Model
      */
     public static function generateIdCalas($region, $posisi)
     {
-        // Mapping kode posisi
+        // Mapping kode posisi (Title Case key)
         $posisiCodes = [
             'Programmer' => 'AP',
             'Asisten' => 'AS',
         ];
 
-        // Mapping kode region
+        // Mapping kode region (Title Case key)
         $regionCodes = [
             'Depok' => 'D',
             'Kalimalang' => 'K',
@@ -65,11 +65,15 @@ class Recruitment extends Model
             'Cengkareng' => 'C',
         ];
 
+        // Ubah ke Title Case (huruf pertama kapital)
+        $posisiTitle = ucfirst(strtolower($posisi));
+        $regionTitle = ucfirst(strtolower($region));
+
         // Ambil kode posisi (default 'XX' jika tidak ditemukan)
-        $posisiCode = $posisiCodes[strtolower($posisi)] ?? 'XX';
+        $posisiCode = $posisiCodes[$posisiTitle] ?? 'XX';
 
         // Ambil kode region (default 'X' jika tidak ditemukan)
-        $regionCode = $regionCodes[strtolower($region)] ?? 'X';
+        $regionCode = $regionCodes[$regionTitle] ?? 'X';
 
         // Cari nomor terakhir dengan kombinasi posisi+region yang sama
         $lastRecord = self::where('id_calas', 'like', $posisiCode . $regionCode . '%')
