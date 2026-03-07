@@ -107,24 +107,124 @@
             </div>
         </div>
 
+        {{-- Search & Download Section --}}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {{-- Download Options --}}
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Download Berkas:</label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        {{-- Download All --}}
+                        <a href="{{ route('admin.recruitments.download.all', $recruitmentPeriod->id) }}"
+                            class="w-full inline-flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p>Semua</p>
+                        </a>
+
+                        {{-- Dropdown By Region --}}
+                        <div class="relative" x-data="{ open: false }">
+                            <button type="button" @click="open = !open" @click.away="open = false"
+                                class="w-full inline-flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm whitespace-nowrap">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <p>Region</p>
+                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div x-show="open" x-transition
+                                class="absolute left-0 right-0 sm:left-auto sm:right-0 sm:w-48 mt-2 bg-white rounded-md shadow-lg z-20 border border-gray-200">
+                                <div class="py-1">
+                                    @foreach (['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'] as $region)
+                                        <a href="{{ route('admin.recruitments.download.region', [$recruitmentPeriod->id, $region]) }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
+                                            {{ $region }}
+                                            <span
+                                                class="text-xs text-gray-500">({{ $regionStats[$region]['programmer'] + $regionStats[$region]['asisten'] }})</span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Dropdown By Position --}}
+                        <div class="relative" x-data="{ open: false }">
+                            <button type="button" @click="open = !open" @click.away="open = false"
+                                class="w-full inline-flex items-center justify-center px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm whitespace-nowrap">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <p>Posisi</p>
+                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div x-show="open" x-transition
+                                class="absolute left-0 right-0 sm:left-auto sm:right-0 sm:w-48 mt-2 bg-white rounded-md shadow-lg z-20 border border-gray-200">
+                                <div class="py-1">
+                                    <a href="{{ route('admin.recruitments.download.position', [$recruitmentPeriod->id, 'programmer']) }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">
+                                        Programmer
+                                        <span class="text-xs text-gray-500">({{ $stats['programmer'] }})</span>
+                                    </a>
+                                    <a href="{{ route('admin.recruitments.download.position', [$recruitmentPeriod->id, 'asisten']) }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">
+                                        Asisten
+                                        <span class="text-xs text-gray-500">({{ $stats['asisten'] }})</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Export Excel --}}
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Export Data:</label>
+                    <a href="{{ route('admin.recruitments.export', $recruitmentPeriod->id) }}"
+                        class="w-full inline-flex items-center justify-center px-4 py-2 border border-yellow-500 bg-blue-50 text-yellow-600 hover:text-white hover:bg-yellow-500 font-medium rounded-md shadow-md text-sm">
+                        <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7L14.6 7H7q-.425 0-.712-.288T6 6t.288-.712T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17t-.712-.288T16 16z" />
+                        </svg>
+                        <span class="hidden sm:inline">Ekspor Excel</span>
+                        <span class="sm:hidden">Export</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         {{-- Search Form --}}
-        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+        <div class="bg-white p-4 rounded-lg shadow-md">
             <form method="GET" action="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}">
                 <div class="flex gap-2">
-                    <input type="text" name="search" placeholder="Cari nama, NPM, atau program studi..."
+                    <input type="text" name="search" placeholder="Cari nama, NPM, atau jurusan..."
                         value="{{ request('search') }}"
-                        class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                     <button type="submit"
-                        class="px-6 py-2 border border-blue-500 bg-blue-50 text-blue-600 hover:text-white hover:bg-blue-500 rounded-md font-semibold shadow-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        class="px-4 py-2 border border-blue-500 bg-blue-50 text-blue-600 hover:text-white hover:bg-blue-500 rounded-md font-semibold shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                 d="M9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5 16m0-2q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" />
                         </svg>
                     </button>
                     @if (request('search'))
                         <a href="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}"
-                            class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                     d="M12 20q-3.35 0-5.675-2.325T4 12t2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.187-2.2T12 6Q9.5 6 7.75 7.75T6 12t1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20" />
                             </svg>
@@ -132,18 +232,6 @@
                     @endif
                 </div>
             </form>
-        </div>
-
-        <div class="flex justify-end space-x-2">
-            <a href="{{ route('admin.recruitments.export', $recruitmentPeriod->id) }}"
-                class="inline-flex items-center px-4 py-2 border border-yellow-500 bg-blue-50 text-yellow-600 hover:text-white hover:bg-yellow-500 font-medium rounded-md shadow-md">
-                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7L14.6 7H7q-.425 0-.712-.288T6 6t.288-.712T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17t-.712-.288T16 16z" />
-                </svg>
-                Ekspor Excel
-            </a>
         </div>
 
         {{-- Table --}}
@@ -162,6 +250,8 @@
                                 NPM</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Kelas</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Region</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Program Studi</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -190,6 +280,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $recruitment->kelas }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $recruitment->region }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $recruitment->jurusan }}

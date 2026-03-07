@@ -57,6 +57,23 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::resource('recruitment_periods.recruitments', RecruitmentController::class)
         ->parameters(['recruitment_periods' => 'recruitmentPeriod', 'recruitments' => 'recruitment'])
         ->names('admin.recruitments');
+
+    Route::prefix('recruitment_periods/{recruitmentPeriod}/recruitments')->group(function () {
+        // Download berkas
+        Route::get('download/all', [RecruitmentController::class, 'downloadAll'])
+            ->name('admin.recruitments.download.all');
+        Route::get('download/region/{region}', [RecruitmentController::class, 'downloadByRegion'])
+            ->name('admin.recruitments.download.region');
+        Route::get('download/position/{posisi}', [RecruitmentController::class, 'downloadByPosition'])
+            ->name('admin.recruitments.download.position');
+        Route::get('download/region/{region}/position/{posisi}', [RecruitmentController::class, 'downloadByRegionAndPosition'])
+            ->name('admin.recruitments.download.region-position');
+    });
+
+    // Resource routes
+    Route::resource('recruitment_periods.recruitments', RecruitmentController::class)
+        ->parameters(['recruitment_periods' => 'recruitmentPeriod', 'recruitments' => 'recruitment'])
+        ->names('admin.recruitments');
 });
 
 // Candidate Routes (Public - Tanpa Auth)

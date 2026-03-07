@@ -7,6 +7,7 @@ use App\Models\Recruitment;
 use App\Models\RecruitmentPeriod;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class RecruitmentController extends Controller
 {
@@ -165,5 +166,191 @@ class RecruitmentController extends Controller
 
         return redirect()->route('admin.recruitments.index', $recruitmentPeriod->id)
             ->with('success', 'Data recruitment berhasil dihapus!');
+    }
+
+    /**
+     * Download berkas per region
+     */
+    public function downloadByRegion(RecruitmentPeriod $recruitmentPeriod, $region)
+    {
+        // Validasi region
+        $validRegions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
+        if (!in_array($region, $validRegions)) {
+            return redirect()->back()->with('error', 'Region tidak valid!');
+        }
+
+        // Ambil semua recruitment di region tersebut
+        $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->where('region', $region)
+            ->whereNotNull('berkas')
+            ->get();
+
+        if ($recruitments->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada berkas di region ' . $region);
+        }
+
+        // Buat ZIP file
+        $zipFileName = 'Berkas_' . $region . '_' . $recruitmentPeriod->tahun . '.zip';
+        $zipFilePath = storage_path('app/temp/' . $zipFileName);
+
+        // Pastikan folder temp ada
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($recruitments as $recruitment) {
+                $filePath = storage_path('app/public/' . $recruitment->berkas);
+                if (file_exists($filePath)) {
+                    $zip->addFile($filePath, basename($recruitment->berkas));
+                }
+            }
+            $zip->close();
+        }
+
+        // Download dan hapus file temporary
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+    }
+
+    /**
+     * Download berkas per posisi
+     */
+    public function downloadByPosition(RecruitmentPeriod $recruitmentPeriod, $posisi)
+    {
+        // Validasi posisi
+        $validPositions = ['programmer', 'asisten'];
+        if (!in_array(strtolower($posisi), $validPositions)) {
+            return redirect()->back()->with('error', 'Posisi tidak valid!');
+        }
+
+        $posisi = strtolower($posisi);
+
+        // Ambil semua recruitment di posisi tersebut
+        $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->where('posisi_dilamar', $posisi)
+            ->whereNotNull('berkas')
+            ->get();
+
+        if ($recruitments->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada berkas untuk posisi ' . ucfirst($posisi));
+        }
+
+        // Buat ZIP file
+        $zipFileName = 'Berkas_' . ucfirst($posisi) . '_' . $recruitmentPeriod->tahun . '.zip';
+        $zipFilePath = storage_path('app/temp/' . $zipFileName);
+
+        // Pastikan folder temp ada
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($recruitments as $recruitment) {
+                $filePath = storage_path('app/public/' . $recruitment->berkas);
+                if (file_exists($filePath)) {
+                    $zip->addFile($filePath, basename($recruitment->berkas));
+                }
+            }
+            $zip->close();
+        }
+
+        // Download dan hapus file temporary
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+    }
+
+    /**
+     * Download berkas per region DAN posisi
+     */
+    public function downloadByRegionAndPosition(RecruitmentPeriod $recruitmentPeriod, $region, $posisi)
+    {
+        // Validasi region
+        $validRegions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
+        if (!in_array($region, $validRegions)) {
+            return redirect()->back()->with('error', 'Region tidak valid!');
+        }
+
+        // Validasi posisi
+        $validPositions = ['programmer', 'asisten'];
+        if (!in_array(strtolower($posisi), $validPositions)) {
+            return redirect()->back()->with('error', 'Posisi tidak valid!');
+        }
+
+        $posisi = strtolower($posisi);
+
+        // Ambil semua recruitment di region dan posisi tersebut
+        $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->where('region', $region)
+            ->where('posisi_dilamar', $posisi)
+            ->whereNotNull('berkas')
+            ->get();
+
+        if ($recruitments->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada berkas untuk ' . ucfirst($posisi) . ' di ' . $region);
+        }
+
+        // Buat ZIP file
+        $zipFileName = 'Berkas_' . ucfirst($posisi) . '_' . $region . '_' . $recruitmentPeriod->tahun . '.zip';
+        $zipFilePath = storage_path('app/temp/' . $zipFileName);
+
+        // Pastikan folder temp ada
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($recruitments as $recruitment) {
+                $filePath = storage_path('app/public/' . $recruitment->berkas);
+                if (file_exists($filePath)) {
+                    $zip->addFile($filePath, basename($recruitment->berkas));
+                }
+            }
+            $zip->close();
+        }
+
+        // Download dan hapus file temporary
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+    }
+
+    /**
+     * Download semua berkas dalam periode
+     */
+    public function downloadAll(RecruitmentPeriod $recruitmentPeriod)
+    {
+        // Ambil semua recruitment dalam periode
+        $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->whereNotNull('berkas')
+            ->get();
+
+        if ($recruitments->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada berkas yang tersedia!');
+        }
+
+        // Buat ZIP file
+        $zipFileName = 'Semua_Berkas_' . $recruitmentPeriod->tahun . '.zip';
+        $zipFilePath = storage_path('app/temp/' . $zipFileName);
+
+        // Pastikan folder temp ada
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($recruitments as $recruitment) {
+                $filePath = storage_path('app/public/' . $recruitment->berkas);
+                if (file_exists($filePath)) {
+                    // Buat subfolder per region dalam ZIP
+                    $folderInZip = $recruitment->region . '/' . ucfirst($recruitment->posisi_dilamar) . '/';
+                    $zip->addFile($filePath, $folderInZip . basename($recruitment->berkas));
+                }
+            }
+            $zip->close();
+        }
+
+        // Download dan hapus file temporary
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
     }
 }
