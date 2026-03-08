@@ -8,6 +8,8 @@ use App\Models\RecruitmentPeriod;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
+use App\Exports\RecruitmentExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RecruitmentController extends Controller
 {
@@ -352,5 +354,16 @@ class RecruitmentController extends Controller
 
         // Download dan hapus file temporary
         return response()->download($zipFilePath)->deleteFileAfterSend(true);
+    }
+
+    /**
+     * Export
+     */
+    public function export(RecruitmentPeriod $recruitmentPeriod)
+    {
+        return Excel::download(
+            new RecruitmentExport($recruitmentPeriod->id),
+            'Data Calas Periode ' . $recruitmentPeriod->bulan . $recruitmentPeriod->tahun . '.xlsx'
+        );
     }
 }
