@@ -297,7 +297,8 @@
 
             {{-- SLIDER --}}
             <div id="slider"
-                class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-proximity scrollbar-hide pb-4">
+                class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth
+               snap-x snap-proximity scrollbar-hide pb-4">
 
                 @foreach (range(1, 6) as $i)
                     <div

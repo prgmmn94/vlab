@@ -31,3 +31,11 @@ body {
 #livechat:hover {
     background: linear-gradient(45deg, #e6761f, #c8236d, #6d2fa0, #3f49c4);
 }
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

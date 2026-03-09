@@ -1,4 +1,4 @@
-@extends('home.layout')
+@extends('components.home.layout')
 
 @section('content')
 
@@ -12,7 +12,7 @@
 
         {{-- Judul --}}
         <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-4 md:mb-6">
-            {{ $berita['judul'] }}
+            {{ $berita->judul }}
         </h1>
 
         {{-- Info tanggal --}}
@@ -23,19 +23,19 @@
                 <line x1="8" x2="8" y1="2" y2="6"/>
                 <line x1="3" x2="21" y1="10" y2="10"/>
             </svg>
-            {{ $berita['tanggal'] }}
+            {{ $berita->tanggal }}
         </div>
 
         {{-- Gambar utama --}}
         <div class="w-full h-48 md:h-96 rounded-xl overflow-hidden shadow-md mb-8 md:mb-10">
-            <img src="{{ asset('images/' . $berita['gambar']) }}"
-                 alt="{{ $berita['judul'] }}"
+            <img src="{{ asset('images/' . $berita->gambar) }}"
+                 alt="{{ $berita->judul }}"
                  class="w-full h-full object-cover">
         </div>
 
         {{-- Isi berita --}}
         <article class="prose prose-sm md:prose-base prose-gray max-w-none text-gray-700 leading-relaxed">
-            {!! nl2br(e($berita['isi'])) !!}
+            {!! nl2br(e($berita->isi)) !!}
         </article>
 
         {{-- Garis pemisah --}}
@@ -46,18 +46,18 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
             @foreach($beritaLainnya as $item)
-                <a href="/berita/{{ $item['slug'] }}" class="group block">
+                <a href="/berita/{{ $item->slug }}" class="group block">
                     <div class="flex gap-3 md:gap-4 items-start p-3 md:p-4 rounded-lg border border-gray-100 hover:shadow-md transition">
 
-                        <img src="{{ asset('images/' . $item['gambar']) }}"
+                        <img src="{{ asset('images/' . $item->gambar) }}"
                              class="w-20 h-16 md:w-24 md:h-20 object-cover rounded-md flex-shrink-0">
 
                         <div>
                             <h4 class="font-semibold text-sm md:text-base text-gray-800 group-hover:text-[#71268a] transition line-clamp-2 leading-snug">
-                                {{ $item['judul'] }}
+                                {{ $item->judul }}
                             </h4>
                             <p class="text-[10px] md:text-xs text-gray-400 mt-1 md:mt-2">
-                                {{ $item['tanggal'] }}
+                                {{ $item->tanggal }}
                             </p>
                         </div>
 
