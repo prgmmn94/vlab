@@ -1,16 +1,16 @@
 <x-admin.layout>
     <div class="space-y-6">
 
-        <div class="bg-blue-600 text-white shadow-md rounded-lg">
-            <div class="p-6 text-lg font-semibold">
-                {{ __('Detail Berita') }}
+        <div class="bg-blue-500 overflow-hidden shadow-md rounded-lg text-lg font-semibold mb-3 text-white">
+            <div class="p-6 text-gray-100">
+                Detail Berita
             </div>
         </div>
 
         <div class="bg-white overflow-hidden shadow-lg rounded-lg">
             {{-- Header dengan Gambar --}}
             @if ($news->image)
-                <div class="w-full h-96 overflow-hidden bg-gray-100">
+                <div class="w-full h-auto overflow-hidden bg-gray-100">
                     <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}"
                         class="w-full h-full object-cover">
                 </div>
@@ -81,31 +81,6 @@
                         </svg>
                         Kembali
                     </a>
-                    <div class="flex gap-2">
-                        <a href="{{ route('admin.news.edit', $news->id) }}"
-                            class="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-500 text-white font-medium rounded-md shadow-sm transition">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-1 2q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
-                            </svg>
-                            Edit
-                        </a>
-                        <form action="{{ route('admin.news.destroy', $news->id) }}" method="POST" class="inline"
-                            onsubmit="return confirm('Yakin ingin menghapus berita ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-medium rounded-md shadow-sm transition">
-                                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
-                                </svg>
-                                Hapus
-                            </button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
