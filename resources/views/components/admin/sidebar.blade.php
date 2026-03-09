@@ -1,5 +1,6 @@
 <div id="sidebar"
     class="sidebar-toggle fixed inset-y-0 left-0 z-50 w-64 sidebar-gradient shadow-xl transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+
     <!-- Sidebar Header -->
     <div class="flex items-center justify-center h-16 px-4 bg-black bg-opacity-20">
         <div class="flex items-center">
@@ -11,28 +12,26 @@
     </div>
 
     <!-- Sidebar Navigation -->
-    <nav class="mt-8 px-4">
+    <nav class="mt-8 px-4 pb-32 overflow-y-auto h-[calc(100vh-8rem)]">
         <div class="space-y-2">
-            <a href="/admin/dashboard"
+            <!-- Dashboard -->
+            <a href="{{ route('dashboard') }}"
                 class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('dashboard') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z">
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                     </path>
                 </svg>
                 Dasbor
             </a>
 
+            <!-- Rekrutmen Section -->
             @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Oprec Admin')
-                <!-- Rekrutmen -->
                 <div class="pt-4 mt-4 border-t border-blue-400 border-opacity-30">
                     <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider">Rekrutmen</p>
                     <div class="mt-2 space-y-2">
-                        <a href="/admin/recruitment_periods"
-                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('recruitment_periods*') ||
-                            request()->routeIs('admin.entries.*')
-                                ? 'bg-white bg-opacity-20 text-white'
-                                : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
+                        <a href="{{ route('recruitment_periods.index') }}"
+                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('recruitment_periods.*') || request()->routeIs('admin.recruitments.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                             <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -44,22 +43,25 @@
                 </div>
             @endif
 
-            <!-- Layanan -->
+            <!-- Layanan Section -->
             @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Admin')
                 <div class="pt-4 mt-4 border-t border-blue-400 border-opacity-30">
                     <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider">Layanan</p>
                     <div class="mt-2 space-y-2">
-                        <a href="/admin/softwares"
-                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('cities.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
+                        <!-- Aplikasi -->
+                        {{-- <a href="{{ route('admin.softwares.index') }}"
+                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.softwares.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                             <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                     d="M11 17h2l.3-1.5q.3-.125.563-.262t.537-.338l1.45.45l1-1.7l-1.15-1q.05-.35.05-.65t-.05-.65l1.15-1l-1-1.7l-1.45.45q-.275-.2-.537-.338T13.3 8.5L13 7h-2l-.3 1.5q-.3.125-.562.263T9.6 9.1l-1.45-.45l-1 1.7l1.15 1q-.05.35-.05.65t.05.65l-1.15 1l1 1.7l1.45-.45q.275.2.538.338t.562.262zm-.413-3.588Q10 12.826 10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14t-1.412-.587M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zM5 5v14z" />
                             </svg>
                             Aplikasi
-                        </a>
-                        <a href="/admin/news"
-                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('cities.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
+                        </a> --}}
+
+                        <!-- Berita -->
+                        <a href="{{ route('admin.news.index') }}"
+                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.news.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                             <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -67,21 +69,25 @@
                             </svg>
                             Berita
                         </a>
-                        <a href="/admin/photos"
-                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('cities.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
+
+                        <!-- Galeri -->
+                        {{-- <a href="{{ route('admin.photos.index') }}"
+                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.photos.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                             <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                     d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zm0 0V5zm2-2h10q.3 0 .45-.275t-.05-.525l-2.75-3.675q-.15-.2-.4-.2t-.4.2L11.25 16L9.4 13.525q-.15-.2-.4-.2t-.4.2l-2 2.675q-.2.25-.05.525T7 17" />
                             </svg>
                             Galeri
-                        </a>
-                        <a href="/admin/schedules"
-                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('cities.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
+                        </a> --}}
+
+                        <!-- Jadwal -->
+                        <a href="{{ route('admin.schedules.index') }}"
+                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.schedules.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                             <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24">
                                 <path fill="currentColor"
-                                    d="m15.3 16.7l1.4-1.4l-3.7-3.7V7h-2v5.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.325 0 5.663-2.337T20 12t-2.337-5.663T12 4T6.337 6.338T4 12t2.338 5.663T12 20" />
+                                    d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V10h14zM9 14H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zm-8 4H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2z" />
                             </svg>
                             Jadwal
                         </a>
@@ -93,7 +99,7 @@
             <div class="pt-4 mt-4 border-t border-blue-400 border-opacity-30">
                 <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider">Akun</p>
                 <div class="mt-2 space-y-2">
-                    <a href="/profile"
+                    <a href="{{ route('profile.edit') }}"
                         class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('profile.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
                         <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -106,33 +112,30 @@
         </div>
     </nav>
 
-    <!-- User Profile Section -->
-    <div class="absolute bottom-0 w-full p-4">
-        <div class="bg-white bg-opacity-10 rounded-lg p-3">
+    <!-- User Profile Section (Fixed Bottom) -->
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-blue-900 to-transparent">
+        <div class="bg-white bg-opacity-10 rounded-lg p-3 backdrop-blur-sm">
             <div class="flex items-center">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                    <span
-                        class="text-xs font-bold text-blue-600">{{ collect(explode(' ', Auth::user()->name))->map(fn($word) => strtoupper(substr($word, 0, 1)))->join('') }}</span>
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-sm font-bold text-blue-600">
+                        {{ collect(explode(' ', Auth::user()->name))->map(fn($word) => strtoupper(substr($word, 0, 1)))->take(2)->join('') }}
+                    </span>
                 </div>
-                <div class="ml-3 flex-1">
+                <div class="ml-3 flex-1 min-w-0">
                     <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
-                    <p class="text-xs text-blue-200 truncate"></p>
+                    <p class="text-xs text-blue-200 truncate">{{ Auth::user()->role }}</p>
                 </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}" class="mt-3" id="logout-form">
+            <form method="POST" action="{{ route('logout') }}" class="mt-3">
                 @csrf
-                <button type="button" onclick=""
-                    class="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-blue-100 bg-white bg-opacity-10 rounded-md hover:bg-opacity-20 transition-colors duration-200">
+                <button type="submit"
+                    class="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-red-500 bg-opacity-80 hover:bg-opacity-100 rounded-md transition-all duration-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                         </path>
                     </svg>
-                    <a href="route('logout')"
-                        onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </a>
+                    Log Out
                 </button>
             </form>
         </div>

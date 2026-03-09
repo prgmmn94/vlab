@@ -111,11 +111,13 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if ($item->image)
-                                            <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
-                                                class="w-16 h-16 object-cover rounded-md">
+                                            <img src="{{ asset('storage/' . $item->image) }}"
+                                                alt="Berita {{ $item->title }}"
+                                                class="w-20 h-20 object-cover rounded-md cursor-pointer hover:scale-105 transition"
+                                                onclick="window.open('{{ asset('storage/' . $item->image) }}', '_blank')">
                                         @else
                                             <div
-                                                class="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center">
+                                                class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center">
                                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
