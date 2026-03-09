@@ -29,7 +29,7 @@ class CandidateRecruitmentController extends Controller
 
         if (!$recruitmentPeriod) {
             return redirect()->route('candidate.recruitments.index')
-                ->with('error', 'Belum ada periode recruitment yang dibuka.');
+                ->with('error', 'Belum ada periode rekrutmen yang dibuka.');
         }
 
         $validated = $request->validate([

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecruitmentPeriodController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\CandidateRecruitmentController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -86,6 +87,14 @@ Route::prefix('recruitments')->group(function () {
 
     Route::get('success', [CandidateRecruitmentController::class, 'success'])
         ->name('candidate.recruitments.success');
+});
+
+// News Routes
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::delete('news/bulk-destroy', [NewsController::class, 'bulkDestroy'])
+        ->name('news.bulk-destroy');
+
+    Route::resource('news', NewsController::class);
 });
 
 // Profile Routes
