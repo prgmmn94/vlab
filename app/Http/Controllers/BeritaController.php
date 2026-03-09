@@ -7,11 +7,13 @@ use App\Models\Berita;
 class BeritaController extends Controller
 {
     public function index()
-    {
-        $beritaData = Berita::latest()->get();
+{
+    $beritaData = Berita::all();
 
-        return view('home.berita', compact('beritaData'));
-    }
+    return view('home.berita', [
+        'beritaData' => $beritaData
+    ]);
+}
 
     public function detail($slug)
     {

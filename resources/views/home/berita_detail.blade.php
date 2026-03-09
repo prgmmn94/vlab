@@ -28,7 +28,7 @@
 
         {{-- Gambar utama --}}
         <div class="w-full h-48 md:h-96 rounded-xl overflow-hidden shadow-md mb-8 md:mb-10">
-            <img src="{{ asset('images/' . $berita->gambar) }}"
+            <img src="{{ asset('storage/' . $berita->gambar) }}"
                  alt="{{ $berita->judul }}"
                  class="w-full h-full object-cover">
         </div>
@@ -49,7 +49,7 @@
                 <a href="/berita/{{ $item->slug }}" class="group block">
                     <div class="flex gap-3 md:gap-4 items-start p-3 md:p-4 rounded-lg border border-gray-100 hover:shadow-md transition">
 
-                        <img src="{{ asset('images/' . $item->gambar) }}"
+                        <img src="{{ asset('storage/' . $item->gambar) }}"
                              class="w-20 h-16 md:w-24 md:h-20 object-cover rounded-md flex-shrink-0">
 
                         <div>

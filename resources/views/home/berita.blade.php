@@ -14,7 +14,7 @@
                     <div class="bg-white rounded-xl overflow-hidden shadow-[0_3px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_22px_rgba(113,38,138,0.12)] transition-all duration-300 border border-[#e5e5e5]">
                         
                         <div class="w-full h-44 md:h-60 overflow-hidden relative">
-                            <img src="{{ asset('images/'.$berita->gambar) }}" 
+                            <img src="{{ asset('storage/'.$berita->gambar) }}" 
                                  alt="{{ $berita->judul }}" 
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>

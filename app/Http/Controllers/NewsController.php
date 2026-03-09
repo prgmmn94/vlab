@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\Berita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -10,125 +10,103 @@ use Carbon\Carbon;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $query = News::query();
+        $query = Berita::query();
 
-        // Search functionality
         if ($request->filled('search')) {
             $search = $request->search;
+
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('content', 'like', "%{$search}%");
+                $q->where('judul', 'like', "%{$search}%")
+                  ->orWhere('isi', 'like', "%{$search}%");
             });
         }
 
-        $news = $query->latest('date_news')->paginate(10)->withQueryString();
+        $news = $query->latest('tanggal')->paginate(10)->withQueryString();
 
         return view('admin.news.index', compact('news'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        // Pass tanggal hari ini untuk default value
         $today = Carbon::now()->format('Y-m-d');
         return view('admin.news.create', compact('today'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'date_news' => 'nullable|date',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
-        ], [
-            'title.required' => 'Judul berita wajib diisi',
-            'content.required' => 'Konten berita wajib diisi',
-            'image.required' => 'Gambar wajib diupload',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'image.max' => 'Ukuran gambar maksimal 5MB',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required',
+            'tanggal' => 'nullable|date',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
-        // Auto-fill tanggal jika tidak diisi
-        if (!isset($validated['date_news']) || empty($validated['date_news'])) {
-            $validated['date_news'] = Carbon::now()->format('Y-m-d');
+        if (empty($validated['tanggal'])) {
+            $validated['tanggal'] = Carbon::now()->format('Y-m-d');
         }
 
-        // Upload gambar
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $namaImage = time() . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension();
+        $validated['slug'] = Str::slug($validated['judul']);
+
+        $validated['excerpt'] = Str::limit(strip_tags($validated['isi']), 150);
+
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+
+            $namaImage = time().'_'.Str::slug($request->judul).'.'.$image->getClientOriginalExtension();
+
             $path = $image->storeAs('news', $namaImage, 'public');
-            $validated['image'] = $path;
+
+            $validated['gambar'] = $path;
         }
 
-        News::create($validated);
+        Berita::create($validated);
 
         return redirect()->route('admin.news.index')
             ->with('success', 'Berita berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(News $news)
+    public function show(Berita $news)
     {
         return view('admin.news.show', compact('news'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(News $news)
+    public function edit(Berita $news)
     {
         return view('admin.news.edit', compact('news'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, News $news)
+    public function update(Request $request, Berita $news)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'date_news' => 'nullable|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
-        ], [
-            'title.required' => 'Judul berita wajib diisi',
-            'content.required' => 'Konten berita wajib diisi',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'image.max' => 'Ukuran gambar maksimal 5MB',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required',
+            'tanggal' => 'nullable|date',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
-        // Gunakan tanggal lama jika tidak diubah
-        if (!isset($validated['date_news']) || empty($validated['date_news'])) {
-            $validated['date_news'] = $news->date_news;
+        if (empty($validated['tanggal'])) {
+            $validated['tanggal'] = $news->tanggal;
         }
 
-        // Upload gambar baru jika ada
-        if ($request->hasFile('image')) {
-            // Hapus gambar lama
-            if ($news->image && Storage::disk('public')->exists($news->image)) {
-                Storage::disk('public')->delete($news->image);
+        $validated['slug'] = Str::slug($validated['judul']);
+
+        $validated['excerpt'] = Str::limit(strip_tags($validated['isi']), 150);
+
+        if ($request->hasFile('gambar')) {
+
+            if ($news->gambar && Storage::disk('public')->exists($news->gambar)) {
+                Storage::disk('public')->delete($news->gambar);
             }
 
-            $image = $request->file('image');
-            $namaImage = time() . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension();
+            $image = $request->file('gambar');
+
+            $namaImage = time().'_'.Str::slug($request->judul).'.'.$image->getClientOriginalExtension();
+
             $path = $image->storeAs('news', $namaImage, 'public');
-            $validated['image'] = $path;
+
+            $validated['gambar'] = $path;
         }
 
         $news->update($validated);
@@ -137,56 +115,15 @@ class NewsController extends Controller
             ->with('success', 'Berita berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(News $news)
+    public function destroy(Berita $news)
     {
-        // Hapus gambar dari storage
-        if ($news->image && Storage::disk('public')->exists($news->image)) {
-            Storage::disk('public')->delete($news->image);
+        if ($news->gambar && Storage::disk('public')->exists($news->gambar)) {
+            Storage::disk('public')->delete($news->gambar);
         }
 
         $news->delete();
 
         return redirect()->route('admin.news.index')
             ->with('success', 'Berita berhasil dihapus.');
-    }
-
-    /**
-     * Bulk delete news
-     */
-    public function bulkDestroy(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'news_ids' => 'required|array',
-            'news_ids.*' => 'exists:news,id'
-        ]);
-
-        try {
-            // Ambil semua news yang akan dihapus
-            $newsToDelete = News::whereIn('id', $request->news_ids)->get();
-
-            // Hapus gambar dari storage
-            foreach ($newsToDelete as $news) {
-                if ($news->image && Storage::disk('public')->exists($news->image)) {
-                    Storage::disk('public')->delete($news->image);
-                }
-            }
-
-            // Hapus data dari database
-            $deletedCount = News::whereIn('id', $request->news_ids)->delete();
-
-            // Redirect dengan pesan sukses
-            return redirect()->route('admin.news.index')->with([
-                'success' => "Berhasil menghapus {$deletedCount} berita!"
-            ]);
-        } catch (\Exception $e) {
-            // Redirect dengan pesan error
-            return redirect()->route('admin.news.index')->with([
-                'error' => 'Gagal menghapus data: ' . $e->getMessage()
-            ]);
-        }
     }
 }

@@ -14,8 +14,30 @@ Route::view('/', 'home.home');
 Route::view('/profil', 'home.profil');
 Route::view('/download', 'home.download')->name('download');
 Route::view('/kontak', 'home.kontak')->name('kontak');
+Route::view('/jadwal', 'praktikum.jadwal')->name('jadwal');
 Route::view('/galeri', 'home.galeri')->name('galeri');
 Route::view('/berita', 'home.berita')->name('berita');
+
+Route::prefix('praktikum')->name('praktikum.')->group(function () {
+
+    Route::view('/tata-tertib', 'user.praktikum.tata-tertib')
+        ->name('tata-tertib');
+
+    Route::view('/jadwal', 'user.praktikum.jadwal')
+        ->name('jadwal');
+});
+
+Route::prefix('praktikum')->name('praktikum.')->group(function () {
+
+    Route::view('/tata-tertib', 'home.praktikum.tata-tertib')
+        ->name('tata-tertib');
+
+    Route::view('/jadwal', 'home.praktikum.jadwal')
+        ->name('jadwal');
+});
+
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('/berita/{slug}', [BeritaController::class, 'detail'])->name('berita.detail');
 
 // Public Routes - Candidate Recruitment
 Route::prefix('recruitments')->group(function () {

@@ -107,34 +107,27 @@
                                         {{ $news->firstItem() + $loop->index }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($item->date_news)->format('d M Y') }}
+                                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
                                     </td>
+
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @if ($item->image)
-                                            <img src="{{ asset('storage/' . $item->image) }}"
-                                                alt="Berita {{ $item->title }}"
+                                        @if ($item->gambar)
+                                            <img src="{{ asset('storage/' . $item->gambar) }}"
+                                                alt="Berita {{ $item->judul }}"
                                                 class="w-20 h-20 object-cover rounded-md cursor-pointer hover:scale-105 transition"
-                                                onclick="window.open('{{ asset('storage/' . $item->image) }}', '_blank')">
-                                        @else
-                                            <div
-                                                class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center">
-                                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                </svg>
-                                            </div>
+                                                onclick="window.open('{{ asset('storage/' . $item->gambar) }}', '_blank')">
                                         @endif
                                     </td>
+
                                     <td class="px-6 py-4 text-sm text-gray-900">
-                                        <div class="max-w-xs truncate" title="{{ $item->title }}">
-                                            {{ $item->title }}
+                                        <div class="max-w-xs truncate">
+                                            {{ $item->judul }}
                                         </div>
                                     </td>
+
                                     <td class="px-6 py-4 text-sm text-gray-900">
-                                        <div class="max-w-xs truncate" title="{{ $item->content }}">
-                                            {{ $item->content }}
+                                        <div class="max-w-xs truncate">
+                                            {{ $item->excerpt }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
