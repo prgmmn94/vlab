@@ -111,6 +111,12 @@ class RecruitmentPeriodController extends Controller
 
     public function destroy(RecruitmentPeriod $recruitmentPeriod)
     {
+        // Cek apakah periode ini masih memiliki data rekrutmen
+        if ($recruitmentPeriod->recruitments()->count() > 0) {
+            return redirect()->route('recruitment_periods.index')
+                ->with('error', 'Periode tidak dapat dihapus karena masih memiliki ' . $recruitmentPeriod->recruitments()->count() . ' data rekrutmen!');
+        }
+
         // Hapus semua file berkas di folder periode ini
         $folderPath = 'recruitments/' . $recruitmentPeriod->tahun;
         if (Storage::disk('public')->exists($folderPath)) {
