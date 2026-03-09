@@ -15,7 +15,7 @@
                     </h1>
 
                     <p class="text-gray-600 text-lg mb-6">
-                        Saat ini belum ada periode recruitment yang dibuka.
+                        Saat ini belum ada periode rekrutmen yang dibuka.
                     </p>
 
                     <p class="text-gray-500 text-sm">

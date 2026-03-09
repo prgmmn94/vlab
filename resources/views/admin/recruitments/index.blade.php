@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        {{-- Search & Download Section --}}
+        {{-- Download Section --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {{-- Download Options --}}
             <div class="bg-white p-4 rounded-lg shadow-md">

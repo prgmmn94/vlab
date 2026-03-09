@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'V-LAB')</title>
+    <title>@yield('title', 'V-LAB | Laboratorium Manajemen Menengah')</title>
     <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
     {{-- Alpine.js --}}

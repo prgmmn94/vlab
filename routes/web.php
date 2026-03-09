@@ -6,65 +6,30 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\RecruitmentPeriodController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\CandidateRecruitmentController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SchedulesController;
 
-/*
-|--------------------------------------------------------------------------
-| Public Pages
-|--------------------------------------------------------------------------
-*/
 
 Route::view('/', 'home.home');
 Route::view('/profil', 'home.profil');
 Route::view('/download', 'home.download')->name('download');
 Route::view('/kontak', 'home.kontak')->name('kontak');
 Route::view('/galeri', 'home.galeri')->name('galeri');
+Route::view('/berita', 'home.berita')->name('berita');
 
-/*
-|--------------------------------------------------------------------------
-| Berita
-|--------------------------------------------------------------------------
-*/
-
-Route::controller(BeritaController::class)->group(function () {
-    Route::get('/berita', 'index')->name('berita.index');
-    Route::get('/berita/{slug}', 'detail')->name('berita.detail');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Praktikum
-|--------------------------------------------------------------------------
-*/
-
-Route::prefix('praktikum')->name('praktikum.')->group(function () {
-    Route::view('/tata-tertib', 'home.praktikum.tata-tertib')->name('tata-tertib');
-    Route::view('/jadwal', 'home.praktikum.jadwal')->name('jadwal');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Candidate Recruitment (Public)
-|--------------------------------------------------------------------------
-*/
-
+// Public Routes - Candidate Recruitment
 Route::prefix('recruitments')->group(function () {
-
     Route::get('/', [CandidateRecruitmentController::class, 'index'])
         ->name('candidate.recruitments.index');
 
     Route::post('/', [CandidateRecruitmentController::class, 'store'])
         ->name('candidate.recruitments.store');
 
-    Route::get('/success', [CandidateRecruitmentController::class, 'success'])
+    Route::get('success', [CandidateRecruitmentController::class, 'success'])
         ->name('candidate.recruitments.success');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Admin Dashboard
-|--------------------------------------------------------------------------
-*/
-
+// Admin Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -142,12 +107,28 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     });
 });
 
-/*
-|--------------------------------------------------------------------------
-| Profile
-|--------------------------------------------------------------------------
-*/
+// Admin Routes - News Management
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::delete('news/bulk-destroy', [NewsController::class, 'bulkDestroy'])
+        ->name('news.bulk-destroy');
+    Route::resource('news', NewsController::class);
+});
 
+// Admin Routes - Photos Management
+// Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+//     Route::delete('galleries/bulk-destroy', [GalleriesController::class, 'bulkDestroy'])
+//         ->name('galleries.bulk-destroy');
+//     Route::resource('galleries', GalleriesController::class);
+// });
+
+// Admin Routes - Schedules Management
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::delete('schedules/bulk-destroy', [SchedulesController::class, 'bulkDestroy'])
+        ->name('schedules.bulk-destroy');
+    Route::resource('schedules', SchedulesController::class);
+});
+
+// Profile Routes 
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])

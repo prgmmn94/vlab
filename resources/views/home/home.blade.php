@@ -61,7 +61,7 @@
 
     {{-- SECTION UNGU --}}
     <section class="py-16 text-white -mt-1" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
-        <div class="max-w-7xl mx-auto px-6 ">
+        <div class="container">
             <div class="pt-16 md:pt-30 pb-20 md:pb-35 grid md:grid-cols-2 lg:grid-cols-2 items-center gap-10 md:gap-0">
                 <div class="text-center md:text-left order-2 md:order-none">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">
@@ -104,34 +104,23 @@
         </div>
     </section>
     {{-- ================= --}}
-    {{-- ALUR PENDAFTARAN --}}
-    {{-- ================= --}}
-    <section class="relative bg-white pt-20 md:pt-28 pb-16 md:pb-24">
 
+    {{-- ALUR PENDAFTARAN --}}
+    <section class="relative bg-white pt-16 pb-8">
         {{-- WAVE ATAS (PUTIH KE UNGU) --}}
         <div class="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-1">
             <svg viewBox="0 0 1440 160" class="w-full h-[80px] md:h-[160px]" preserveAspectRatio="none">
                 <path fill="url(#gradWave)"
-                    d="
-                                                                                                                                                                        M0,80
-                                                                                                                                                                        C120,20 240,140 360,120
-                                                                                                                                                                        C480,100 600,20 720,60
-                                                                                                                                                                        C840,100 960,160 1080,120
-                                                                                                                                                                        C1200,80 1320,40 1440,60
-                                                                                                                                                                        L1440,0 L0,0 Z
-                                                                                                                                                                    " />
+                    d="M0,80C120,20 240,140 360,120 C480,100 600,20 720,60 C840,100 960,160 1080,120 C1200,80 1320,40 1440,60 L1440,0 L0,0 Z" />
                 <defs>
                     <linearGradient id="gradWave" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stop-color="#BF4ED2" />
-
                     </linearGradient>
                 </defs>
             </svg>
         </div>
+        <div class="container relative">
 
-        <div class="max-w-4xl mx-auto px-6 pt-10 md:pt-20 relative">
-
-            {{-- JUDUL --}}
             <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 md:pt-20">
                 Alur Pendaftaran
             </h2>
@@ -217,37 +206,40 @@
             </div>
         </div>
     </section>
+    {{-- ================= --}}
 
     {{-- ================= --}}
     {{-- CTA + TESTIMONI --}}
     {{-- ================= --}}
     <section class="relative">
         {{-- CTA PUTIH --}}
-        <div class="bg-white pt-16 md:pt-24 pb-20 md:pb-40 relative z-10">
-            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="container">
+            <div class="bg-white pt-16 md:pt-24 pb-20 md:pb-40 relative z-10">
+                <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
 
-                {{-- ILUSTRASI --}}
-                <img src="/images/berperan.png" alt="Ilustrasi"
-                    class="w-[85%] md:w-full max-w-md mx-auto order-1 md:order-none drop-shadow-xl">
+                    {{-- ILUSTRASI --}}
+                    <img src="/images/berperan.png" alt="Ilustrasi"
+                        class="w-[85%] md:w-full max-w-md mx-auto order-1 md:order-none drop-shadow-xl">
 
-                {{-- TEXT --}}
-                <div class="text-center md:text-left order-2 md:order-none">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
-                        Saatnya kamu berperan!
-                    </h2>
+                    {{-- TEXT --}}
+                    <div class="text-center md:text-left order-2 md:order-none">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+                            Saatnya kamu berperan!
+                        </h2>
 
-                    <p class="mt-3 md:mt-4 text-gray-600 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
-                        Kembangkan potensi dan kemampuanmu bersama kami dengan bergabung
-                        sebagai Calon Asisten Laboratorium Manajemen Menengah.
-                        Daftarkan dirimu sekarang dan jadilah bagian dari tim kami.
-                    </p>
+                        <p class="mt-3 md:mt-4 text-gray-600 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
+                            Kembangkan potensi dan kemampuanmu bersama kami dengan bergabung
+                            sebagai Calon Asisten Laboratorium Manajemen Menengah.
+                            Daftarkan dirimu sekarang dan jadilah bagian dari tim kami.
+                        </p>
 
-                    <a href="/recruitments"
-                        class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg hover:bg-[#e0941d] transition w-full sm:w-auto">
-                        Ayo Daftar!
-                    </a>
+                        <a href="/recruitments"
+                            class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg hover:bg-[#e0941d] transition w-full sm:w-auto">
+                            Ayo Daftar!
+                        </a>
+                    </div>
+
                 </div>
-
             </div>
         </div>
     </section>
@@ -259,74 +251,74 @@
     {{-- ================= --}}
     {{-- SUARA MEREKA --}}
     {{-- ================= --}}
-    <section class="text-white pt-20 pb-20 md:pt-40 md:pb-40 -mt-1"
-        style="background:linear-gradient(to bottom,#7B2FA0,#62286C)">
+    <section class="text-white py-16" style="background:linear-gradient(to bottom,#7B2FA0,#62286C)">
 
-        {{-- HEADER --}}
-        <div class="max-w-7xl mx-auto px-6 mb-10 md:mb-18">
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
+        <div class="container">
+            {{-- HEADER --}}
+            <div class="max-w-7xl mx-auto px-6 mb-10 md:mb-18">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
 
-                {{-- TITLE --}}
-                <h2 class="text-3xl md:text-4xl font-bold whitespace-nowrap text-center md:text-left">
-                    Suara Mereka
-                </h2>
+                    {{-- TITLE --}}
+                    <h2 class="text-3xl md:text-4xl font-bold whitespace-nowrap text-center md:text-left">
+                        Suara Mereka
+                    </h2>
 
-                {{-- LINE --}}
-                <div class="hidden md:block w-px bg-white/40 h-14"></div>
+                    {{-- LINE --}}
+                    <div class="hidden md:block w-px bg-white/40 h-14"></div>
 
-                {{-- DESC --}}
-                <p class="text-xs md:text-sm opacity-90 max-w-md text-center md:text-left">
-                    Cerita dari mereka yang belajar, berproses,
-                    dan berkembang bersama Laboratorium
-                    Manajemen Menengah.
-                </p>
+                    {{-- DESC --}}
+                    <p class="text-xs md:text-sm opacity-90 max-w-md text-center md:text-left">
+                        Cerita dari mereka yang belajar, berproses,
+                        dan berkembang bersama Laboratorium
+                        Manajemen Menengah.
+                    </p>
 
-            </div>
-        </div>
-
-        <div class="relative max-w-7xl mx-auto pl-6 md:px-6">
-
-            {{-- BUTTON LEFT --}}
-            <button onclick="scrollSlider(-1)"
-                class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center   hover:scale-110 transition">
-                <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path d="M15 18l-6-6 6-6" />
-                </svg>
-            </button>
-
-            {{-- SLIDER --}}
-            <div id="slider"
-                class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth
-               snap-x snap-proximity scrollbar-hide pb-4">
-
-                @foreach (range(1, 6) as $i)
-                    <div
-                        class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px] snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl flex-shrink-0 text-center">
-                        <img src="/images/testimoni/user{{ $i }}.jpg"
-                            class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
-
-                        <h4 class="font-semibold text-sm">lisa bekping</h4>
-                        <p class="text-xs text-gray-500 mb-3">prog 3b</p>
-
-                        <p class="text-xs leading-relaxed text-gray-600">
-                            “mamen seru! bukan hanya tempat belajar teori,
-                            tapi ruang untuk berkembang dan berproses.”
-                        </p>
-                    </div>
-                @endforeach
-
+                </div>
             </div>
 
-            {{-- BUTTON RIGHT --}}
-            <button onclick="scrollSlider(1)"
-                class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition">
-                <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path d="M9 6l6 6-6 6" />
-                </svg>
-            </button>
+            <div class="relative max-w-7xl mx-auto pl-6 md:px-6">
 
+                {{-- BUTTON LEFT --}}
+                <button onclick="scrollSlider(-1)"
+                    class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center   hover:scale-110 transition">
+                    <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+
+                {{-- SLIDER --}}
+                <div id="slider"
+                    class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-proximity scrollbar-hide pb-4">
+
+                    @foreach (range(1, 6) as $i)
+                        <div
+                            class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px] snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl flex-shrink-0 text-center">
+                            <img src="/images/testimoni/user{{ $i }}.jpg"
+                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
+
+                            <h4 class="font-semibold text-sm">lisa bekping</h4>
+                            <p class="text-xs text-gray-500 mb-3">prog 3b</p>
+
+                            <p class="text-xs leading-relaxed text-gray-600">
+                                “mamen seru! bukan hanya tempat belajar teori,
+                                tapi ruang untuk berkembang dan berproses.”
+                            </p>
+                        </div>
+                    @endforeach
+
+                </div>
+
+                {{-- BUTTON RIGHT --}}
+                <button onclick="scrollSlider(1)"
+                    class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition">
+                    <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M9 6l6 6-6 6" />
+                    </svg>
+                </button>
+
+            </div>
         </div>
     </section>
 

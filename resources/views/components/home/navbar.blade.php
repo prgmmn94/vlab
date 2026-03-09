@@ -2,7 +2,7 @@
 
     {{-- BARIS NAVBAR UTAMA (Logo & Hamburger) --}}
     <div class="relative z-[60] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] h-20">
-        <div class="max-w-7xl mx-auto px-4 md:px-10 lg:px-20 h-full flex items-center justify-between">
+        <div class="container h-full flex items-center justify-between">
 
             {{-- LOGO DESKTOP & MOBILE --}}
             <a href="/" class="flex items-center gap-3">

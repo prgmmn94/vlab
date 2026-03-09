@@ -13,13 +13,13 @@ export default {
         container: {
             center: true,
             padding: "16px",
+            screens: {
+                "2xl": "1240px",
+            },
         },
         extend: {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
-            },
-            screens: {
-                "2xl": "1320px",
             },
         },
     },
