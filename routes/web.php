@@ -8,6 +8,7 @@ use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\CandidateRecruitmentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SchedulesController;
+use App\Http\Controllers\UserScheduleController;
 
 
 Route::view('/', 'home.home');
@@ -22,19 +23,16 @@ Route::prefix('praktikum')->name('praktikum.')->group(function () {
 
     Route::view('/tata-tertib', 'user.praktikum.tata-tertib')
         ->name('tata-tertib');
-
-    Route::view('/jadwal', 'user.praktikum.jadwal')
-        ->name('jadwal');
 });
+
+
 
 Route::prefix('praktikum')->name('praktikum.')->group(function () {
 
     Route::view('/tata-tertib', 'home.praktikum.tata-tertib')
         ->name('tata-tertib');
-
-    Route::view('/jadwal', 'home.praktikum.jadwal')
-        ->name('jadwal');
 });
+Route::get('/praktikum/jadwal', [UserScheduleController::class, 'index']);
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [BeritaController::class, 'detail'])->name('berita.detail');

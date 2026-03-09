@@ -47,6 +47,19 @@
                             @enderror
                         </div>
                         <div class="col-span-full">
+                            <label for="mata_praktikum" class="block text-sm font-medium text-gray-700 mb-2">
+                                Mata Praktikum <span class="text-red-500">*</span>
+                            </label>
+
+                            <input type="text" name="mata_praktikum" id="mata_praktikum"
+                                value="{{ old('mata_praktikum') }}" required
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+
+                            @error('mata_praktikum')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="col-span-full">
                             <label for="image" class="block text-sm font-medium text-gray-700 mb-2">
                                 Gambar Jadwal <span class="text-red-500">*</span>
                             </label>

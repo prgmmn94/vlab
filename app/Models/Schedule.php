@@ -20,6 +20,7 @@ class Schedule extends Model
      * @var array
      */
     protected $fillable = [
+        'mata_praktikum',
         'image',
         'region',
         'class',

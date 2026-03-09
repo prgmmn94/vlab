@@ -46,10 +46,12 @@ class SchedulesController extends Controller
         $validated = $request->validate([
             'region' => 'required|string|max:255',
             'class' => 'required|string|max:255',
+            'mata_praktikum' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
         ], [
             'region.required' => 'Region wajib diisi',
             'class.required' => 'Kelas wajib diisi',
+            'mata_praktikum.required' => 'Mata Praktikum wajib diisi',
             'image.required' => 'Gambar jadwal wajib diupload',
             'image.image' => 'File harus berupa gambar',
             'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
@@ -94,10 +96,12 @@ class SchedulesController extends Controller
         $validated = $request->validate([
             'region' => 'required|string|max:255',
             'class' => 'required|string|max:255',
+            'mata_praktikum' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ], [
             'region.required' => 'Region wajib diisi',
             'class.required' => 'Kelas wajib diisi',
+            'mata_praktikum.required' => 'Mata Praktikum wajib diisi',
             'image.image' => 'File harus berupa gambar',
             'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
