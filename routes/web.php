@@ -32,7 +32,8 @@ Route::prefix('praktikum')->name('praktikum.')->group(function () {
     Route::view('/tata-tertib', 'home.praktikum.tata-tertib')
         ->name('tata-tertib');
 });
-Route::get('/praktikum/jadwal', [UserScheduleController::class, 'index']);
+Route::get('/praktikum/jadwal', [UserScheduleController::class, 'index'])
+->name('praktikum.jadwal');
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [BeritaController::class, 'detail'])->name('berita.detail');
