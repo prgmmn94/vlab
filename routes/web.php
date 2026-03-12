@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\NewsGuestController;
 use App\Http\Controllers\RecruitmentPeriodController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\CandidateRecruitmentController;
@@ -25,21 +25,21 @@ Route::prefix('praktikum')->name('praktikum.')->group(function () {
         ->name('tata-tertib');
 });
 
-
-
 Route::prefix('praktikum')->name('praktikum.')->group(function () {
-
     Route::view('/tata-tertib', 'home.praktikum.tata-tertib')
         ->name('tata-tertib');
 });
-Route::get('/praktikum/jadwal', [UserScheduleController::class, 'index'])
-->name('praktikum.jadwal');
 
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
-Route::get('/berita/{slug}', [BeritaController::class, 'detail'])->name('berita.detail');
+// Public Routes - Schedules
+Route::get('/praktikum/jadwal', [UserScheduleController::class, 'index'])
+    ->name('praktikum.jadwal');
+
+// Public Routes - News
+Route::get('/berita', [NewsGuestController::class, 'index'])->name('berita');
+Route::get('/berita/{slug}', [NewsGuestController::class, 'detail'])->name('berita.detail');
 
 // Public Routes - Candidate Recruitment
-Route::prefix('recruitments')->group(function () {
+Route::prefix('pendaftaran')->group(function () {
     Route::get('/', [CandidateRecruitmentController::class, 'index'])
         ->name('candidate.recruitments.index');
 
@@ -50,23 +50,14 @@ Route::prefix('recruitments')->group(function () {
         ->name('candidate.recruitments.success');
 });
 
-// Admin Dashboard
+// Admin Routes - Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-/*
-|--------------------------------------------------------------------------
-| Admin Recruitment Management
-|--------------------------------------------------------------------------
-*/
 
+// Admin Routes - Recruitment Management
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
-
-    /*
-    | Recruitment Periods
-    */
-
     Route::resource('recruitment_periods', RecruitmentPeriodController::class)
         ->names('recruitment_periods')
         ->except(['show']);
@@ -76,19 +67,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         [RecruitmentPeriodController::class, 'toggleActive']
     )->name('recruitment_periods.toggle');
 
-    /*
-    | Super Admin Only
-    */
-
     Route::middleware('role:Super Admin')->group(function () {
         Route::resource('recruitment_periods', RecruitmentPeriodController::class)
             ->names('recruitment_periods')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
     });
-
-    /*
-    | Recruitment CRUD
-    */
 
     Route::resource('recruitment_periods.recruitments', RecruitmentController::class)
         ->parameters([
@@ -97,18 +80,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         ])
         ->names('admin.recruitments');
 
-    /*
-    | Export
-    */
-
     Route::get(
         'recruitment_periods/{recruitmentPeriod}/recruitments/export',
         [RecruitmentController::class, 'export']
     )->name('admin.recruitments.export');
-
-    /*
-    | Download Files
-    */
 
     Route::prefix('recruitment_periods/{recruitmentPeriod}/recruitments')->group(function () {
 
@@ -149,17 +124,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('schedules', SchedulesController::class);
 });
 
-// Profile Routes 
+// Admin Routes - Profile Management
 Route::middleware('auth')->group(function () {
-
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
-
     Route::patch('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
-
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

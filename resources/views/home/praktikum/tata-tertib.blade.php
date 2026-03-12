@@ -5,8 +5,8 @@
 @section('content')
 
 {{-- ================= TATA TERTIB ================= --}}
-<div class="bg-gradient-to-b from-[#62286C] to-[#BF4ED2] min-h-screen font-sans text-gray-800 p-4 md:p-8">
-    <div class="max-w-4xl mx-auto py-6 md:py-0">
+<div class="bg-gradient-to-b from-[#62286C] to-[#BF4ED2] min-h-screen font-sans text-gray-800 py-8 lg:py-16">
+    <div class="container py-6 md:py-0">
         <div class="text-center text-white mb-8 md:mb-10">
             <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-widest">Tata Tertib</h1>
             <h2 class="text-lg md:text-2xl font-semibold uppercase mt-2 md:mt-0">Laboratorium Manajemen Menengah</h2>

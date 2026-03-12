@@ -137,8 +137,8 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <div class="max-w-xs truncate" title="{{ $schedule->class }}">
-                                            {{ $schedule->mata_praktikum }}
+                                        <div class="max-w-xs truncate" title="{{ $schedule->lesson }}">
+                                            {{ $schedule->lesson }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

@@ -15,7 +15,7 @@
 
 {{-- ================= APA ITU LAB ================= --}}
 <section class="bg-white relative">
-    <div class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid md:grid-cols-2 gap-6 md:gap-16 items-center text-center md:text-left">
+    <div class="container py-12 md:py-20 grid md:grid-cols-2 gap-6 md:gap-16 items-center text-center md:text-left">
         <div>
             <h2 class="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                 Apa itu — <br class="hidden md:block">
@@ -38,7 +38,7 @@
 
 {{-- ================= VISI MISI ================= --}}
 <section class="text-white py-16 md:py-32" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
-    <div class="max-w-7xl mx-auto px-6">
+    <div class="container">
         <h2 class="text-center text-3xl md:text-4xl font-extrabold mb-10 md:mb-16 tracking-wide drop-shadow-md">
             VISI & MISI
         </h2>
@@ -82,7 +82,7 @@
         </svg>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="container relative">
         <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             
             {{-- KIRI: JUDUL + DESKRIPSI --}}

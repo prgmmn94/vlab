@@ -233,7 +233,7 @@
                             Daftarkan dirimu sekarang dan jadilah bagian dari tim kami.
                         </p>
 
-                        <a href="/recruitments"
+                        <a href="/pendaftaran"
                             class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg hover:bg-[#e0941d] transition w-full sm:w-auto">
                             Ayo Daftar!
                         </a>

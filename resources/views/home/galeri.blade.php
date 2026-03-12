@@ -10,8 +10,8 @@
     }
 </style>
 
-<section class="bg-white py-12 md:py-20">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 space-y-16 md:space-y-28">
+<section class="bg-white py-8 lg:py-16">
+    <div class="container space-y-16 md:space-y-28">
 
         @php
         $angkatan = [

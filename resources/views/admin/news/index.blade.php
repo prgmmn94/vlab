@@ -7,7 +7,6 @@
             </div>
         </div>
 
-        {{-- Search Form --}}
         <div class="bg-white p-4 rounded-lg shadow-md mb-4">
             <form method="GET" action="{{ route('admin.news.index') }}">
                 <div class="flex gap-2">
@@ -34,7 +33,6 @@
             </form>
         </div>
 
-        {{-- Add Button --}}
         <div class="flex justify-end space-x-2">
             <a href="{{ route('admin.news.create') }}"
                 class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md">
@@ -45,13 +43,11 @@
             </a>
         </div>
 
-        {{-- Table with Bulk Delete --}}
         <div class="bg-white overflow-hidden shadow-md rounded-lg">
             <form method="POST" action="{{ route('admin.news.bulk-destroy') }}">
                 @csrf
                 @method('DELETE')
 
-                {{-- Bulk Action Bar --}}
                 <div class="px-6 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <input type="checkbox" id="selectAll" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
@@ -70,7 +66,6 @@
                     </button>
                 </div>
 
-                {{-- Table --}}
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-gray-200">
                         <thead class="bg-gray-50">
@@ -81,16 +76,13 @@
                                     No</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tanggal</th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Gambar</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Judul</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Konten</th>
+                                    Tanggal</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Aksi</th>
@@ -106,29 +98,31 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {{ $news->firstItem() + $loop->index }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                                    </td>
-
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @if ($item->gambar)
-                                            <img src="{{ asset('storage/' . $item->gambar) }}"
-                                                alt="Berita {{ $item->judul }}"
+                                        @if ($item->image)
+                                            <img src="{{ asset('storage/' . $item->image) }}"
+                                                alt="{{ $item->title }}"
                                                 class="w-20 h-20 object-cover rounded-md cursor-pointer hover:scale-105 transition"
-                                                onclick="window.open('{{ asset('storage/' . $item->gambar) }}', '_blank')">
+                                                onclick="window.open('{{ asset('storage/' . $item->image) }}', '_blank')">
+                                        @else
+                                            <div
+                                                class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center">
+                                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
                                         @endif
                                     </td>
-
                                     <td class="px-6 py-4 text-sm text-gray-900">
-                                        <div class="max-w-xs truncate">
-                                            {{ $item->judul }}
+                                        <div class="max-w-xs truncate" title="{{ $item->title }}">
+                                            {{ $item->title }}
                                         </div>
                                     </td>
-
-                                    <td class="px-6 py-4 text-sm text-gray-900">
-                                        <div class="max-w-xs truncate">
-                                            {{ $item->excerpt }}
-                                        </div>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ \Carbon\Carbon::parse($item->date_news)->format('d M Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex gap-2">
