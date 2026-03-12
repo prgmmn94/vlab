@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 
-class NewsGuestController extends Controller
+class UserNewsController extends Controller
 {
     public function index()
     {

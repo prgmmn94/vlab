@@ -6,12 +6,12 @@ use App\Models\Schedule;
 
 class UserScheduleController extends Controller
 {
-public function index()
+    public function index()
     {
-        $jadwalData = Schedule::orderBy('region')
+        $dataSchedule = Schedule::orderBy('region')
             ->get()
             ->groupBy('region');
 
-        return view('home.praktikum.jadwal', compact('jadwalData'));
+        return view('home.praktikum.jadwal', compact('dataSchedule'));
     }
 }

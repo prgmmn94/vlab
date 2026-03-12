@@ -70,17 +70,6 @@
                             Berita
                         </a>
 
-                        <!-- Galeri -->
-                        {{-- <a href="{{ route('admin.photos.index') }}"
-                            class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.photos.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
-                            <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zm0 0V5zm2-2h10q.3 0 .45-.275t-.05-.525l-2.75-3.675q-.15-.2-.4-.2t-.4.2L11.25 16L9.4 13.525q-.15-.2-.4-.2t-.4.2l-2 2.675q-.2.25-.05.525T7 17" />
-                            </svg>
-                            Galeri
-                        </a> --}}
-
                         <!-- Jadwal -->
                         <a href="{{ route('admin.schedules.index') }}"
                             class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.schedules.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
@@ -94,6 +83,25 @@
                     </div>
                 </div>
             @endif
+
+            <!-- Llainnya Section -->
+            <div class="pt-4 mt-4 border-t border-blue-400 border-opacity-30">
+                <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider">Lainnya</p>
+                <div class="mt-2 space-y-2">
+
+                    <!-- Galeri -->
+                    <a href="{{ route('admin.photo_events.index') }}"
+                        class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('admin.photo_events.*') ? 'bg-white bg-opacity-20 text-white' : 'text-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white' }} transition-colors duration-200">
+                        <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zm0 0V5zm2-2h10q.3 0 .45-.275t-.05-.525l-2.75-3.675q-.15-.2-.4-.2t-.4.2L11.25 16L9.4 13.525q-.15-.2-.4-.2t-.4.2l-2 2.675q-.2.25-.05.525T7 17" />
+                        </svg>
+                        Galeri
+                    </a>
+
+                </div>
+            </div>
 
             <!-- Account Settings -->
             <div class="pt-4 mt-4 border-t border-blue-400 border-opacity-30">

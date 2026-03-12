@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class Photo extends Model
+class PhotoEvent extends Model
 {
     use HasFactory, HasUuids;
 
@@ -14,17 +14,15 @@ class Photo extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'photo_event_id',
-        'image',
-        'caption',
+        'event_name',
     ];
 
     /**
-     * Relationship: Photo belongs to an event
+     * Relationship: Event has many photos
      */
-    public function photoEvent()
+    public function photos()
     {
-        return $this->belongsTo(PhotoEvent::class);
+        return $this->hasMany(Photo::class);
     }
 
     public function getRouteKeyName()

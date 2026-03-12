@@ -2,13 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\NewsGuestController;
+use App\Http\Controllers\UserNewsController;
 use App\Http\Controllers\RecruitmentPeriodController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\CandidateRecruitmentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SchedulesController;
 use App\Http\Controllers\UserScheduleController;
+use App\Http\Controllers\PhotoEventController;
+use App\Http\Controllers\PhotoController;
 
 
 Route::view('/', 'home.home');
@@ -35,8 +37,8 @@ Route::get('/praktikum/jadwal', [UserScheduleController::class, 'index'])
     ->name('praktikum.jadwal');
 
 // Public Routes - News
-Route::get('/berita', [NewsGuestController::class, 'index'])->name('berita');
-Route::get('/berita/{slug}', [NewsGuestController::class, 'detail'])->name('berita.detail');
+Route::get('/berita', [UserNewsController::class, 'index'])->name('berita');
+Route::get('/berita/{slug}', [UserNewsController::class, 'detail'])->name('berita.detail');
 
 // Public Routes - Candidate Recruitment
 Route::prefix('pendaftaran')->group(function () {
@@ -111,11 +113,40 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 });
 
 // Admin Routes - Photos Management
-// Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-//     Route::delete('galleries/bulk-destroy', [GalleriesController::class, 'bulkDestroy'])
-//         ->name('galleries.bulk-destroy');
-//     Route::resource('galleries', GalleriesController::class);
-// });
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+
+    Route::controller(PhotoEventController::class)->group(function () {
+        Route::delete('photo_events/bulk-destroy', 'bulkDestroy')
+            ->name('admin.photo_events.bulk-destroy');
+    });
+
+    Route::resource('photo_events', PhotoEventController::class)
+        ->names([
+            'index' => 'admin.photo_events.index',
+            'create' => 'admin.photo_events.create',
+            'store' => 'admin.photo_events.store',
+            'edit' => 'admin.photo_events.edit',
+            'update' => 'admin.photo_events.update',
+            'destroy' => 'admin.photo_events.destroy',
+        ])
+        ->except(['show']);
+
+    Route::prefix('photo_events/{photoEvent}/photos')->group(function () {
+        Route::delete('bulk-destroy', [PhotoController::class, 'bulkDestroy'])
+            ->name('admin.photo_events.photos.bulk-destroy');
+    });
+
+    Route::resource('photo_events.photos', PhotoController::class)
+        ->names([
+            'index' => 'admin.photo_events.photos.index',
+            'create' => 'admin.photo_events.photos.create',
+            'store' => 'admin.photo_events.photos.store',
+            'edit' => 'admin.photo_events.photos.edit',
+            'update' => 'admin.photo_events.photos.update',
+            'destroy' => 'admin.photo_events.photos.destroy',
+        ])
+        ->except(['show']);
+});
 
 // Admin Routes - Schedules Management
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {

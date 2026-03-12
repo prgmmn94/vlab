@@ -19,13 +19,13 @@
                         Laboratorium Manajemen Menengah
                     </h2>
 
-                    <p class="text-gray-500 font-bold mt-1 text-sm md:text-base">
+                    {{-- <p class="text-gray-500 font-bold mt-1 text-sm md:text-base">
                         Periode PTA 2025/2026
-                    </p>
+                    </p> --}}
                 </div>
 
 
-                @foreach ($jadwalData as $lokasi => $items)
+                @foreach ($dataSchedule as $lokasi => $items)
                     <div class="mb-14 md:mb-20 relative group">
 
                         <div
@@ -116,7 +116,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            @foreach ($jadwalData as $lokasi => $items)
+            @foreach ($dataSchedule as $lokasi => $items)
 
                 new Swiper('.mySwiper-{{ Str::slug($lokasi) }}', {
                     slidesPerView: 1.2,

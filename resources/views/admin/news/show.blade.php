@@ -9,7 +9,7 @@
 
         <div class="bg-white overflow-hidden shadow-lg rounded-lg">
             @if ($news->image)
-                 <div class="w-full h-auto overflow-hidden bg-gray-100">
+                <div class="w-full h-auto overflow-hidden bg-gray-100">
                     <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}"
                         class="w-full h-full object-cover">
                 </div>
