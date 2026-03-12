@@ -1,6 +1,45 @@
 <x-admin.layout>
     <div class="space-y-6">
 
+        <div class="bg-white overflow-hidden shadow-md rounded-lg">
+            <div class="p-4">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="{{ route('recruitment_periods.index') }}"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                                Periode Rekrutmen
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <a href="{{ route('admin.recruitments.index', $recruitment->recruitment_period_id) }}"
+                                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2">
+                                    Rekrutmen {{ $recruitment->recruitmentPeriod->tahun }}
+                                </a>
+                            </div>
+                        </li>
+                        <li aria-current="page">
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Detail -
+                                    {{ $recruitment->nama }}</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="bg-blue-500 text-white shadow-md rounded-lg">
             <div class="p-6 text-lg font-semibold">
                 {{ __('Detail Data Calas') }}
@@ -9,7 +48,6 @@
 
         <div class="bg-white overflow-hidden shadow-lg rounded-lg p-6">
 
-            {{-- Info Periode --}}
             <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div class="flex items-center justify-between">
                     <p class="text-sm font-medium text-blue-900">
@@ -23,7 +61,6 @@
 
             <hr class="h-px my-8 bg-gray-300 border-0">
 
-            {{-- Data Pribadi --}}
             <div class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2">Data Pribadi</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -110,7 +147,6 @@
 
             <hr class="h-px my-8 bg-gray-300 border-0">
 
-            {{-- Berkas --}}
             <div class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2">Berkas Pendaftaran</h3>
 
@@ -142,7 +178,6 @@
 
             <hr class="h-px my-8 bg-gray-300 border-0">
 
-            {{-- Informasi Sistem --}}
             <div class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2">Informasi Sistem</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -159,7 +194,6 @@
 
             <hr class="h-px my-8 bg-gray-300 border-0">
 
-            {{-- Action Buttons --}}
             <div class="mt-8 flex items-center justify-between">
                 <a href="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}"
                     class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 hover:text-gray-900 rounded-md border border-gray-300 hover:bg-gray-50 transition">

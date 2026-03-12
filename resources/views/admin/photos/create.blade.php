@@ -9,7 +9,7 @@
                         <li class="inline-flex items-center">
                             <a href="{{ route('admin.photo_events.index') }}"
                                 class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
-                                Event Galeri
+                                Galeri
                             </a>
                         </li>
                         <li>

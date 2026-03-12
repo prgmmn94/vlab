@@ -1,6 +1,32 @@
 <x-admin.layout>
     <div class="space-y-6">
 
+        <div class="bg-white overflow-hidden shadow-md rounded-lg">
+            <div class="p-4">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="{{ route('recruitment_periods.index') }}"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                                Periode Rekrutmen
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Rekrutmen
+                                    {{ $recruitmentPeriod->tahun }}</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="bg-blue-500 overflow-hidden shadow-md rounded-lg text-lg font-semibold mb-3 text-white">
             <div class="p-6 text-gray-100">
                 Data Rekrutmen Periode {{ $recruitmentPeriod->tahun }}
@@ -109,84 +135,101 @@
 
         {{-- Download Section --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {{-- Download Options --}}
+            {{-- Download Berkas --}}
             <div class="bg-white p-4 rounded-lg shadow-md">
                 <div class="space-y-2">
                     <label class="block text-sm font-medium text-gray-700">Download Berkas:</label>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        {{-- Download All --}}
-                        <a href="{{ route('admin.recruitments.download.all', $recruitmentPeriod->id) }}"
-                            class="w-full inline-flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <p>Semua</p>
-                        </a>
-
-                        {{-- Dropdown By Region --}}
-                        <div class="relative" x-data="{ open: false }">
-                            <button type="button" @click="open = !open" @click.away="open = false"
-                                class="w-full inline-flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm whitespace-nowrap">
+                    @if ($stats['with_berkas'] > 0)
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {{-- Download All --}}
+                            <a href="{{ route('admin.recruitments.download.all', $recruitmentPeriod->id) }}"
+                                class="w-full inline-flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <p>Region</p>
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div x-show="open" x-transition
-                                class="absolute left-0 right-0 sm:left-auto sm:right-0 sm:w-48 mt-2 bg-white rounded-md shadow-lg z-20 border border-gray-200">
-                                <div class="py-1">
-                                    @foreach (['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'] as $region)
-                                        <a href="{{ route('admin.recruitments.download.region', [$recruitmentPeriod->id, $region]) }}"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
-                                            {{ $region }}
-                                            <span
-                                                class="text-xs text-gray-500">({{ $regionStats[$region]['programmer'] + $regionStats[$region]['asisten'] }})</span>
+                                <p>Semua</p>
+                            </a>
+
+                            {{-- Dropdown By Region --}}
+                            <div class="relative" x-data="{ open: false }">
+                                <button type="button" @click="open = !open" @click.away="open = false"
+                                    class="w-full inline-flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm whitespace-nowrap">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <p>Region</p>
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div x-show="open" x-transition
+                                    class="absolute left-0 right-0 sm:left-auto sm:right-0 sm:w-48 mt-2 bg-white rounded-md shadow-lg z-20 border border-gray-200">
+                                    <div class="py-1">
+                                        @foreach (['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'] as $region)
+                                            <a href="{{ route('admin.recruitments.download.region', [$recruitmentPeriod->id, $region]) }}"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
+                                                {{ $region }}
+                                                <span
+                                                    class="text-xs text-gray-500">({{ ($regionStats[$region]['programmer'] ?? 0) + ($regionStats[$region]['asisten'] ?? 0) }})</span>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Dropdown By Position --}}
+                            <div class="relative" x-data="{ open: false }">
+                                <button type="button" @click="open = !open" @click.away="open = false"
+                                    class="w-full inline-flex items-center justify-center px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm whitespace-nowrap">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                    <p>Posisi</p>
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div x-show="open" x-transition
+                                    class="absolute left-0 right-0 sm:left-auto sm:right-0 sm:w-48 mt-2 bg-white rounded-md shadow-lg z-20 border border-gray-200">
+                                    <div class="py-1">
+                                        <a href="{{ route('admin.recruitments.download.position', [$recruitmentPeriod->id, 'programmer']) }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">
+                                            Programmer
+                                            <span class="text-xs text-gray-500">({{ $stats['programmer'] }})</span>
                                         </a>
-                                    @endforeach
+                                        <a href="{{ route('admin.recruitments.download.position', [$recruitmentPeriod->id, 'asisten']) }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">
+                                            Asisten
+                                            <span class="text-xs text-gray-500">({{ $stats['asisten'] }})</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        {{-- Dropdown By Position --}}
-                        <div class="relative" x-data="{ open: false }">
-                            <button type="button" @click="open = !open" @click.away="open = false"
-                                class="w-full inline-flex items-center justify-center px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm whitespace-nowrap">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    @else
+                        <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m1 15h-2v-2h2zm0-4h-2V7h2z" />
                                 </svg>
-                                <p>Posisi</p>
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div x-show="open" x-transition
-                                class="absolute left-0 right-0 sm:left-auto sm:right-0 sm:w-48 mt-2 bg-white rounded-md shadow-lg z-20 border border-gray-200">
-                                <div class="py-1">
-                                    <a href="{{ route('admin.recruitments.download.position', [$recruitmentPeriod->id, 'programmer']) }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">
-                                        Programmer
-                                        <span class="text-xs text-gray-500">({{ $stats['programmer'] }})</span>
-                                    </a>
-                                    <a href="{{ route('admin.recruitments.download.position', [$recruitmentPeriod->id, 'asisten']) }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">
-                                        Asisten
-                                        <span class="text-xs text-gray-500">({{ $stats['asisten'] }})</span>
-                                    </a>
-                                </div>
+                                <span class="text-sm text-red-700 font-medium">Tidak ada berkas yang tersedia!</span>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -194,15 +237,29 @@
             <div class="bg-white p-4 rounded-lg shadow-md">
                 <div class="space-y-2">
                     <label class="block text-sm font-medium text-gray-700">Export Data:</label>
-                    <a href="{{ route('admin.recruitments.export', $recruitmentPeriod->id) }}"
-                        class="w-full inline-flex items-center justify-center px-4 py-2 border border-yellow-500 bg-blue-50 text-yellow-600 hover:text-white hover:bg-yellow-500 font-medium rounded-md shadow-md text-sm">
-                        <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7L14.6 7H7q-.425 0-.712-.288T6 6t.288-.712T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17t-.712-.288T16 16z" />
-                        </svg>
-                        <span class="hidden sm:inline">Ekspor Excel</span>
-                        <span class="sm:hidden">Export</span>
-                    </a>
+
+                    @if ($recruitments->total() > 0)
+                        <a href="{{ route('admin.recruitments.export', $recruitmentPeriod->id) }}"
+                            class="w-full inline-flex items-center justify-center px-4 py-2 border border-yellow-500 bg-blue-50 text-yellow-600 hover:text-white hover:bg-yellow-500 font-medium rounded-md shadow-md text-sm transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7L14.6 7H7q-.425 0-.712-.288T6 6t.288-.712T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17t-.712-.288T16 16z" />
+                            </svg>
+                            <span class="hidden sm:inline">Ekspor Excel ({{ $recruitments->total() }} data)</span>
+                            <span class="sm:hidden">Export</span>
+                        </a>
+                    @else
+                        <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m1 15h-2v-2h2zm0-4h-2V7h2z" />
+                                </svg>
+                                <span class="text-sm text-red-700 font-medium">Tidak ada data yang tersedia!</span>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

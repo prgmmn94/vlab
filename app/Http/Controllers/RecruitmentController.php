@@ -175,6 +175,15 @@ class RecruitmentController extends Controller
      */
     public function downloadByRegion(RecruitmentPeriod $recruitmentPeriod, $region)
     {
+        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->where('region', $region)
+            ->whereNotNull('berkas')
+            ->count();
+
+        if ($count === 0) {
+            return redirect()->back()->with('error', "Tidak ada berkas untuk region {$region}!");
+        }
+
         // Validasi region
         $validRegions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
         if (!in_array($region, $validRegions)) {
@@ -220,6 +229,15 @@ class RecruitmentController extends Controller
      */
     public function downloadByPosition(RecruitmentPeriod $recruitmentPeriod, $posisi)
     {
+        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->where('posisi_dilamar', $posisi)
+            ->whereNotNull('berkas')
+            ->count();
+
+        if ($count === 0) {
+            return redirect()->back()->with('error', "Tidak ada berkas untuk posisi {$posisi}!");
+        }
+
         // Validasi posisi
         $validPositions = ['programmer', 'asisten'];
         if (!in_array(strtolower($posisi), $validPositions)) {
@@ -321,6 +339,14 @@ class RecruitmentController extends Controller
      */
     public function downloadAll(RecruitmentPeriod $recruitmentPeriod)
     {
+        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->whereNotNull('berkas')
+            ->count();
+
+        if ($count === 0) {
+            return redirect()->back()->with('error', 'Tidak ada berkas yang tersedia untuk didownload!');
+        }
+
         // Ambil semua recruitment dalam periode
         $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
             ->whereNotNull('berkas')
@@ -361,9 +387,19 @@ class RecruitmentController extends Controller
      */
     public function export(RecruitmentPeriod $recruitmentPeriod)
     {
+        // Cek apakah ada data recruitment
+        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)->count();
+
+        if ($count === 0) {
+            return redirect()->back()->with('error', 'Tidak ada data yang tersedia untuk diekspor!');
+        }
+
+        // Generate filename dengan timestamp
+        $filename = 'Data_Calas_Periode_' . $recruitmentPeriod->tahun . '_' . date('d-m-Y_His') . '.xlsx';
+
         return Excel::download(
             new RecruitmentExport($recruitmentPeriod->id),
-            'Data Calas Periode ' . $recruitmentPeriod->bulan . $recruitmentPeriod->tahun . '.xlsx'
+            $filename
         );
     }
 }
