@@ -53,14 +53,10 @@
                             <div class="flex-1">
                                 <p class="font-bold text-gray-900 mb-3 text-base">Lokasi Kampus</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <template
-                                        x-for="campus in ['depok', 'kalimalang', 'cengkareng', 'karawaci', 'salemba']">
-                                        <button
-                                            @click="activeButton = campus; visibleMap = campus; document.getElementById('maps-section').scrollIntoView({behavior: 'smooth'})"
-                                            :class="activeButton === campus ?
-                                                'bg-purple-700 text-white border-purple-700 shadow-md' :
-                                                'bg-white text-gray-600 border-gray-200 hover:bg-purple-700 hover:text-white hover:border-purple-700 hover:shadow-md'"
-                                            class="w-[110px] py-2.5 rounded-xl text-xs font-bold border transition-all duration-300 capitalize cursor-pointer text-center flex items-center justify-center">
+                                    <template x-for="campus in ['depok', 'kalimalang', 'cengkareng', 'karawaci', 'salemba']">
+                                        <button 
+                                            @click="visibleMap = campus; document.getElementById('maps-section').scrollIntoView({behavior: 'smooth'})"
+                                            class="bg-white text-gray-600 border-gray-200 hover:bg-purple-700 hover:text-white hover:border-purple-700 hover:shadow-md w-[110px] py-2.5 rounded-xl text-xs font-bold border transition-all duration-300 capitalize cursor-pointer text-center flex items-center justify-center">
                                             <span x-text="campus"></span>
                                         </button>
                                     </template>
