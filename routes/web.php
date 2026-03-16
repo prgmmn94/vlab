@@ -75,20 +75,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
     });
 
-    Route::resource('recruitment_periods.recruitments', RecruitmentController::class)
-        ->parameters([
-            'recruitment_periods' => 'recruitmentPeriod',
-            'recruitments' => 'recruitment'
-        ])
-        ->names('admin.recruitments');
-
     Route::get(
         'recruitment_periods/{recruitmentPeriod}/recruitments/export',
         [RecruitmentController::class, 'export']
     )->name('admin.recruitments.export');
 
     Route::prefix('recruitment_periods/{recruitmentPeriod}/recruitments')->group(function () {
-
         Route::get('download/all', [RecruitmentController::class, 'downloadAll'])
             ->name('admin.recruitments.download.all');
 
@@ -103,6 +95,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             [RecruitmentController::class, 'downloadByRegionAndPosition']
         )->name('admin.recruitments.download.region-position');
     });
+
+    Route::resource('recruitment_periods.recruitments', RecruitmentController::class)
+        ->parameters([
+            'recruitment_periods' => 'recruitmentPeriod',
+            'recruitments' => 'recruitment'
+        ])
+        ->names('admin.recruitments');
 });
 
 // Admin Routes - News Management

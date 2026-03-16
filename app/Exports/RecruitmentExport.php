@@ -43,8 +43,6 @@ class RecruitmentExport implements FromCollection, WithMapping, WithEvents, Shou
             $recruitment->email,
             $recruitment->no_hp,
             $recruitment->alamat,
-            $recruitment->tempat_lahir,
-            $recruitment->tanggal_lahir,
             $recruitment->sosial_media,
             // $recruitment->berkas, // Biasanya berkas tidak di-export (path/URL)
         ];
@@ -72,9 +70,7 @@ class RecruitmentExport implements FromCollection, WithMapping, WithEvents, Shou
                 $sheet->setCellValue('J1', 'Email');
                 $sheet->setCellValue('K1', 'No HP');
                 $sheet->setCellValue('L1', 'Alamat');
-                $sheet->setCellValue('M1', 'Tempat Lahir');
-                $sheet->setCellValue('N1', 'Tanggal Lahir');
-                $sheet->setCellValue('O1', 'Sosial Media');
+                $sheet->setCellValue('M1', 'Sosial Media');
 
                 // Merge header menjadi 2 row
                 $sheet->mergeCells('A1:A2');
@@ -90,11 +86,9 @@ class RecruitmentExport implements FromCollection, WithMapping, WithEvents, Shou
                 $sheet->mergeCells('K1:K2');
                 $sheet->mergeCells('L1:L2');
                 $sheet->mergeCells('M1:M2');
-                $sheet->mergeCells('N1:N2');
-                $sheet->mergeCells('O1:O2');
 
                 // Styling header
-                $sheet->getStyle('A1:O2')->applyFromArray([
+                $sheet->getStyle('A1:M2')->applyFromArray([
                     'font' => [
                         'bold' => true,
                     ],
@@ -116,7 +110,7 @@ class RecruitmentExport implements FromCollection, WithMapping, WithEvents, Shou
 
                 // Border untuk semua data
                 $lastRow = $sheet->getHighestRow();
-                $sheet->getStyle("A1:O{$lastRow}")->applyFromArray([
+                $sheet->getStyle("A1:M{$lastRow}")->applyFromArray([
                     'borders' => [
                         'allBorders' => ['borderStyle' => Border::BORDER_THIN],
                     ],
