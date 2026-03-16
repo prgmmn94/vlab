@@ -99,7 +99,7 @@ class CandidateRecruitmentController extends Controller
         Recruitment::create($validated);
 
         return redirect()->route('candidate.recruitments.success')
-            ->with('success', 'Pendaftaran berhasil! ID Calas Anda: ' . $validated['id_calas']);
+            ->with('success', 'Posisi yang dilamar: ' . $validated['posisi_dilamar']);
     }
 
     public function success()
