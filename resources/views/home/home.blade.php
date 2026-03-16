@@ -252,21 +252,13 @@
     {{-- SUARA MEREKA --}}
     {{-- ================= --}}
     <section class="text-white py-16" style="background:linear-gradient(to bottom,#7B2FA0,#62286C)">
-
         <div class="container">
-            {{-- HEADER --}}
             <div class="max-w-7xl mx-auto px-6 mb-10 md:mb-18">
                 <div class="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
-
-                    {{-- TITLE --}}
                     <h2 class="text-3xl md:text-4xl font-bold whitespace-nowrap text-center md:text-left">
                         Suara Mereka
                     </h2>
-
-                    {{-- LINE --}}
                     <div class="hidden md:block w-px bg-white/40 h-14"></div>
-
-                    {{-- DESC --}}
                     <p class="text-xs md:text-sm opacity-90 max-w-md text-center md:text-left">
                         Cerita dari mereka yang belajar, berproses,
                         dan berkembang bersama Laboratorium
@@ -275,61 +267,69 @@
 
                 </div>
             </div>
-
-            <div class="relative max-w-7xl mx-auto pl-6 md:px-6">
-
-                {{-- BUTTON LEFT --}}
-                <button onclick="scrollSlider(-1)"
-                    class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center   hover:scale-110 transition">
-                    <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
-
-                {{-- SLIDER --}}
-                <div id="slider"
-                    class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-proximity scrollbar-hide pb-4">
-
-                    @foreach (range(1, 6) as $i)
+            <div class="swiper homeSwiper">
+                <div class="swiper-wrapper !items-stretch">
+                    <div class="swiper-slide !h-auto">
                         <div
-                            class="min-w-[240px] md:min-w-[260px] max-w-[240px] md:max-w-[260px] snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl flex-shrink-0 text-center">
+                            class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
                             <img src="/images/testimoni/user{{ $i }}.jpg"
                                 class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
 
-                            <h4 class="font-semibold text-sm">lisa bekping</h4>
-                            <p class="text-xs text-gray-500 mb-3">prog 3b</p>
+                            <h4 class="font-semibold text-sm">Ananda</h4>
+                            <p class="text-xs text-gray-500 mb-3">SPV 25/26</p>
 
-                            <p class="text-xs leading-relaxed text-gray-600">
-                                “mamen seru! bukan hanya tempat belajar teori,
-                                tapi ruang untuk berkembang dan berproses.”
+                            <p class="text-xs leading-relaxed text-gray-600 mb-auto">
+                                "mamen seru! bukan hanya tempat belajar teori,
+                                tapi ruang untuk berkembang dan berproses."
                             </p>
                         </div>
-                    @endforeach
+                    </div>
+                    <div class="swiper-slide !h-auto">
+                        <div
+                            class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
+                            <img src="/images/testimoni/user{{ $i }}.jpg"
+                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
 
+                            <h4 class="font-semibold text-sm">Ananda</h4>
+                            <p class="text-xs text-gray-500 mb-3">SPV 25/26</p>
+
+                            <p class="text-xs leading-relaxed text-gray-600 mb-auto">
+                                Lorem.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide !h-auto">
+                        <div
+                            class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
+                            <img src="/images/testimoni/user{{ $i }}.jpg"
+                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
+
+                            <h4 class="font-semibold text-sm">Ananda</h4>
+                            <p class="text-xs text-gray-500 mb-3">SPV 25/26</p>
+
+                            <p class="text-xs leading-relaxed text-gray-600 mb-auto">
+                                "mamen seru! bukan hanya tempat belajar teori,
+                                tapi ruang untuk berkembang dan berproses."
+                            </p>
+                        </div>
+                    </div>
                 </div>
-
-                {{-- BUTTON RIGHT --}}
-                <button onclick="scrollSlider(1)"
-                    class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition">
-                    <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" stroke-width="2"
+                <div
+                    class="swiper-button-prev !w-10 !h-10 !bg-white !rounded-full !shadow-xl !top-1/2 !right-0 flex items-center justify-center hover:!scale-110 transition duration-200 rotate-180">
+                    <svg class="text-yellow-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24">
-                        <path d="M9 6l6 6-6 6" />
+                        <path fill="currentColor" d="M12.6 12L8 7.4L9.4 6l6 6l-6 6L8 16.6z" />
                     </svg>
-                </button>
-
+                </div>
+                <div
+                    class="swiper-button-next !w-10 !h-10 !bg-white !rounded-full !shadow-xl !top-1/2 !right-0 flex items-center justify-center hover:!scale-110 transition duration-200">
+                    <svg class="text-yellow-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12.6 12L8 7.4L9.4 6l6 6l-6 6L8 16.6z" />
+                    </svg>
+                </div>
+                {{-- <div class="swiper-pagination"></div> --}}
             </div>
         </div>
     </section>
-
-    <script>
-        function scrollSlider(direction) {
-            const slider = document.getElementById('slider');
-            const scrollAmount = 300; // jarak geser
-            slider.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-    </script>
 @endsection

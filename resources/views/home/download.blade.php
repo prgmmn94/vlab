@@ -3,8 +3,6 @@
 @section('title', 'Download Praktikum')
 
 @section('content')
-    {{-- Load CSS Swiper --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @php
         // tes Pake dummy dlu
         $downloadData = [
@@ -221,9 +219,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Load Script Swiper --}}
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

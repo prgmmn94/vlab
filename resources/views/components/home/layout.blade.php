@@ -7,14 +7,17 @@
     <title>@yield('title', 'V-LAB | Laboratorium Manajemen Menengah')</title>
     <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
-    {{-- Alpine.js --}}
+    <!-- Alpine.js v3 -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    {{-- Tailwind v4 via Vite --}}
+    <!-- Tailwind CSS via CDN -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Lucide --}}
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
     <style>
         .hide-scrollbar::-webkit-scrollbar {
@@ -24,6 +27,11 @@
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
+        }
+
+        .homeSwiper .swiper-button-next::after,
+        .homeSwiper .swiper-button-prev::after {
+            display: none;
         }
     </style>
 </head>
@@ -46,10 +54,12 @@
         <button id="nextLB" class="absolute right-6 text-white text-4xl">&#10095;</button>
     </div>
 
-    <button onclick="liveChat()" id="livechat" >
+    <button onclick="liveChat()" id="livechat">
         <a href="https://www.instagram.com/labmamen/" target="_blank">
             <i data-lucide="instagram" class="w-10 h-10"></i></a>
     </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 
     {{-- FOOTER --}}
     @include('components.home.footer')
@@ -105,6 +115,31 @@
 
         lightbox.addEventListener('click', e => {
             if (e.target === lightbox) closeBtn.click();
+        });
+    </script>
+
+    <script>
+        var swiper = new Swiper(".homeSwiper", {
+            slidesPerView: 2,
+            spaceBetween: 20,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+            },
         });
     </script>
 
