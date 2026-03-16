@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="bg-gradient-to-b from-[#62286C] to-[#BF4ED2] min-h-screen font-sans text-gray-800 p-4 md:p-8">
+    <div class="bg-gradient-to-b from-[#62286C] to-[#BF4ED2] min-h-screen font-sans text-gray-800 py-8 lg:py-16">
         <div class="container">
             <div class="bg-white rounded-3xl md:rounded-[40px] shadow-2xl p-6 md:p-14 overflow-hidden">
 
