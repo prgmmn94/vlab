@@ -15,6 +15,7 @@ class PhotoEvent extends Model
 
     protected $fillable = [
         'event_name',
+        'slug',
     ];
 
     /**

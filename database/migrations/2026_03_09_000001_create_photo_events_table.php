@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('photo_events', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('slug')->unique();
             $table->string('event_name');
             $table->timestamps();
         });

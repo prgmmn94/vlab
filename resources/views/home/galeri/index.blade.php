@@ -54,32 +54,48 @@
             </h1>
 
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <a href="" class="group relative rounded-xl overflow-hidden block" style="aspect-ratio: 3/4;">
+                @forelse ($categories as $category)
+                    <a href="{{ route('galeri.show', $category->id) }}"
+                        class="group relative rounded-xl overflow-hidden block" style="aspect-ratio: 3/4;">
 
-                    {{-- Thumbnail --}}
-                    <img src="" alt=""
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        {{-- Thumbnail --}}
+                        @if ($category->thumbnail)
+                            <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->event_name }}"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        @elseif ($category->photos->first())
+                            <img src="{{ asset('storage/' . $category->photos->first()->image) }}"
+                                alt="{{ $category->event_name }}"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        @else
+                            <div class="w-full h-full bg-[#3d1a1a]"></div>
+                        @endif
 
-                    {{-- Overlay gelap dari bawah --}}
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-[#1e0505dd] via-[#1e050520] to-transparent
-                                group-hover:from-[#1e0505ee] transition-all duration-300">
-                    </div>
+                        {{-- Overlay --}}
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#1e0505dd] via-[#1e050520] to-transparent
+                                    group-hover:from-[#1e0505ee] transition-all duration-300">
+                        </div>
 
-                    {{-- Info --}}
-                    <div class="absolute bottom-0 left-0 right-0 p-4">
-                        <p class="text-[10px] uppercase tracking-widest text-[#d9b3b3] opacity-80 mb-1">Kategori</p>
-                        <p class="font-semibold text-[#f5e6e6] text-lg leading-tight mb-1"
-                            style="font-family: 'Georgia', serif;">
-                            Judul Foto
-                        </p>
-                        <p class="text-xs text-[#c49898]"> foto</p>
-                        <span class="inline-block mt-2 text-[10px] text-[#f5e6e6] bg-white/10 px-2 py-1 rounded-full">
+                        {{-- Info --}}
+                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-[#d9b3b3] opacity-80 mb-1">Kategori</p>
+                            <p class="font-semibold text-[#f5e6e6] text-lg leading-tight mb-1"
+                                style="font-family: 'Georgia', serif;">
+                                {{ $category->event_name }}
+                            </p>
+                            <p class="text-xs text-[#c49898]">{{ $category->photos_count }} foto</p>
+                            @if ($category->description)
+                                <span
+                                    class="inline-block mt-2 text-[10px] text-[#f5e6e6] bg-white/10 px-2 py-1 rounded-full">
+                                    {{ Str::limit($category->description, 20) }}
+                                </span>
+                            @endif
+                        </div>
 
-                        </span>
-                    </div>
-
-                </a>
+                    </a>
+                @empty
+                    <p class="col-span-4 text-center text-[#d9b3b3] py-16">Belum ada kategori.</p>
+                @endforelse
             </div>
         </div>
     </section>
