@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\PhotoEvent;
-use App\Models\Photo;
 use Illuminate\Http\Request;
 
 class UserPhotoController extends Controller
 {
     public function index()
     {
-        $categories = PhotoEvent::withCount('photos')
+        $photoEvents = PhotoEvent::withCount('photos')
             ->latest()
-            ->get();
+            ->paginate(12);
 
-        return view('home.galeri.index', compact('categories'));
+        return view('home.galeri.index', compact('photoEvents'));
     }
 
-    public function show(Request $request, PhotoEvent $photoEvent)
+    /**
+     * Guest route pakai slug
+     */
+    public function show(string $slug)
     {
-        $query = $photoEvent->photos();
+        $photoEvent = PhotoEvent::where('slug', $slug)
+            ->withCount('photos')
+            ->firstOrFail();
 
-        if ($request->filled('search')) {
-            $query->where('caption', 'like', '%' . $request->search . '%');
-        }
-
-        $photos = $query->latest()->paginate(12)->withQueryString();
+        $photos = $photoEvent->photos()->latest()->paginate(20);
 
         return view('home.galeri.show', compact('photoEvent', 'photos'));
     }
