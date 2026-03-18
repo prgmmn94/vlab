@@ -46,7 +46,7 @@ class Recruitment extends Model
     /**
      * Generate ID Calas berdasarkan region dan posisi
      * Format: [Kode Posisi][Kode Region][Nomor]
-     * Contoh: APD1, APK1, ASGD2
+     * Contoh: APD1, ASJ1
      */
     public static function generateIdCalas($region, $posisi)
     {
@@ -59,10 +59,10 @@ class Recruitment extends Model
         // Mapping kode region (Title Case key)
         $regionCodes = [
             'Depok' => 'D',
-            'Kalimalang' => 'K',
-            'Salemba' => 'S',
-            'Karawaci' => 'KR',
-            'Cengkareng' => 'C',
+            'Kalimalang' => 'J',
+            'Salemba' => 'C',
+            'Karawaci' => 'K',
+            'Cengkareng' => 'L',
         ];
 
         // Ubah ke Title Case (huruf pertama kapital)
