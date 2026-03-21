@@ -43,6 +43,7 @@ Route::get('/berita/{slug}', [UserNewsController::class, 'detail'])->name('berit
 
 // Public Routes - Photo Gallery
 Route::get('/galeri', [UserPhotoController::class, 'index'])->name('galeri.index');
+Route::get('/galeri/kategori', [UserPhotoController::class, 'kategori'])->name('galeri.kategori');
 Route::get('/galeri/{slug}', [UserPhotoController::class, 'show'])->name('galeri.show');
 
 // Public Routes - Candidate Recruitment

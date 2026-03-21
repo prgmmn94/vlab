@@ -5,13 +5,13 @@
     {{-- Header --}}
     <section class="py-12 lg:py-16 bg-[#5c2d2d] border-b border-white/10">
         <div class="container text-center">
-            <a href="{{ route('galeri.index') }}"
+            <button onclick="history.back()"
                 class="inline-flex items-center gap-1 text-[#d9b3b3] text-sm mb-6 opacity-80 hover:opacity-100 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <polyline points="15 18 9 12 15 6" />
                 </svg>
-                Kembali ke Galeri
-            </a>
+                Kembali
+            </button>
             <p class="text-[11px] tracking-[4px] uppercase text-[#c49898] font-sans mb-2">Kategori</p>
             <h1 class="text-4xl lg:text-5xl text-[#f5e6e6] font-normal mb-3" style="font-family:'Georgia',serif;">
                 {{ $photoEvent->event_name }}

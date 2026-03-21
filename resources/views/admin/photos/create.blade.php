@@ -1,7 +1,6 @@
 <x-admin.layout>
     <div class="space-y-6">
 
-        {{-- Breadcrumb --}}
         <div class="bg-white overflow-hidden shadow-md rounded-lg">
             <div class="p-4">
                 <nav class="flex" aria-label="Breadcrumb">
@@ -53,7 +52,6 @@
                 <div class="space-y-12">
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-                        {{-- Caption --}}
                         <div class="col-span-full">
                             <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">
                                 Caption (Opsional)
@@ -66,7 +64,6 @@
                             @enderror
                         </div>
 
-                        {{-- Image Upload --}}
                         <div class="col-span-full">
                             <label for="image" class="block text-sm font-medium text-gray-700 mb-2">
                                 Gambar Foto <span class="text-red-500">*</span>
@@ -79,7 +76,6 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
 
-                            {{-- Preview --}}
                             <div id="imagePreview" class="mt-3 hidden">
                                 <img id="preview" src="" alt="Preview"
                                     class="max-w-md h-auto rounded-md border border-gray-300">
@@ -115,7 +111,6 @@
 
     </div>
 
-    {{-- JavaScript for Image Preview --}}
     <script>
         function previewImage(event) {
             const file = event.target.files[0];

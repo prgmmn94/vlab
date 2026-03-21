@@ -1,7 +1,6 @@
 @extends('components.home.layout')
 
 @section('content')
-
     <style>
         /* === Hero floating images === */
         @keyframes fadeSlideDown {
@@ -247,7 +246,7 @@
 
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-[#1e0505dd] via-[#1e050520] to-transparent
-                                group-hover:from-[#1e0505ee] transition-all duration-300">
+                group-hover:from-[#1e0505ee] transition-all duration-300">
                         </div>
 
                         <div class="absolute bottom-0 left-0 right-0 p-4">
@@ -257,19 +256,25 @@
                                 {{ $category->event_name }}
                             </p>
                             <p class="text-xs text-[#c49898]">{{ $category->photos_count }} foto</p>
-                            @if ($category->description)
-                                <span
-                                    class="inline-block mt-2 text-[10px] text-[#f5e6e6] bg-white/10 px-2 py-1 rounded-full">
-                                    {{ Str::limit($category->description, 20) }}
-                                </span>
-                            @endif
                         </div>
-
                     </a>
                 @empty
                     <p class="col-span-4 text-center text-[#d9b3b3] py-16">Belum ada kategori.</p>
                 @endforelse
             </div>
+
+            @if ($photoEvents->count() >= 4)
+                <div class="mt-12 flex justify-center">
+                    <a href="{{ route('galeri.kategori') }}"
+                        class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-[#d9b3b3] text-[#f5e6e6] hover:bg-[#7a3a3a] transition text-sm font-medium">
+                        Lihat Semua Momen
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                        </svg>
+                    </a>
+                </div>
+            @endif
+
         </div>
     </section>
 

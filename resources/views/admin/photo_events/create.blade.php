@@ -24,6 +24,17 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="col-span-full">
+                            <label for="event_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                Tanggal Kegiatan <span class="text-red-500">*</span>
+                            </label>
+                            <input type="date" name="event_date" id="event_date" value="{{ old('event_date') }}"
+                                required
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            @error('event_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
                     <hr class="h-px my-8 bg-gray-300 border-0">
                 </div>

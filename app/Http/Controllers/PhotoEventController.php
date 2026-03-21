@@ -16,7 +16,7 @@ class PhotoEventController extends Controller
             $query->where('event_name', 'like', "%{$search}%");
         }
 
-        $photoEvents = $query->latest('created_at')->paginate(10)->withQueryString();
+        $photoEvents = $query->latest('event_date')->paginate(10)->withQueryString();
 
         return view('admin.photo_events.index', compact('photoEvents'));
     }
@@ -30,9 +30,12 @@ class PhotoEventController extends Controller
     {
         $validated = $request->validate([
             'event_name' => 'required|string|max:255|unique:photo_events,event_name',
+            'event_date' => 'required|date',
         ], [
             'event_name.required' => 'Nama event wajib diisi',
             'event_name.unique' => 'Nama event sudah ada',
+            'event_date.required' => 'Tanggal event wajib diisi',
+            'event_date.date' => 'Format tanggal tidak valid',
         ]);
 
         PhotoEvent::create($validated);
@@ -50,9 +53,12 @@ class PhotoEventController extends Controller
     {
         $validated = $request->validate([
             'event_name' => 'required|string|max:255|unique:photo_events,event_name,' . $photoEvent->id,
+            'event_date' => 'required|date',
         ], [
             'event_name.required' => 'Nama kegiatan wajib diisi',
             'event_name.unique' => 'Nama kegiatan sudah ada',
+            'event_date.required' => 'Tanggal kegiatan wajib diisi', 
+            'event_date.date' => 'Format tanggal tidak valid',
         ]);
 
         $photoEvent->update($validated);

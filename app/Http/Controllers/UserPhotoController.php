@@ -2,23 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PhotoEvent;
 use Illuminate\Http\Request;
+
+use App\Models\PhotoEvent;
 
 class UserPhotoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $photoEvents = PhotoEvent::withCount('photos')
-            ->latest()
-            ->paginate(12);
+            ->with(['photos' => fn($q) => $q->latest()->limit(1)])
+            ->latest('event_date')
+            ->take(4)
+            ->get();
 
         return view('home.galeri.index', compact('photoEvents'));
     }
 
-    /**
-     * Guest route pakai slug
-     */
+    public function kategori(Request $request)
+    {
+        $photoEvents = PhotoEvent::withCount('photos')
+            ->with(['photos' => fn($q) => $q->latest()->limit(1)])
+            ->latest('event_date')
+            ->paginate(4);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('home.galeri._card', compact('photoEvents'))->render(),
+                'hasMore' => $photoEvents->hasMorePages(),
+                'currentPage' => $photoEvents->currentPage(),
+                'lastPage' => $photoEvents->lastPage(),
+            ]);
+        }
+
+        return view('home.galeri.kategori', compact('photoEvents'));
+    }
+
     public function show(string $slug)
     {
         $photoEvent = PhotoEvent::where('slug', $slug)
