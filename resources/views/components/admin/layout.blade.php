@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin MaMen</title>
 
     <!--Icons -->
@@ -260,12 +261,11 @@
 </body>
 
 <script>
-    // Sidebar toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar toggle (kode lama kamu)
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const mainContent = document.getElementById('main-content');
 
         function toggleSidebar() {
             sidebar.classList.toggle('-translate-x-full');
@@ -280,6 +280,40 @@
         if (sidebarOverlay) {
             sidebarOverlay.addEventListener('click', toggleSidebar);
         }
+
+        // ✅ Auto logout setelah 10 menit idle
+        @auth
+        const TIMEOUT = 5 * 60 * 1000;
+        console.log('Timer dimulai:', TIMEOUT, 'ms');
+
+        function doLogout() {
+            console.log('Logout sekarang!');
+            fetch("{{ route('logout') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                        'Content-Type': 'application/json',
+                    },
+                    keepalive: true,
+                })
+                .then(() => {
+                    window.location.href = "/login";
+                })
+                .catch(() => {
+                    window.location.href = "/login";
+                });
+        }
+
+        let timer = setTimeout(doLogout, TIMEOUT);
+
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(event => {
+            document.addEventListener(event, () => {
+                clearTimeout(timer);
+                timer = setTimeout(doLogout, TIMEOUT);
+            });
+        });
+    @endauth
     });
 </script>
 
