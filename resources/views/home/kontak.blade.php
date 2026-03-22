@@ -6,7 +6,6 @@
 
     <div x-data="{ activeButton: '', visibleMap: 'depok' }" x-init="lucide.createIcons()">
 
-        {{-- ================= HERO ================= --}}
         <section class="relative pt-20 pb-28 text-white overflow-hidden"
             style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
 
@@ -31,11 +30,9 @@
             </div>
         </section>
 
-        {{-- ================= KONTAK + FORM ================= --}}
         <section class="bg-white py-8 lg:py-16">
             <div class="container grid md:grid-cols-2 gap-16">
 
-                {{-- INFO KONTAK --}}
                 <div>
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-1.5 h-16 bg-purple-700 rounded"></div>
@@ -89,50 +86,18 @@
                         <div class="flex gap-4 items-start">
                             <div
                                 class="w-12 h-12 bg-purple-100 text-purple-700 flex items-center justify-center rounded-xl p-2">
-                                <i data-lucide="mail" class="w-5 h-5"></i>
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <p class="font-semibold text-gray-900">Email</p>
-                                <p>labmamen@gunadarma.ac.id</p>
+                                <p class="font-semibold text-gray-900">Instagram</p>
+                                <a href="https://www.instagram.com/labmamen" target="_blank" class="text-purple-700 hover:underline">@labmamen</a>
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
 
-
-                {{-- FORM PESAN --}}
-                <div class="bg-gray-50 rounded-2xl p-8 shadow-xl">
-                    <h3 class="font-bold text-lg mb-6">Kirim Pesan</h3>
-
-                    <form class="space-y-5">
-
-                        <div>
-                            <label class="text-xs font-semibold text-gray-500">Nama Lengkap</label>
-                            <input type="text"
-                                class="w-full mt-1 px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 outline-none text-sm">
-                        </div>
-
-                        <div>
-                            <label class="text-xs font-semibold text-gray-500">Email</label>
-                            <input type="email"
-                                class="w-full mt-1 px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 outline-none text-sm">
-                        </div>
-
-                        <div>
-                            <label class="text-xs font-semibold text-gray-500">Pesan</label>
-                            <textarea rows="4"
-                                class="w-full mt-1 px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 outline-none text-sm"></textarea>
-                        </div>
-
-                        <button type="submit"
-                            class="w-full py-3 bg-purple-700 text-white rounded-lg font-semibold hover:bg-purple-800 transition">
-                            Kirim Pesan
-                        </button>
-
-                    </form>
+                <div class="bg-gray-50 rounded-2xl p-2 shadow-xl hidden md:block">
+                    <img src="images/heroprofil.jpg" alt="" srcset="" class="w-full h-full object-cover rounded-2xl"> 
                 </div>
 
             </div>

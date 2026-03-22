@@ -86,12 +86,18 @@
                             </p>
                         </div>
                         <div class="flex gap-3 items-start md:items-center">
-                            <i data-lucide="phone-call" class="w-4 h-4 mt-0.5 md:mt-0 text-gray-500 shrink-0"></i>
+                            <i data-lucide="phone" class="w-4 h-4 mt-0.5 md:mt-0 text-gray-500 shrink-0"></i>
                             <p class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                                 <span>0873-xxxx-xxxx</span>
                                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-white/10 w-fit">
                                     Kalimalang
                                 </span>
+                            </p>
+                        </div>
+                        <div class="flex gap-3 items-start md:items-center">
+                            <i data-lucide="instagram" class="w-4 h-4 mt-0.5 md:mt-0 text-gray-500 shrink-0"></i>
+                            <p class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                                <a href="https://www.instagram.com/labmamen" target="_blank" class="">@labmamen</a>
                             </p>
                         </div>
                     </div>
