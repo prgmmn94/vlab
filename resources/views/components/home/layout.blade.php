@@ -239,7 +239,7 @@
                 {
                     num: 6,
                     title: 'Pengumuman Hasil',
-                    desc: 'Peserta yang dinyatakan lulus akan diumumkan secara resmi dan berhak bergabung sebagai Asisten di Laboratorium Manajemen Lanjut.',
+                    desc: 'Peserta yang dinyatakan lulus akan diumumkan secara resmi dan berhak bergabung sebagai Asisten di Laboratorium Manajemen Menengah.',
                     status: 'upcoming',
                 },
             ],
@@ -277,7 +277,7 @@
                 {
                     num: 6,
                     title: 'Pengumuman Hasil',
-                    desc: 'Peserta yang dinyatakan lulus akan diumumkan secara resmi dan berhak bergabung sebagai Programmer di Laboratorium Manajemen Lanjut.',
+                    desc: 'Peserta yang dinyatakan lulus akan diumumkan secara resmi dan berhak bergabung sebagai Programmer di Laboratorium Manajemen Menengah.',
                     status: 'upcoming',
                 },
             ],

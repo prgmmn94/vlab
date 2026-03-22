@@ -120,7 +120,7 @@
 
             <div class="text-center mb-7 mt-10 md:mt-20">
                 <h1 class="text-4xl font-semibold">Alur Pendaftaran</h1>
-                <p class="text-sm text-gray-500 mt-4">Ikuti tahapan seleksi untuk bergabung di Laboratorium Manajemen Lanjut
+                <p class="text-sm text-gray-500 mt-4">Ikuti tahapan seleksi untuk bergabung di Laboratorium Manajemen Menengah
                 </p>
             </div>
 
@@ -137,7 +137,7 @@
             </div>
 
             {{-- Layout --}}
-            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
 
                 {{-- Step list --}}
                 <div class="relative pl-8" id="step-list"></div>
@@ -192,7 +192,7 @@
                             Saatnya kamu berperan!
                         </h2>
 
-                        <p class="mt-3 md:mt-4 text-gray-600 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
+                        <p class="mt-3 md:mt-4 text-gray-600 text-sm leading-relaxed">
                             Kembangkan potensi dan kemampuanmu bersama kami dengan bergabung
                             sebagai Calon Asisten Laboratorium Manajemen Menengah.
                             Daftarkan dirimu sekarang dan jadilah bagian dari tim kami.
