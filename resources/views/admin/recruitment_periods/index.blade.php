@@ -167,7 +167,7 @@
                                             </button>
                                         </form>
 
-                                        <a href="{{ route('recruitment_periods.announcements.index', $period->id) }}"
+                                        <a href="{{ route('admin.recruitment_periods.announcements.index', $period->id) }}"
                                             class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2"
                                             title="Kelola Pengumuman">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -48,7 +48,7 @@ class AnnouncementController extends Controller
         Announcement::create($validated);
 
         return redirect()
-            ->route('recruitment_periods.announcements.index', $recruitmentPeriod)
+            ->route('admin.recruitment_periods.announcements.index', $recruitmentPeriod)
             ->with('success', 'Pengumuman berhasil ditambahkan!');
     }
 
@@ -86,7 +86,7 @@ class AnnouncementController extends Controller
         $announcement->update($validated);
 
         return redirect()
-            ->route('recruitment_periods.announcements.index', $recruitmentPeriod)
+            ->route('admin.recruitment_periods.announcements.index', $recruitmentPeriod)
             ->with('success', 'Pengumuman berhasil diperbarui!');
     }
 
@@ -103,7 +103,7 @@ class AnnouncementController extends Controller
         $this->reorder($recruitmentPeriod);
 
         return redirect()
-            ->route('recruitment_periods.announcements.index', $recruitmentPeriod)
+            ->route('admin.recruitment_periods.announcements.index', $recruitmentPeriod)
             ->with('success', 'Pengumuman berhasil dihapus!');
     }
 

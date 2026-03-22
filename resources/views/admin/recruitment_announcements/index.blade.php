@@ -38,7 +38,7 @@
 
         {{-- Tombol Tambah --}}
         <div class="flex justify-end">
-            <a href="{{ route('recruitment_periods.announcements.create', $recruitmentPeriod) }}"
+            <a href="{{ route('admin.recruitment_periods.announcements.create', $recruitmentPeriod) }}"
                 class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -133,7 +133,7 @@
 
                                         {{-- Toggle Publish --}}
                                         <form method="POST"
-                                            action="{{ route('recruitment_periods.announcements.toggle-publish', [$recruitmentPeriod, $announcement]) }}"
+                                            action="{{ route('admin.recruitment_periods.announcements.toggle-publish', [$recruitmentPeriod, $announcement]) }}"
                                             class="inline">
                                             @csrf @method('PATCH')
                                             <button type="submit"
@@ -156,7 +156,7 @@
                                         </form>
 
                                         {{-- Edit --}}
-                                        <a href="{{ route('announcements.edit', $announcement) }}"
+                                        <a href="{{ route('admin.announcements.edit', $announcement) }}"
                                             class="bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
@@ -167,7 +167,7 @@
 
                                         {{-- Hapus --}}
                                         <form method="POST"
-                                            action="{{ route('announcements.destroy', $announcement) }}"
+                                            action="{{ route('admin.announcements.destroy', $announcement) }}"
                                             class="inline"
                                             onsubmit="return confirm('Yakin ingin menghapus pengumuman ini?')">
                                             @csrf @method('DELETE')
@@ -196,7 +196,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
         <script>
             const tbody = document.getElementById('sortableBody');
-            const reorderUrl = "{{ route('recruitment_periods.announcements.reorder', $recruitmentPeriod) }}";
+            const reorderUrl = "{{ route('admin.recruitment_periods.announcements.reorder', $recruitmentPeriod) }}";
 
             if (tbody) {
                 Sortable.create(tbody, {

@@ -19,7 +19,7 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                <a href="{{ route('recruitment_periods.announcements.index', $recruitmentPeriod) }}"
+                                <a href="{{ route('admin.recruitment_periods.announcements.index', $recruitmentPeriod) }}"
                                     class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2">
                                     Pengumuman {{ $recruitmentPeriod->tahun }}
                                 </a>
@@ -51,7 +51,7 @@
 
         {{-- Form --}}
         <div class="bg-white overflow-hidden shadow-lg rounded-lg p-6">
-            <form action="{{ route('announcements.update', $announcement) }}" method="POST">
+            <form action="{{ route('admin.announcements.update', $announcement) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -130,7 +130,7 @@
 
                 {{-- Buttons --}}
                 <div class="flex items-center justify-between">
-                    <a href="{{ route('recruitment_periods.announcements.index', $recruitmentPeriod) }}"
+                    <a href="{{ route('admin.recruitment_periods.announcements.index', $recruitmentPeriod) }}"
                         class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 hover:text-gray-900 rounded-md border border-gray-300 hover:bg-gray-50 transition">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

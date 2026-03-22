@@ -176,23 +176,27 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Operation Admin'])->pre
     }
 );
 
-Route::resource('recruitment_periods.announcements', AnnouncementController::class)
-    ->except(['show'])
-    ->shallow();
-
-Route::prefix('recruitment_periods/{recruitmentPeriod}/announcements')
-    ->name('recruitment_periods.announcements.')
+Route::middleware(['auth', 'verified', 'role:Super Admin,Oprec Admin'])
+    ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
 
-        // Toggle publish
-        Route::patch('{announcement}/toggle-publish', [AnnouncementController::class, 'togglePublish'])
-            ->name('toggle-publish');
+        // Announcements resource (shallow nested)
+        Route::resource('recruitment_periods.announcements', AnnouncementController::class)
+            ->except(['show'])
+            ->shallow();
 
-        // Reorder via AJAX (drag-and-drop)
-        Route::post('reorder', [AnnouncementController::class, 'reorderAjax'])
-            ->name('reorder');
+        // Announcements custom routes
+        Route::prefix('recruitment_periods/{recruitmentPeriod}/announcements')
+            ->name('recruitment_periods.announcements.')
+            ->group(function () {
+                Route::patch('{announcement}/toggle-publish', [AnnouncementController::class, 'togglePublish'])
+                    ->name('toggle-publish');
+                Route::post('reorder', [AnnouncementController::class, 'reorderAjax'])
+                    ->name('reorder');
+            });
     });
-    
+
 // Admin Routes - Profile Management
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])
