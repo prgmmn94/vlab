@@ -33,22 +33,18 @@
                         <div
                             class="mt-6 md:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 md:gap-4">
                             <a href="{{ route('praktikum.jadwal') }}"
-                                class="inline-flex items-center justify-center gap-2 px-6 py-4 md:px-7 md:py-4 rounded-xl 
-                                  bg-gradient-to-r from-[#62286C] to-[#BF4ED2] 
-                                  text-white font-semibold text-xs md:text-sm
-                                  shadow-md hover:shadow-xl w-full sm:w-auto
-                                  hover:-translate-y-0.5 transition-all duration-300">
+                                class="inline-flex items-center justify-center gap-2 px-6 py-4 md:px-7 md:py-4 rounded-xl bg-gradient-to-r from-[#62286C] to-[#BF4ED2] text-white font-semibold text-xs md:text-sm shadow-md hover:shadow-xl w-full sm:w-auto">
                                 Lihat Jadwal
                             </a>
 
                             <a href="/download"
-                                class="inline-flex items-center justify-center px-6 py-4 md:px-7 md:py-4 rounded-xl 
-                                  border border-[#62286C]/40 w-full sm:w-auto
-                                  text-[#62286C] font-semibold text-xs md:text-sm
-                                  bg-white/60 backdrop-blur-sm
-                                  hover:bg-[#62286C] hover:text-white hover:border-[#62286C]
-                                  transition-all duration-300">
+                                class="inline-flex items-center justify-center px-6 py-4 md:px-7 md:py-4 rounded-xl border border-[#62286C]/40 w-full sm:w-auto text-[#62286C] font-semibold text-xs md:text-sm bg-white/60 backdrop-blur-sm hover:bg-[#62286C] hover:text-white hover:border-[#62286C] transition-all duration-300">
                                 Lihat Materi
+                            </a>
+
+                            <a href="/pendaftaran"
+                                class="inline-flex items-center justify-center gap-2 px-6 py-4 md:px-7 md:py-4 rounded-xl bg-[#F5A623] text-white font-semibold text-xs md:text-sm shadow-md hover:shadow-xl w-full sm:w-auto hover:-translate-y-0.5 transition-all duration-300">
+                                Ayo Daftar!
                             </a>
                         </div>
                     </div>
@@ -60,7 +56,7 @@
     <x-wave />
 
     {{-- SECTION UNGU --}}
-    <section class="py-16 text-white -mt-1" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
+    <section class="py-16 text-white" style="background:linear-gradient(to bottom,#62286C,#BF4ED2)">
         <div class="container">
             <div class="pt-16 md:pt-30 pb-20 md:pb-35 grid md:grid-cols-2 lg:grid-cols-2 items-center gap-10 md:gap-0">
                 <div class="text-center md:text-left order-2 md:order-none">
@@ -79,7 +75,7 @@
                 <img src="/images/apaitu.png"
                     class="w-[85%] md:w-full max-w-md mx-auto order-1 md:order-none drop-shadow-xl" alt="Ilustrasi">
             </div>
-            <div class="pb-20 md:pb-40">
+            <div class="py-10">
                 <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">
                     Materi Praktikum
                 </h2>
@@ -214,7 +210,7 @@
     <section class="relative">
         {{-- CTA PUTIH --}}
         <div class="container">
-            <div class="bg-white pt-16 md:pt-24 pb-20 md:pb-40 relative z-10">
+            <div class="bg-white py-10 relative z-10">
                 <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
 
                     {{-- ILUSTRASI --}}
@@ -234,7 +230,7 @@
                         </p>
 
                         <a href="/pendaftaran"
-                            class="inline-block mt-6 bg-[#F5A623] text-white font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg hover:bg-[#e0941d] transition w-full sm:w-auto">
+                            class="mt-6 inline-flex items-center justify-center gap-2 px-6 py-4 md:px-7 md:py-4 rounded-xl bg-[#F5A623] text-white font-semibold text-xs md:text-sm shadow-md hover:shadow-xl w-full sm:w-auto hover:-translate-y-0.5 transition-all duration-300">
                             Ayo Daftar!
                         </a>
                     </div>
@@ -269,50 +265,20 @@
             </div>
             <div class="swiper homeSwiper">
                 <div class="swiper-wrapper !items-stretch">
-                    <div class="swiper-slide !h-auto">
-                        <div
-                            class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
-                            <img src="/images/testimoni/user{{ $i }}.jpg"
-                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
-
-                            <h4 class="font-semibold text-sm">Ananda</h4>
-                            <p class="text-xs text-gray-500 mb-3">SPV 25/26</p>
-
-                            <p class="text-xs leading-relaxed text-gray-600 mb-auto">
-                                "mamen seru! bukan hanya tempat belajar teori,
-                                tapi ruang untuk berkembang dan berproses."
-                            </p>
+                    @foreach ($experiences as $item)
+                        <div class="swiper-slide !h-auto">
+                            <div
+                                class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
+                                <img src="{{ asset('storage/' . $item->image) }}"
+                                    class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover"
+                                    alt="{{ $item->name }}">
+                                <h4 class="font-semibold text-sm">{{ $item->name }}</h4>
+                                <p class="text-xs leading-relaxed text-gray-600 mb-auto mt-3">
+                                    {{ $item->description }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide !h-auto">
-                        <div
-                            class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
-                            <img src="/images/testimoni/user{{ $i }}.jpg"
-                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
-
-                            <h4 class="font-semibold text-sm">Ananda</h4>
-                            <p class="text-xs text-gray-500 mb-3">SPV 25/26</p>
-
-                            <p class="text-xs leading-relaxed text-gray-600 mb-auto">
-                                Lorem.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide !h-auto">
-                        <div
-                            class="h-full snap-center bg-white text-gray-800 rounded-xl p-5 md:p-6 shadow-xl text-center flex flex-col">
-                            <img src="/images/testimoni/user{{ $i }}.jpg"
-                                class="w-12 h-12 md:w-14 md:h-14 rounded-full mx-auto mb-3 object-cover">
-
-                            <h4 class="font-semibold text-sm">Ananda</h4>
-                            <p class="text-xs text-gray-500 mb-3">SPV 25/26</p>
-
-                            <p class="text-xs leading-relaxed text-gray-600 mb-auto">
-                                "mamen seru! bukan hanya tempat belajar teori,
-                                tapi ruang untuk berkembang dan berproses."
-                            </p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div
                     class="swiper-button-prev !w-10 !h-10 !bg-white !rounded-full !shadow-xl !top-1/2 !right-0 flex items-center justify-center hover:!scale-110 transition duration-200 rotate-180">

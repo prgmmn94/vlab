@@ -168,7 +168,7 @@
                                                 </h4>
 
                                                 {{-- Tanggal Upload --}}
-                                                <div
+                                                {{-- <div
                                                     class="flex items-center gap-1 text-gray-400 text-[10px] md:text-xs font-bold mb-4 md:mb-6">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 md:w-4 md:h-4"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -183,7 +183,7 @@
                                                             y2="10" />
                                                     </svg>
                                                     <span>{{ $item['tanggal'] }}</span>
-                                                </div>
+                                                </div> --}}
 
                                                 {{-- Tombol Download --}}
                                                 <a href="{{ $item['link'] }}" target="_blank"

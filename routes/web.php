@@ -12,14 +12,16 @@ use App\Http\Controllers\UserScheduleController;
 use App\Http\Controllers\PhotoEventController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserPhotoController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\HomeController;
 
+// Public Routes - Homes
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::view('/', 'home.home');
 Route::view('/profil', 'home.profil');
 Route::view('/download', 'home.download')->name('download');
 Route::view('/kontak', 'home.kontak')->name('kontak');
 Route::view('/jadwal', 'praktikum.jadwal')->name('jadwal');
-// Route::view('/galeri', 'home.galeri')->name('galeri');
 Route::view('/berita', 'home.berita')->name('berita');
 
 Route::prefix('praktikum')->name('praktikum.')->group(function () {
@@ -117,6 +119,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('news', NewsController::class);
 });
 
+// Admin Routes - Schedules Management
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::delete('schedules/bulk-destroy', [SchedulesController::class, 'bulkDestroy'])
+        ->name('schedules.bulk-destroy');
+    Route::resource('schedules', SchedulesController::class);
+});
+
 // Admin Routes - Photos Management
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
@@ -153,12 +162,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         ->except(['show']);
 });
 
-// Admin Routes - Schedules Management
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-    Route::delete('schedules/bulk-destroy', [SchedulesController::class, 'bulkDestroy'])
-        ->name('schedules.bulk-destroy');
-    Route::resource('schedules', SchedulesController::class);
-});
+// Admin Routes - Experience Management
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
+    function () {
+        Route::delete('experiences/bulk-destroy', [ExperienceController::class, 'bulkDestroy'])
+            ->name('experiences.bulk-destroy');
+        Route::resource('experiences', ExperienceController::class);
+    }
+);
 
 // Admin Routes - Profile Management
 Route::middleware('auth')->group(function () {
