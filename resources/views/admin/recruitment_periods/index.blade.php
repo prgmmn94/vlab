@@ -132,7 +132,8 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <a href="{{ route('admin.recruitments.index', $period->id) }}"
-                                        class="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2">
+                                        class="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2"
+                                        title="Lihat Data">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor"
@@ -142,7 +143,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                     @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Oprec Admin')
-                                        {{-- Toggle Active Button --}}
+                                    
                                         <form action="{{ route('recruitment_periods.toggle', $period->id) }}"
                                             method="POST" class="inline">
                                             @csrf
@@ -166,14 +167,15 @@
                                             </button>
                                         </form>
 
-                                        {{-- <a href="{{ route('recruitment_periods.edit', $period->id) }}"
-                                            class="bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2">
+                                        <a href="{{ route('recruitment_periods.announcements.index', $period->id) }}"
+                                            class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2"
+                                            title="Kelola Pengumuman">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
                                                 <path fill="currentColor"
-                                                    d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-1 2q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
+                                                    d="M12.05 17.625L9.225 20.45q-.575.575-1.412.575T6.4 20.45l-2.825-2.825Q3 17.05 3 16.2t.575-1.425l2.8-2.8V8.7q0-.675.613-.925T8.075 8l7.95 7.925q.475.475.213 1.088t-.938.612zm.85-2L8.375 11.1v1.7l-3.4 3.4L7.8 19.025l3.4-3.4zm4.05-8.6q-1.475-1.475-3.463-1.9T9.6 5.4q-.375.125-.762-.012t-.513-.513q-.15-.425.025-.812t.6-.538q2.425-.9 4.975-.363t4.45 2.438t2.438 4.488t-.388 5.037q-.15.4-.55.563t-.8-.013q-.375-.15-.513-.525t.013-.775q.7-1.9.275-3.887t-1.9-3.463m-1.4 1.425q.525.525.85 1.188t.45 1.387q.075.425-.213.75t-.712.325q-.4 0-.687-.275t-.388-.675q-.1-.35-.262-.675t-.438-.6t-.625-.462t-.725-.288q-.4-.1-.687-.375t-.338-.7t.325-.7t.85-.2q.725.125 1.4.45t1.2.85m-6.6 6.6" />
                                             </svg>
-                                        </a> --}}
+                                        </a>
 
                                         <form action="{{ route('recruitment_periods.destroy', $period->id) }}"
                                             method="POST" class="inline"
@@ -181,7 +183,8 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2">
+                                                class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2"
+                                                title="Hapus">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <path fill="currentColor"

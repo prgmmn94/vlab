@@ -252,6 +252,8 @@
             <!-- Footer -->
             <x-admin.footer></x-admin.footer>
 
+            @stack('scripts')
+
         </div>
     </div>
 

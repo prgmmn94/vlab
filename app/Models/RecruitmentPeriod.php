@@ -47,4 +47,12 @@ class RecruitmentPeriod extends Model
     {
         return $query->where('is_active', true);
     }
+
+    /**
+     * Relasi ke pengumuman
+     */
+    public function announcements(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Announcement::class)->orderBy('urutan');
+    }
 }

@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-2 shadow-xl hidden md:block">
-                    <img src="images/heroprofil.jpg" alt="" srcset="" class="w-full h-full object-cover rounded-2xl"> 
+                    <img src="images/3233.jpg" alt="" srcset="" class="w-full h-full object-cover rounded-2xl"> 
                 </div>
 
             </div>

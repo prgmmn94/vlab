@@ -14,6 +14,8 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserPhotoController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CandidateAnnouncementController;
 
 // Public Routes - Homes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -60,11 +62,14 @@ Route::prefix('pendaftaran')->group(function () {
         ->name('candidate.recruitments.success');
 });
 
+// Public Routes - Candidate Announcements
+Route::get('/pengumuman', [CandidateAnnouncementController::class, 'index'])
+    ->name('home.candidate_announcements.index');
+
 // Admin Routes - Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 // Admin Routes - Recruitment Management
 Route::middleware(['auth', 'verified', 'role:Super Admin,Oprec Admin,Operation Admin'])->prefix('admin')->group(function () {
@@ -171,6 +176,23 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Operation Admin'])->pre
     }
 );
 
+Route::resource('recruitment_periods.announcements', AnnouncementController::class)
+    ->except(['show'])
+    ->shallow();
+
+Route::prefix('recruitment_periods/{recruitmentPeriod}/announcements')
+    ->name('recruitment_periods.announcements.')
+    ->group(function () {
+
+        // Toggle publish
+        Route::patch('{announcement}/toggle-publish', [AnnouncementController::class, 'togglePublish'])
+            ->name('toggle-publish');
+
+        // Reorder via AJAX (drag-and-drop)
+        Route::post('reorder', [AnnouncementController::class, 'reorderAjax'])
+            ->name('reorder');
+    });
+    
 // Admin Routes - Profile Management
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])
