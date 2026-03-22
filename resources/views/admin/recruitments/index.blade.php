@@ -33,6 +33,31 @@
             </div>
         </div>
 
+        {{-- Data Masuk Terakhir --}}
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-600 font-medium">Data Masuk Terakhir</p>
+                    @if ($lastEntry)
+                        <h3 class="text-lg font-bold text-gray-900 mt-1">
+                            {{ \Carbon\Carbon::parse($lastEntry->created_at)->locale('id')->diffForHumans() }}
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-1">
+                            {{ \Carbon\Carbon::parse($lastEntry->created_at)->locale('id')->isoFormat('D MMM YYYY, HH:mm') }}
+                        </p>
+                    @else
+                        <h3 class="text-lg font-bold text-gray-400 mt-1">Belum ada data</h3>
+                    @endif
+                </div>
+                <div class="bg-red-100 rounded-full p-3">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
         {{-- Statistik Card --}}
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             {{-- Total Pendaftar --}}
@@ -146,7 +171,8 @@
                                 {{-- Download All --}}
                                 <a href="{{ route('admin.recruitments.download.all', $recruitmentPeriod->id) }}"
                                     class="w-full inline-flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md text-xs lg:text-sm">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>

@@ -120,12 +120,12 @@
                                         @if ($announcement->is_published)
                                             <span
                                                 class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                                Published
+                                                Aktif
                                             </span>
                                         @else
                                             <span
                                                 class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                                                Draft
+                                                Nonaktif
                                             </span>
                                         @endif
                                     </td>
@@ -138,7 +138,7 @@
                                             @csrf @method('PATCH')
                                             <button type="submit"
                                                 class="{{ $announcement->is_published ? 'bg-orange-600 hover:bg-orange-500' : 'bg-green-600 hover:bg-green-500' }} text-white px-3 py-1 rounded-md text-sm shadow-md inline-flex items-center gap-2"
-                                                title="{{ $announcement->is_published ? 'Sembunyikan' : 'Publish' }}">
+                                                title="{{ $announcement->is_published ? 'Sembunyikan' : 'Tampilkan' }}">
                                                 @if ($announcement->is_published)
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                         height="24" viewBox="0 0 24 24">

@@ -65,7 +65,11 @@ class RecruitmentController extends Controller
             ];
         }
 
-        return view('admin.recruitments.index', compact('recruitmentPeriod', 'recruitments', 'stats', 'regionStats'));
+        $lastEntry = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
+            ->latest('created_at')
+            ->first();
+
+        return view('admin.recruitments.index', compact('recruitmentPeriod', 'recruitments', 'stats', 'regionStats', 'lastEntry'));
     }
 
     /**

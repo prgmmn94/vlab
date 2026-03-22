@@ -1,7 +1,7 @@
 @extends('components.home.layout')
 
 @section('content')
-    <section>
+    <section class="py-16">
         <div class="container">
 
             @forelse ($periods as $period)
