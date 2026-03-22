@@ -122,7 +122,8 @@
 
                             {{-- Description --}}
                             <p class="text-sm text-gray-500 leading-relaxed mb-8 max-w-xs mx-auto">
-                                Saat ini belum ada pengumuman yang dibuka. Pantau terus halaman ini untuk informasi berikutnya.
+                                Saat ini belum ada pengumuman yang dibuka. Pantau terus halaman ini untuk informasi
+                                berikutnya.
                             </p>
 
                             {{-- Info Rows --}}

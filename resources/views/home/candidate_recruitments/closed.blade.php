@@ -52,7 +52,8 @@
                         </div>
                         <div>
                             <p class="text-[11px] text-gray-400 font-medium mb-0.5">Butuh Informasi?</p>
-                            <p class="text-[13px] text-gray-800 font-medium">Hubungi <a href="" class="text-[#534AB7]">@labmamen</a></p>
+                            <p class="text-[13px] text-gray-800 font-medium">Hubungi <a href=""
+                                    class="text-[#534AB7]">@labmamen</a></p>
                         </div>
                     </div>
 
@@ -62,8 +63,13 @@
                 <div class="border-t border-gray-100 mb-6"></div>
 
                 {{-- Primary Button --}}
-                <a href="{{ url('/') }}"
-                    class="flex items-center justify-center gap-2 w-full py-3 px-5 bg-[#534AB7] hover:bg-[#3C3489] text-white text-sm font-semibold rounded-xl transition-all duration-150 active:scale-[0.99]">
+                <a href="{{ url('/pengumuman') }}"
+                    class="flex items-center justify-center gap-2 w-full py-3 px-5 bg-[#F59E0B] hover:bg-[#D97706] text-white text-sm font-semibold rounded-xl transition-all duration-150 active:scale-[0.99]">
+                    Pengumuman
+                </a>
+
+                <a href="{{ url('/pengumuman') }}"
+                    class="mt-6 flex items-center justify-center gap-2 w-full py-3 px-5 bg-[#534AB7] hover:bg-[#3C3489] text-white text-sm font-semibold rounded-xl transition-all duration-150 active:scale-[0.99]">
                     Kembali ke Beranda
                 </a>
 

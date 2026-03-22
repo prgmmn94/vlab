@@ -179,9 +179,9 @@
 
                         <div
                             class="w-[45%] md:w-[48%] bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-6 border-1 border-[#ebebeb]">
-                            <span class="text-[9px] md:text-xs font-semibold text-purple-600 block mb-1">
+                            {{-- <span class="text-[9px] md:text-xs font-semibold text-purple-600 block mb-1">
                                 {{ $step['date'] }}
-                            </span>
+                            </span> --}}
 
                             <h3 class="mt-1 md:mt-2 font-bold text-gray-900 text-[11px] md:text-base leading-tight">
                                 {{ $step['title'] }}

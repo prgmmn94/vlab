@@ -164,42 +164,42 @@
                 <div class="hero-img top-left absolute rounded-lg overflow-hidden
                     w-20 h-16 md:w-28 md:h-24 lg:w-36 lg:h-28"
                     style="top: 5%; left: 2%;">
-                    <img src="{{ asset('images/galeri/31/1.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/galeri/31/3.jpg') }}" alt="" class="w-full h-full object-cover">
                 </div>
 
                 {{-- Tengah atas --}}
                 <div class="hero-img top-center absolute rounded-lg overflow-hidden
                     w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32"
                     style="top: 2%; left: 50%; transform: translateX(-50%);">
-                    <img src="{{ asset('images/galeri/32/1.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/galeri/33/5.jpg') }}" alt="" class="w-full h-full object-cover">
                 </div>
 
                 {{-- Kanan atas --}}
                 <div class="hero-img top-right absolute rounded-lg overflow-hidden
                     w-20 h-16 md:w-28 md:h-24 lg:w-36 lg:h-28"
                     style="top: 5%; right: 2%;">
-                    <img src="{{ asset('images/galeri/32/1.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/galeri/makrab/7.jpg') }}" alt="" class="w-full h-full object-cover">
                 </div>
 
                 {{-- Kiri bawah --}}
                 <div class="hero-img bot-left absolute rounded-lg overflow-hidden
                     w-20 h-16 md:w-28 md:h-24 lg:w-36 lg:h-28"
                     style="bottom: 5%; left: 2%;">
-                    <img src="{{ asset('images/galeri/32/1.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/galeri/32/8.jpg') }}" alt="" class="w-full h-full object-cover">
                 </div>
 
                 {{-- Tengah bawah --}}
                 <div class="hero-img bot-center absolute rounded-lg overflow-hidden
                     w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32"
                     style="bottom: 2%; left: 50%; transform: translateX(-50%);">
-                    <img src="{{ asset('images/galeri/33/1.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/3233.jpg') }}" alt="" class="w-full h-full object-cover">
                 </div>
 
                 {{-- Kanan bawah --}}
                 <div class="hero-img bot-right absolute rounded-lg overflow-hidden
                     w-20 h-16 md:w-28 md:h-24 lg:w-36 lg:h-28"
                     style="bottom: 5%; right: 2%;">
-                    <img src="{{ asset('images/galeri/32/1.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/galeri/32/3.jpg') }}" alt="" class="w-full h-full object-cover">
                 </div>
 
                 {{-- Teks tengah --}}
