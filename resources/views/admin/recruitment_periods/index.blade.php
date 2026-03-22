@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        @if (Auth::user()->role === 'Super Admin')
+        @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Oprec Admin')
             <div class="flex justify-end">
                 <a href="{{ route('recruitment_periods.create') }}"
                     class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-md">

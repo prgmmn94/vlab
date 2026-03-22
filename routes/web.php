@@ -67,7 +67,7 @@ Route::get('/admin/dashboard', function () {
 
 
 // Admin Routes - Recruitment Management
-Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', 'role:Super Admin,Oprec Admin,Operation Admin'])->prefix('admin')->group(function () {
     Route::resource('recruitment_periods', RecruitmentPeriodController::class)
         ->names('recruitment_periods')
         ->except(['show']);
@@ -77,7 +77,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         [RecruitmentPeriodController::class, 'toggleActive']
     )->name('recruitment_periods.toggle');
 
-    Route::middleware('role:Super Admin')->group(function () {
+    Route::middleware('role:Super Admin,Oprec Admin')->group(function () {
         Route::resource('recruitment_periods', RecruitmentPeriodController::class)
             ->names('recruitment_periods')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
@@ -113,21 +113,21 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 });
 
 // Admin Routes - News Management
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:Super Admin,Operation Admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::delete('news/bulk-destroy', [NewsController::class, 'bulkDestroy'])
         ->name('news.bulk-destroy');
     Route::resource('news', NewsController::class);
 });
 
 // Admin Routes - Schedules Management
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:Super Admin,Operation Admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::delete('schedules/bulk-destroy', [SchedulesController::class, 'bulkDestroy'])
         ->name('schedules.bulk-destroy');
     Route::resource('schedules', SchedulesController::class);
 });
 
 // Admin Routes - Photos Management
-Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', 'role:Super Admin,Operation Admin'])->prefix('admin')->group(function () {
 
     Route::controller(PhotoEventController::class)->group(function () {
         Route::delete('photo_events/bulk-destroy', 'bulkDestroy')
@@ -163,7 +163,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 });
 
 // Admin Routes - Experience Management
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
+Route::middleware(['auth', 'verified', 'role:Super Admin,Operation Admin'])->prefix('admin')->name('admin.')->group(
     function () {
         Route::delete('experiences/bulk-destroy', [ExperienceController::class, 'bulkDestroy'])
             ->name('experiences.bulk-destroy');
