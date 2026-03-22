@@ -115,89 +115,58 @@
                 </defs>
             </svg>
         </div>
+
         <div class="container relative">
 
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 md:pt-20">
-                Alur Pendaftaran
-            </h2>
+            <div class="text-center mb-7 mt-10 md:mt-20">
+                <h1 class="text-4xl font-semibold">Alur Pendaftaran</h1>
+                <p class="text-sm text-gray-500 mt-4">Ikuti tahapan seleksi untuk bergabung di Laboratorium Manajemen Lanjut
+                </p>
+            </div>
 
-            <p class="text-center text-xs md:text-sm text-gray-600 mt-2 mb-10 md:mb-16 max-w-sm md:max-w-none mx-auto">
-                Ikuti tahapan seleksi untuk bergabung sebagai<br class="hidden md:block">
-                Asisten atau Programmer di Laboratorium Manajemen Lanjut..
-            </p>
+            {{-- Role tabs --}}
+            <div class="flex justify-center gap-2 mb-7">
+                <button id="btn-asisten" onclick="switchRole('asisten')"
+                    class="px-6 py-2 rounded-full text-sm font-medium border transition-all duration-200 bg-purple-800 text-white border-purple-800">
+                    Asisten
+                </button>
+                <button id="btn-programmer" onclick="switchRole('programmer')"
+                    class="px-6 py-2 rounded-full text-sm font-medium border border-gray-300 bg-white text-gray-500 transition-all duration-200 hover:bg-gray-50">
+                    Programmer
+                </button>
+            </div>
 
-            {{-- TIMELINE --}}
-            <div class="relative">
+            {{-- Layout --}}
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
 
-                {{-- GARIS TENGAH --}}
-                <div class="absolute left-1/2 top-0 h-full w-1 md:w-1.5 bg-purple-200 -translate-x-1/2"></div>
+                {{-- Step list --}}
+                <div class="relative pl-8" id="step-list"></div>
 
-                {{-- ITEM --}}
-                @php
-                    $steps = [
-                        [
-                            'date' => '13 Okt 2025 – 27 Okt 2025',
-                            'title' => 'Registrasi Akun & Pengisian Data',
-                            'desc' =>
-                                'Peserta membuat akun pada website, melengkapi data pribadi, serta mengunggah dokumen yang dipersyaratkan.',
-                        ],
-                        [
-                            'date' => '5 Nov 2025 – 7 Nov 2025',
-                            'title' => 'Validasi Data',
-                            'desc' =>
-                                'Asisten melakukan pengecekan terhadap kebenaran dan kelengkapan data serta dokumen.',
-                        ],
-                        [
-                            'date' => '8 Nov 2025',
-                            'title' => 'Tes Tahap 1 – Ujian Tertulis (Daring)',
-                            'desc' =>
-                                'Peserta mengikuti ujian yang mencakup pengetahuan dasar perbankan dan pengetahuan umum.',
-                        ],
-                        [
-                            'date' => '14 Nov 2025 – 21 Nov 2025',
-                            'title' => 'Tes Tahap 2 – Tes Tutor/Programmer & Wawancara',
-                            'desc' =>
-                                'Peserta melaksanakan tes tutor atau programmer sesuai bidang yang dipilih serta wawancara.',
-                        ],
-                        [
-                            'date' => '24 Nov 2025 – 26 Nov 2025',
-                            'title' => 'Tes Tahap 3 – Wawancara Staf',
-                            'desc' =>
-                                'Peserta yang lolos tahap sebelumnya akan menjalani wawancara dengan staf laboratorium.',
-                        ],
-                        [
-                            'date' => '30 Nov 2025',
-                            'title' => 'Pengumuman',
-                            'desc' => 'Peserta yang dinyatakan lulus akan resmi menjadi Asisten atau Programmer.',
-                        ],
-                    ];
-                @endphp
-
-                @foreach ($steps as $i => $step)
-                    <div
-                        class="relative mb-8 md:mb-14 flex {{ $i % 2 === 0 ? 'justify-start pr-4 md:pr-8' : 'justify-end pl-4 md:pl-8' }}">
-
-                        <div
-                            class="w-[45%] md:w-[48%] bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-6 border-1 border-[#ebebeb]">
-                            {{-- <span class="text-[9px] md:text-xs font-semibold text-purple-600 block mb-1">
-                                {{ $step['date'] }}
-                            </span> --}}
-
-                            <h3 class="mt-1 md:mt-2 font-bold text-gray-900 text-[11px] md:text-base leading-tight">
-                                {{ $step['title'] }}
-                            </h3>
-
-                            <p class="mt-1 md:mt-2 text-[10px] md:text-sm text-gray-600 leading-snug">
-                                {{ $step['desc'] }}
-                            </p>
-                        </div>
-
-                        {{-- DOT --}}
-                        <span
-                            class="absolute left-1/2 top-4 md:top-6 w-3 h-3 md:w-5 md:h-5 bg-[#581D74] rounded-full -translate-x-1/2 border-2 md:border-4 border-white"></span>
-
+                {{-- Detail panel --}}
+                <div class="md:sticky md:top-4">
+                    <div class="bg-white border border-gray-200 rounded-2xl p-5 min-h-[200px]">
+                        <span id="detail-badge"
+                            class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-gray-100 text-gray-500 mb-3">
+                            Pilih tahapan
+                        </span>
+                        <p id="detail-title" class="text-sm font-medium text-gray-800 leading-snug mb-2">
+                            Klik salah satu tahapan untuk melihat detailnya
+                        </p>
+                        {{-- <p id="detail-desc" class="text-sm text-gray-500 leading-relaxed"></p> --}}
                     </div>
-                @endforeach
+
+                    {{-- Nav buttons --}}
+                    <div class="flex gap-2 mt-3">
+                        <button onclick="prevStep()"
+                            class="flex-1 py-2 text-sm border border-gray-200 rounded-xl bg-white text-gray-500 hover:bg-gray-50 transition-colors">
+                            ← Sebelumnya
+                        </button>
+                        <button onclick="nextStep()"
+                            class="flex-1 py-2 text-sm border border-gray-200 rounded-xl bg-white text-gray-500 hover:bg-gray-50 transition-colors">
+                            Selanjutnya →
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </div>

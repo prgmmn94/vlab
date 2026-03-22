@@ -22,10 +22,7 @@
             {{-- WAVE BAWAH HERO --}}
             <div class="absolute bottom-0 left-0 w-full">
                 <svg viewBox="0 0 1440 120" class="w-full h-[120px]" preserveAspectRatio="none">
-                    <path fill="#ffffff" d="M0,96
-                               C240,40 480,140 720,90
-                               C960,40 1200,20 1440,80
-                               L1440,120 L0,120 Z" />
+                    <path fill="#ffffff" d="M0,96C240,40 480,140 720,90C960,40 1200,20 1440,80L1440,120 L0,120 Z" />
                 </svg>
             </div>
         </section>
@@ -50,8 +47,9 @@
                             <div class="flex-1">
                                 <p class="font-bold text-gray-900 mb-3 text-base">Lokasi Kampus</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <template x-for="campus in ['depok', 'kalimalang', 'cengkareng', 'karawaci', 'salemba']">
-                                        <button 
+                                    <template
+                                        x-for="campus in ['depok', 'kalimalang', 'cengkareng', 'karawaci', 'salemba']">
+                                        <button
                                             @click="visibleMap = campus; document.getElementById('maps-section').scrollIntoView({behavior: 'smooth'})"
                                             class="bg-white text-gray-600 border-gray-200 hover:bg-purple-700 hover:text-white hover:border-purple-700 hover:shadow-md w-[110px] py-2.5 rounded-xl text-xs font-bold border transition-all duration-300 capitalize cursor-pointer text-center flex items-center justify-center">
                                             <span x-text="campus"></span>
@@ -90,14 +88,15 @@
                             </div>
                             <div>
                                 <p class="font-semibold text-gray-900">Instagram</p>
-                                <a href="https://www.instagram.com/labmamen" target="_blank" class="text-purple-700 hover:underline">@labmamen</a>
+                                <a href="https://www.instagram.com/labmamen" target="_blank"
+                                    class="text-purple-700 hover:underline">@labmamen</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-2 shadow-xl hidden md:block">
-                    <img src="images/3233.jpg" alt="" srcset="" class="w-full h-full object-cover rounded-2xl"> 
+                    <img src="images/3233.jpg" alt="" srcset="" class="w-full h-full object-cover rounded-2xl">
                 </div>
 
             </div>
