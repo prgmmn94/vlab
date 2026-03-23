@@ -36,7 +36,7 @@
             @endif
 
             <form action="{{ route('candidate.recruitments.store') }}" method="POST" enctype="multipart/form-data"
-                class="bg-white shadow-xl rounded-2xl p-8 md:p-10 border border-gray-100 space-y-10">
+                class="bg-white shadow-xl rounded-2xl p-5 md:p-10 border border-gray-100 space-y-10">
                 @csrf
                 <div class="space-y-12">
                     <div class="bg-gray-50 rounded-xl p-6 border">

@@ -134,7 +134,7 @@
     </nav>
 
     <!-- User Profile Section (Fixed Bottom) -->
-    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-blue-900 to-transparent">
+    <div class="hidden md:block absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-blue-900 to-transparent">
         <div class="bg-white bg-opacity-10 rounded-lg p-3 backdrop-blur-sm">
             <div class="flex items-center">
                 <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
