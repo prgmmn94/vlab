@@ -63,7 +63,7 @@
                                     NPM <span class="text-red-500">*</span>
                                 </label>
                                 <div class="mt-2">
-                                    <input id="npm" type="text" name="npm" value="{{ old('npm') }}" required
+                                    <input id="npm" type="number" name="npm" value="{{ old('npm') }}" required
                                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                                 </div>
                                 @error('npm')
@@ -91,7 +91,7 @@
                                     Nomor HP <span class="text-red-500">*</span>
                                 </label>
                                 <div class="mt-2">
-                                    <input id="no_hp" type="text" name="no_hp" value="{{ old('no_hp') }}" required
+                                    <input id="no_hp" type="number" name="no_hp" value="{{ old('no_hp') }}" required
                                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                                 </div>
                                 @error('no_hp')
@@ -129,7 +129,9 @@
                                 <label for="kelas" class="block text-sm/6 font-medium text-gray-900">Kelas <span
                                         class="text-red-500">*</span></label>
                                 <div class="mt-2">
-                                    <input id="kelas" type="text" name="kelas" required value="{{ old('kelas') }}"
+                                    <input id="kelas" type="text" name="kelas" required
+                                        value="{{ old('kelas') }}" style="text-transform: uppercase"
+                                        oninput="this.value = this.value.toUpperCase()"
                                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                                 </div>
                                 @error('kelas')
