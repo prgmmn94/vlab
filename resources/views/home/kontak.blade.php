@@ -19,7 +19,6 @@
                 </p>
             </div>
 
-            {{-- WAVE BAWAH HERO --}}
             <div class="absolute bottom-0 left-0 w-full">
                 <svg viewBox="0 0 1440 120" class="w-full h-[120px]" preserveAspectRatio="none">
                     <path fill="#ffffff" d="M0,96C240,40 480,140 720,90C960,40 1200,20 1440,80L1440,120 L0,120 Z" />
@@ -38,11 +37,18 @@
 
                     <div class="space-y-8 text-sm text-gray-600">
 
-                        {{-- LOKASI --}}
                         <div class="flex gap-5 items-start">
                             <div
                                 class="w-12 h-12 bg-purple-100 text-purple-700 flex items-center justify-center rounded-2xl shrink-0 shadow-sm">
-                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24">
+                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2">
+                                        <path
+                                            d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </g>
+                                </svg>
                             </div>
                             <div class="flex-1">
                                 <p class="font-bold text-gray-900 mb-3 text-base">Lokasi Kampus</p>
@@ -59,32 +65,41 @@
                             </div>
                         </div>
 
-                        {{-- TELEPON --}}
                         <div class="flex gap-4 items-start">
                             <div
                                 class="w-12 h-12 bg-purple-100 text-purple-700 flex items-center justify-center rounded-xl p-2 shrink-0">
-                                <i data-lucide="phone" class="w-5 h-5"></i>
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"
+                                        d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233a14 14 0 0 0 6.392 6.384" />
+                                </svg>
                             </div>
                             <div class="w-full">
                                 <p class="font-semibold text-gray-900 mb-3">Telepon</p>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
                                     <div class="flex items-center justify-between border-b border-gray-100 pb-2">
-                                        <span class="text-gray-500 text-xs">Depok</span>
-                                        <span class="font-semibold text-gray-800">0873-xxxx-xxxx</span>
+                                        <span class="text-gray-500 text-xs">Depok (Zia)</span>
+                                        <span class="font-semibold text-gray-800">0838-9729-7552</span>
                                     </div> <br>
                                     <div class="flex items-center justify-between border-b border-gray-100 pb-2">
-                                        <span class="text-gray-500 text-xs">Kalimalang</span>
-                                        <span class="font-semibold text-gray-800">0873-xxxx-xxxx</span>
+                                        <span class="text-gray-500 text-xs">Kalimalang (Geby)</span>
+                                        <span class="font-semibold text-gray-800">0813-1932-3807</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- EMAIL --}}
                         <div class="flex gap-4 items-start">
                             <div
                                 class="w-12 h-12 bg-purple-100 text-purple-700 flex items-center justify-center rounded-xl p-2">
-                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24">
+                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2">
+                                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8A4 4 0 0 1 16 11.37m1.5-4.87h.01" />
+                                    </g>
+                                </svg>
                             </div>
                             <div>
                                 <p class="font-semibold text-gray-900">Instagram</p>
@@ -102,7 +117,6 @@
             </div>
         </section>
 
-        {{-- ================= MAP ================= --}}
         <section id="maps-section" class="bg-gray-50 py-8 lg:py-16">
             <div class="container">
 
@@ -111,7 +125,6 @@
                     <p class="text-gray-500 text-sm">Pilih lokasi kampus untuk melihat detail peta</p>
                 </div>
 
-                {{-- Navigation Tab --}}
                 <div class="flex flex-wrap justify-center gap-3 mb-10">
                     <button @click="visibleMap = 'depok'; activeButton = 'depok'"
                         :class="visibleMap === 'depok' ? 'bg-purple-700 text-white shadow-lg scale-105' :
@@ -145,7 +158,6 @@
                     </button>
                 </div>
 
-                {{-- Link Map --}}
                 <div
                     class="bg-white p-3 rounded-[2rem] shadow-2xl border border-gray-100 relative w-full h-[400px] md:h-[500px] overflow-hidden">
 
