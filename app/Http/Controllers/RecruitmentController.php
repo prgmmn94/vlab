@@ -387,6 +387,24 @@ class RecruitmentController extends Controller
     }
 
     /**
+     * Download single berkas recruitment
+     */
+    public function downloadBerkas(RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
+    {
+        if (!$recruitment->berkas) {
+            return redirect()->back()->with('error', 'Berkas tidak tersedia!');
+        }
+
+        $filePath = storage_path('app/public/' . $recruitment->berkas);
+
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan di server!');
+        }
+
+        return response()->download($filePath, basename($recruitment->berkas));
+    }
+
+    /**
      * Export
      */
     public function export(RecruitmentPeriod $recruitmentPeriod)

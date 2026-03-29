@@ -93,6 +93,12 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Oprec Admin,Operation A
         [RecruitmentController::class, 'export']
     )->name('admin.recruitments.export');
 
+    // Download single berkas
+    Route::get(
+        'recruitment_periods/{recruitmentPeriod}/recruitments/{recruitment}/download',
+        [RecruitmentController::class, 'downloadBerkas']
+    )->name('admin.recruitments.download.berkas');
+
     Route::prefix('recruitment_periods/{recruitmentPeriod}/recruitments')->group(function () {
         Route::get('download/all', [RecruitmentController::class, 'downloadAll'])
             ->name('admin.recruitments.download.all');
