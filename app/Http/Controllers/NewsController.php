@@ -10,6 +10,28 @@ use Carbon\Carbon;
 
 class NewsController extends Controller
 {
+    protected $publicStoragePath = '/home/vlab/public_html/storage/';
+
+    private function copyToPublic($path)
+    {
+        $destination = $this->publicStoragePath . $path;
+        $dir = dirname($destination);
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        copy(storage_path('app/public/' . $path), $destination);
+    }
+
+    private function deleteFromPublic($path)
+    {
+        $file = $this->publicStoragePath . $path;
+        if (file_exists($file)) {
+            unlink($file);
+        }
+    }
+
     public function index(Request $request)
     {
         $query = News::query();
@@ -50,13 +72,11 @@ class NewsController extends Controller
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
-        // Auto-fill tanggal jika kosong
         if (empty($validated['date_news'])) {
             $validated['date_news'] = Carbon::now()->format('Y-m-d');
         }
 
         $validated['slug'] = Str::slug($validated['title']);
-
         $validated['excerpt'] = Str::limit(strip_tags($validated['content']), 150);
 
         if ($request->hasFile('image')) {
@@ -64,6 +84,9 @@ class NewsController extends Controller
             $namaImage = time() . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('news', $namaImage, 'public');
             $validated['image'] = $path;
+
+            // Copy ke public_html
+            $this->copyToPublic($path);
         }
 
         News::create($validated);
@@ -102,18 +125,22 @@ class NewsController extends Controller
         }
 
         $validated['slug'] = Str::slug($validated['title']);
-
         $validated['excerpt'] = Str::limit(strip_tags($validated['content']), 150);
 
         if ($request->hasFile('image')) {
-            if ($news->image && Storage::disk('public')->exists($news->image)) {
+            // Hapus gambar lama
+            if ($news->image) {
                 Storage::disk('public')->delete($news->image);
+                $this->deleteFromPublic($news->image);
             }
 
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('news', $namaImage, 'public');
             $validated['image'] = $path;
+
+            // Copy ke public_html
+            $this->copyToPublic($path);
         }
 
         $news->update($validated);
@@ -124,8 +151,9 @@ class NewsController extends Controller
 
     public function destroy(News $news)
     {
-        if ($news->image && Storage::disk('public')->exists($news->image)) {
+        if ($news->image) {
             Storage::disk('public')->delete($news->image);
+            $this->deleteFromPublic($news->image);
         }
 
         $news->delete();
@@ -145,8 +173,9 @@ class NewsController extends Controller
             $newsToDelete = News::whereIn('id', $request->news_ids)->get();
 
             foreach ($newsToDelete as $news) {
-                if ($news->image && Storage::disk('public')->exists($news->image)) {
+                if ($news->image) {
                     Storage::disk('public')->delete($news->image);
+                    $this->deleteFromPublic($news->image);
                 }
             }
 

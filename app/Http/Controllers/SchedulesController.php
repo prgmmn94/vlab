@@ -10,14 +10,39 @@ use Carbon\Carbon;
 
 class SchedulesController extends Controller
 {
+    // Path tujuan copy file di public_html
+    protected $publicStoragePath = '/home/vlab/public_html/storage/';
+
     /**
-     * Display a listing of the resource.
+     * Copy gambar ke public_html/storage
      */
+    private function copyToPublic($path)
+    {
+        $destination = $this->publicStoragePath . $path;
+        $dir = dirname($destination);
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        copy(storage_path('app/public/' . $path), $destination);
+    }
+
+    /**
+     * Hapus gambar dari public_html/storage
+     */
+    private function deleteFromPublic($path)
+    {
+        $file = $this->publicStoragePath . $path;
+        if (file_exists($file)) {
+            unlink($file);
+        }
+    }
+
     public function index(Request $request)
     {
         $query = Schedule::query();
 
-        // Search functionality
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -30,17 +55,11 @@ class SchedulesController extends Controller
         return view('admin.schedules.index', compact('schedules'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.schedules.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -58,12 +77,14 @@ class SchedulesController extends Controller
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
-        // Upload gambar
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->region) . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('schedules', $namaImage, 'public');
             $validated['image'] = $path;
+
+            // Copy ke public_html
+            $this->copyToPublic($path);
         }
 
         Schedule::create($validated);
@@ -72,25 +93,16 @@ class SchedulesController extends Controller
             ->with('success', 'Jadwal berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Schedule $schedule)
     {
         return view('admin.schedules.show', compact('schedule'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Schedule $schedule)
     {
         return view('admin.schedules.edit', compact('schedule'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Schedule $schedule)
     {
         $validated = $request->validate([
@@ -107,17 +119,20 @@ class SchedulesController extends Controller
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
-        // Upload gambar baru jika ada
         if ($request->hasFile('image')) {
             // Hapus gambar lama
-            if ($schedule->image && Storage::disk('public')->exists($schedule->image)) {
+            if ($schedule->image) {
                 Storage::disk('public')->delete($schedule->image);
+                $this->deleteFromPublic($schedule->image);
             }
 
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->region) . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('schedules', $namaImage, 'public');
             $validated['image'] = $path;
+
+            // Copy ke public_html
+            $this->copyToPublic($path);
         }
 
         $schedule->update($validated);
@@ -126,14 +141,11 @@ class SchedulesController extends Controller
             ->with('success', 'Jadwal berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Schedule $schedule)
     {
-        // Hapus gambar dari storage
-        if ($schedule->image && Storage::disk('public')->exists($schedule->image)) {
+        if ($schedule->image) {
             Storage::disk('public')->delete($schedule->image);
+            $this->deleteFromPublic($schedule->image);
         }
 
         $schedule->delete();
@@ -142,37 +154,29 @@ class SchedulesController extends Controller
             ->with('success', 'Jadwal berhasil dihapus.');
     }
 
-    /**
-     * Bulk delete schedules
-     */
     public function bulkDestroy(Request $request)
     {
-        // Validasi input
         $request->validate([
             'schedule_ids' => 'required|array',
             'schedule_ids.*' => 'exists:schedules,id'
         ]);
 
         try {
-            // Ambil semua schedules yang akan dihapus
             $schedulesToDelete = Schedule::whereIn('id', $request->schedule_ids)->get();
 
-            // Hapus gambar dari storage
             foreach ($schedulesToDelete as $schedule) {
-                if ($schedule->image && Storage::disk('public')->exists($schedule->image)) {
+                if ($schedule->image) {
                     Storage::disk('public')->delete($schedule->image);
+                    $this->deleteFromPublic($schedule->image);
                 }
             }
 
-            // Hapus data dari database
             $deletedCount = Schedule::whereIn('id', $request->schedule_ids)->delete();
 
-            // Redirect dengan pesan sukses
             return redirect()->route('admin.schedules.index')->with([
                 'success' => "Berhasil menghapus {$deletedCount} jadwal!"
             ]);
         } catch (\Exception $e) {
-            // Redirect dengan pesan error
             return redirect()->route('admin.schedules.index')->with([
                 'error' => 'Gagal menghapus data: ' . $e->getMessage()
             ]);

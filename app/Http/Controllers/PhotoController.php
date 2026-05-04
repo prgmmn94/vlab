@@ -10,6 +10,28 @@ use Illuminate\Support\Str;
 
 class PhotoController extends Controller
 {
+    protected $publicStoragePath = '/home/vlab/public_html/storage/';
+
+    private function copyToPublic($path)
+    {
+        $destination = $this->publicStoragePath . $path;
+        $dir = dirname($destination);
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        copy(storage_path('app/public/' . $path), $destination);
+    }
+
+    private function deleteFromPublic($path)
+    {
+        $file = $this->publicStoragePath . $path;
+        if (file_exists($file)) {
+            unlink($file);
+        }
+    }
+
     public function index(PhotoEvent $photoEvent, Request $request)
     {
         $query = $photoEvent->photos();
@@ -41,12 +63,14 @@ class PhotoController extends Controller
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
-        // Upload gambar
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($photoEvent->event_name) . '_' . Str::random(6) . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('photos/' . $photoEvent->id, $namaImage, 'public');
             $validated['image'] = $path;
+
+            // Copy ke public_html
+            $this->copyToPublic($path);
         }
 
         $validated['photo_event_id'] = $photoEvent->id;
@@ -73,17 +97,20 @@ class PhotoController extends Controller
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
-        // Upload gambar baru jika ada
         if ($request->hasFile('image')) {
             // Hapus gambar lama
-            if ($photo->image && Storage::disk('public')->exists($photo->image)) {
+            if ($photo->image) {
                 Storage::disk('public')->delete($photo->image);
+                $this->deleteFromPublic($photo->image);
             }
 
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($photoEvent->event_name) . '_' . Str::random(6) . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('photos/' . $photoEvent->id, $namaImage, 'public');
             $validated['image'] = $path;
+
+            // Copy ke public_html
+            $this->copyToPublic($path);
         }
 
         $photo->update($validated);
@@ -94,9 +121,9 @@ class PhotoController extends Controller
 
     public function destroy(PhotoEvent $photoEvent, Photo $photo)
     {
-        // Hapus gambar dari storage
-        if ($photo->image && Storage::disk('public')->exists($photo->image)) {
+        if ($photo->image) {
             Storage::disk('public')->delete($photo->image);
+            $this->deleteFromPublic($photo->image);
         }
 
         $photo->delete();
@@ -118,8 +145,9 @@ class PhotoController extends Controller
                 ->get();
 
             foreach ($photosToDelete as $photo) {
-                if ($photo->image && Storage::disk('public')->exists($photo->image)) {
+                if ($photo->image) {
                     Storage::disk('public')->delete($photo->image);
+                    $this->deleteFromPublic($photo->image);
                 }
             }
 
