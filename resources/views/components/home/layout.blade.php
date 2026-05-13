@@ -299,7 +299,7 @@
             }
 
             renderSteps();
-            selectStep(2);
+            selectStep(0);
         }
 
         function renderSteps() {
@@ -389,7 +389,7 @@
         }
 
         renderSteps();
-        selectStep(2);
+        selectStep(0);
     </script>
 
 </body>

@@ -10,7 +10,7 @@ class UserNewsController extends Controller
     {
         $dataNews = News::all();
 
-        return view('home.berita', [
+        return view('home.berita.index', [
             'dataNews' => $dataNews
         ]);
     }
@@ -24,6 +24,6 @@ class UserNewsController extends Controller
             ->take(2)
             ->get();
 
-        return view('home.berita_detail', compact('news', 'otherNews'));
+        return view('home.berita.detail', compact('news', 'otherNews'));
     }
 }
