@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('recruitment_period_id');
             $table->year('tahun');
-            $table->string('id_calas')->nullable();
+            $table->string('id_calas')->nullable()->unique();
 
             $table->string('nama');
             $table->string('npm');
