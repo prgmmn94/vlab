@@ -296,7 +296,8 @@
 
         {{-- Search Form --}}
         <div class="bg-white p-4 rounded-lg shadow-md">
-            <form method="GET" action="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}">
+            <form method="GET"
+                action="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}#recruitment-table">
                 <div class="flex gap-2">
                     <input type="text" name="search" placeholder="Cari nama, NPM, atau jurusan..."
                         value="{{ request('search') }}"
@@ -309,7 +310,7 @@
                         </svg>
                     </button>
                     @if (request('search'))
-                        <a href="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}"
+                        <a href="{{ route('admin.recruitments.index', $recruitmentPeriod->id) }}#recruitment-table"
                             class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -322,7 +323,7 @@
         </div>
 
         {{-- Table --}}
-        <div class="bg-white overflow-hidden shadow-md rounded-lg">
+        <div id="recruitment-table" class="bg-white overflow-hidden shadow-md rounded-lg">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-gray-200">
                     <thead class="bg-gray-50">
@@ -440,4 +441,32 @@
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+
+            // Scroll ke tabel jika ada parameter search atau page
+            if (params.has('search') || params.has('page')) {
+                const table = document.getElementById('recruitment-table');
+                if (table) {
+                    table.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+
+            // Intercept pagination links
+            const paginationLinks = document.querySelectorAll('.pagination a, [aria-label="pagination"] a');
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = new URL(this.href);
+                    url.searchParams.set('_scroll', 'table'); // marker
+                    window.location.href = url.toString();
+                });
+            });
+        });
+    </script>
 </x-admin.layout>

@@ -62,7 +62,7 @@ class RecruitmentExport implements FromCollection, WithMapping, WithEvents, Shou
                 $sheet->setCellValue('B1', 'ID Calas');
                 $sheet->setCellValue('C1', 'Nama');
                 $sheet->setCellValue('D1', 'NPM');
-                $sheet->setCellValue('E1', 'Jurusan');
+                $sheet->setCellValue('E1', 'Program Studi');
                 $sheet->setCellValue('F1', 'Kelas');
                 $sheet->setCellValue('G1', 'Region');
                 $sheet->setCellValue('H1', 'Posisi Dilamar');

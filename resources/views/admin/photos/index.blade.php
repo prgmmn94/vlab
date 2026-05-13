@@ -35,55 +35,43 @@
         </div>
 
         {{-- Search Form --}}
-        <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <div class="p-6">
-                <form method="GET" action="{{ route('admin.photo_events.photos.index', $photoEvent->id) }}"
-                    class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-end">
-                        <div>
-                            <label for="search" class="block text-sm font-medium text-gray-700 mb-1">
-                                Cari Caption
-                            </label>
-                            <input type="text" name="search" id="search" placeholder="Caption foto..."
-                                value="{{ request('search') }}"
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                        </div>
-
-                        <div class="flex gap-2">
-                            <button type="submit"
-                                class="px-6 py-2 border border-blue-500 bg-blue-50 text-blue-600 hover:text-white hover:bg-blue-500 rounded-md font-semibold shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5 16m0-2q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" />
-                                </svg>
-                            </button>
-                            @if (request('search'))
-                                <a href="{{ route('admin.photo_events.photos.index', $photoEvent->id) }}"
-                                    class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="M12 20q-3.35 0-5.675-2.325T4 12t2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.187-2.2T12 6Q9.5 6 7.75 7.75T6 12t1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20" />
-                                    </svg>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-
+        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+            <form method="GET" action="{{ route('admin.photo_events.photos.index', $photoEvent->id) }}#photos-table">
+                <div class="flex gap-2">
+                    <input type="text" name="search" id="search" placeholder="Caption foto..."
+                        value="{{ request('search') }}"
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <button type="submit"
+                        class="px-6 py-2 border border-blue-500 bg-blue-50 text-blue-600 hover:text-white hover:bg-blue-500 rounded-md font-semibold shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d=" M9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0
+                1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5
+                16m0-2q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" />
+                        </svg>
+                    </button>
                     @if (request('search'))
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="text-sm text-gray-600">Filter aktif:</span>
-                            <span
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                Pencarian: {{ request('search') }}
-                                <a href="{{ route('admin.photo_events.photos.index', $photoEvent->id) }}"
-                                    class="ml-2 text-blue-600 hover:text-blue-800">×</a>
-                            </span>
-                        </div>
+                        <a href="{{ route('admin.photo_events.photos.index', $photoEvent->id) }}#photos-table"
+                            class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M12 20q-3.35 0-5.675-2.325T4 12t2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.187-2.2T12 6Q9.5 6 7.75 7.75T6 12t1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20" />
+                            </svg>
+                        </a>
                     @endif
-                </form>
-            </div>
+                </div>
+
+                @if (request('search'))
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-sm text-gray-600">Filter aktif:</span>
+                        <span
+                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            Pencarian: {{ request('search') }}
+                            <a href="{{ route('admin.photo_events.photos.index', $photoEvent->id) }}#photos-table"
+                                class="ml-2 text-blue-600 hover:text-blue-800">×</a>
+                        </span>
+                    </div>
+                @endif
+            </form>
         </div>
 
         {{-- Add Button --}}
@@ -100,7 +88,7 @@
         @endif
 
         {{-- Photo Gallery with Bulk Delete --}}
-        <div class="bg-white overflow-hidden shadow-md rounded-lg">
+        <div id="photos-table" class="bg-white overflow-hidden shadow-md rounded-lg">
             <form method="POST" action="{{ route('admin.photo_events.photos.bulk-destroy', $photoEvent->id) }}">
                 @csrf
                 @method('DELETE')
@@ -228,6 +216,27 @@
                 });
 
                 updateSelectedCount();
+
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('search') || params.has('page')) {
+                    const table = document.getElementById('photos-table');
+                    if (table) {
+                        table.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+
+                const paginationLinks = document.querySelectorAll('.pagination a, [aria-label="pagination"] a');
+                paginationLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const url = new URL(this.href);
+                        url.hash = 'photos-table';
+                        window.location.href = url.toString();
+                    });
+                });
             });
         </script>
 

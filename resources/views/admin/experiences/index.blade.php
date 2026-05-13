@@ -8,7 +8,7 @@
         </div>
 
         <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <form method="GET" action="{{ route('admin.experiences.index') }}">
+            <form method="GET" action="{{ route('admin.experiences.index') }}#experiences-table">
                 <div class="flex gap-2">
                     <input type="text" name="search" placeholder="Cari nama atau deskripsi pengalaman..."
                         value="{{ request('search') }}"
@@ -21,7 +21,7 @@
                         </svg>
                     </button>
                     @if (request('search'))
-                        <a href="{{ route('admin.experiences.index') }}"
+                        <a href="{{ route('admin.experiences.index') }}#experiences-table"
                             class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -43,7 +43,7 @@
             </a>
         </div>
 
-        <div class="bg-white overflow-hidden shadow-md rounded-lg">
+        <div id="experiences-table" class="bg-white overflow-hidden shadow-md rounded-lg">
             <form method="POST" action="{{ route('admin.experiences.bulk-destroy') }}">
                 @csrf
                 @method('DELETE')
@@ -195,6 +195,27 @@
                 });
 
                 updateSelectedCount();
+
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('search') || params.has('page')) {
+                    const table = document.getElementById('experiences-table');
+                    if (table) {
+                        table.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+
+                const paginationLinks = document.querySelectorAll('.pagination a, [aria-label="pagination"] a');
+                paginationLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const url = new URL(this.href);
+                        url.hash = 'experiences-table';
+                        window.location.href = url.toString();
+                    });
+                });
             });
         </script>
 

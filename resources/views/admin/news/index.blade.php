@@ -8,7 +8,7 @@
         </div>
 
         <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <form method="GET" action="{{ route('admin.news.index') }}">
+            <form method="GET" action="{{ route('admin.news.index') }}#news-table">
                 <div class="flex gap-2">
                     <input type="text" name="search" placeholder="Cari judul atau konten berita..."
                         value="{{ request('search') }}"
@@ -21,7 +21,7 @@
                         </svg>
                     </button>
                     @if (request('search'))
-                        <a href="{{ route('admin.news.index') }}"
+                        <a href="{{ route('admin.news.index') }}#news-table"
                             class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md font-semibold shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -43,7 +43,7 @@
             </a>
         </div>
 
-        <div class="bg-white overflow-hidden shadow-md rounded-lg">
+        <div id="news-table" class="bg-white overflow-hidden shadow-md rounded-lg">
             <form method="POST" action="{{ route('admin.news.bulk-destroy') }}">
                 @csrf
                 @method('DELETE')
@@ -100,8 +100,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if ($item->image)
-                                            <img src="{{ asset('storage/' . $item->image) }}"
-                                                alt="{{ $item->title }}"
+                                            <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
                                                 class="w-20 h-20 object-cover rounded-md cursor-pointer hover:scale-105 transition"
                                                 onclick="window.open('{{ asset('storage/' . $item->image) }}', '_blank')">
                                         @else
@@ -166,7 +165,6 @@
             </div>
         </div>
 
-        {{-- JavaScript for Bulk Selection --}}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const selectAllCheckbox = document.getElementById('selectAll');
@@ -174,16 +172,13 @@
                 const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
                 const selectedCountSpan = document.getElementById('selectedCount');
 
-                // Fungsi untuk update counter dan status tombol
                 function updateSelectedCount() {
                     const checkedBoxes = document.querySelectorAll('.news-checkbox:checked');
                     const count = checkedBoxes.length;
-
                     selectedCountSpan.textContent = count;
                     deleteSelectedBtn.disabled = count === 0;
                 }
 
-                // Event listener untuk "Select All"
                 selectAllCheckbox.addEventListener('change', function() {
                     newsCheckboxes.forEach(checkbox => {
                         checkbox.checked = this.checked;
@@ -191,22 +186,38 @@
                     updateSelectedCount();
                 });
 
-                // Event listener untuk setiap checkbox news
                 newsCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
-                        // Update status "Select All" checkbox
                         const allChecked = Array.from(newsCheckboxes).every(cb => cb.checked);
                         const someChecked = Array.from(newsCheckboxes).some(cb => cb.checked);
-
                         selectAllCheckbox.checked = allChecked;
                         selectAllCheckbox.indeterminate = someChecked && !allChecked;
-
                         updateSelectedCount();
                     });
                 });
 
-                // Initial update
                 updateSelectedCount();
+
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('search') || params.has('page')) {
+                    const table = document.getElementById('news-table');
+                    if (table) {
+                        table.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+
+                const paginationLinks = document.querySelectorAll('.pagination a, [aria-label="pagination"] a');
+                paginationLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const url = new URL(this.href);
+                        url.hash = 'news-table';
+                        window.location.href = url.toString();
+                    });
+                });
             });
         </script>
 
