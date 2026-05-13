@@ -155,11 +155,6 @@
                                                 class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-xs text-center">
                                                 Edit
                                             </a>
-                                            <button type="button"
-                                                onclick="if(confirm('Yakin hapus foto ini?')) { event.preventDefault(); document.getElementById('delete-form-{{ $photo->id }}').submit(); }"
-                                                class="flex-1 bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
-                                                Hapus
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

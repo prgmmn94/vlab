@@ -33,24 +33,6 @@
             </div>
         </div>
 
-        <div
-            class="bg-red-500 shadow-lg rounded-xl p-5 mb-4 flex items-start gap-4 text-white">
-            <div class="bg-white/20 p-2 rounded-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z" />
-                </svg>
-            </div>
-            <div>
-                <h3 class="font-semibold text-lg mb-1">Perhatian</h3>
-                <p class="text-sm leading-relaxed text-red-100">
-                    Jangan pernah menyebarkan data ini ke pihak manapun, kecuali untuk keperluan resmi yang berkaitan
-                    dengan rekrutmen.
-                </p>
-            </div>
-        </div>
-
         {{-- Data Masuk Terakhir --}}
         <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
             <div class="flex items-center justify-between">

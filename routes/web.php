@@ -72,7 +72,7 @@ Route::get('/admin/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Admin Routes - Recruitment Management
-Route::middleware(['auth', 'verified', 'role:Super Admin,Oprec Admin,Operation Admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', 'role:Super Admin,Oprec Admin'])->prefix('admin')->group(function () {
     Route::resource('recruitment_periods', RecruitmentPeriodController::class)
         ->names('recruitment_periods')
         ->except(['show']);

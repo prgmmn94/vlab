@@ -26,7 +26,7 @@
             </a>
 
             <!-- Rekrutmen Section -->
-            @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Oprec Admin' || Auth::user()->role === 'Operation Admin')
+            @if (Auth::user()->role === 'Super Admin' || Auth::user()->role === 'Oprec Admin')
                 <div class="pt-4 mt-4 border-t border-blue-400 border-opacity-30">
                     <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider">Rekrutmen</p>
                     <div class="mt-2 space-y-2">
