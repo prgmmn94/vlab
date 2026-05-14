@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\PhotoEvent;
 use App\Models\Photo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PhotoController extends Controller
@@ -55,22 +54,26 @@ class PhotoController extends Controller
     {
         $validated = $request->validate([
             'caption' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'required|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'image.required' => 'Gambar wajib diupload',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($photoEvent->event_name) . '_' . Str::random(6) . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('photos/' . $photoEvent->id, $namaImage, 'public');
-            $validated['image'] = $path;
 
-            // Copy ke public_html
-            $this->copyToPublic($path);
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/photos/' . $photoEvent->id);
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'photos/' . $photoEvent->id . '/' . $namaImage;
+            $this->copyToPublic($validated['image']);
         }
 
         $validated['photo_event_id'] = $photoEvent->id;
@@ -90,27 +93,34 @@ class PhotoController extends Controller
     {
         $validated = $request->validate([
             'caption' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'nullable|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
         if ($request->hasFile('image')) {
             // Hapus gambar lama
             if ($photo->image) {
-                Storage::disk('public')->delete($photo->image);
+                $oldPath = storage_path('app/public/' . $photo->image);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
                 $this->deleteFromPublic($photo->image);
             }
 
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($photoEvent->event_name) . '_' . Str::random(6) . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('photos/' . $photoEvent->id, $namaImage, 'public');
-            $validated['image'] = $path;
 
-            // Copy ke public_html
-            $this->copyToPublic($path);
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/photos/' . $photoEvent->id);
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'photos/' . $photoEvent->id . '/' . $namaImage;
+            $this->copyToPublic($validated['image']);
         }
 
         $photo->update($validated);
@@ -122,7 +132,10 @@ class PhotoController extends Controller
     public function destroy(PhotoEvent $photoEvent, Photo $photo)
     {
         if ($photo->image) {
-            Storage::disk('public')->delete($photo->image);
+            $oldPath = storage_path('app/public/' . $photo->image);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
             $this->deleteFromPublic($photo->image);
         }
 
@@ -146,7 +159,10 @@ class PhotoController extends Controller
 
             foreach ($photosToDelete as $photo) {
                 if ($photo->image) {
-                    Storage::disk('public')->delete($photo->image);
+                    $oldPath = storage_path('app/public/' . $photo->image);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                     $this->deleteFromPublic($photo->image);
                 }
             }

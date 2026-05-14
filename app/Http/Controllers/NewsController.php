@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -62,13 +61,12 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'date_news' => 'nullable|date',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'required|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'title.required' => 'Judul berita wajib diisi',
             'content.required' => 'Konten berita wajib diisi',
             'image.required' => 'Gambar wajib diupload',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
@@ -82,11 +80,15 @@ class NewsController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('news', $namaImage, 'public');
-            $validated['image'] = $path;
 
-            // Copy ke public_html
-            $this->copyToPublic($path);
+            $destinasi = storage_path('app/public/news');
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'news/' . $namaImage;
+            $this->copyToPublic('news/' . $namaImage);
         }
 
         News::create($validated);
@@ -111,12 +113,11 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'date_news' => 'nullable|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'nullable|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'title.required' => 'Judul berita wajib diisi',
             'content.required' => 'Konten berita wajib diisi',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
@@ -130,17 +131,25 @@ class NewsController extends Controller
         if ($request->hasFile('image')) {
             // Hapus gambar lama
             if ($news->image) {
-                Storage::disk('public')->delete($news->image);
+                $oldPath = storage_path('app/public/' . $news->image);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
                 $this->deleteFromPublic($news->image);
             }
 
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('news', $namaImage, 'public');
-            $validated['image'] = $path;
 
-            // Copy ke public_html
-            $this->copyToPublic($path);
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/news');
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'news/' . $namaImage;
+            $this->copyToPublic('news/' . $namaImage);
         }
 
         $news->update($validated);
@@ -152,7 +161,10 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         if ($news->image) {
-            Storage::disk('public')->delete($news->image);
+            $oldPath = storage_path('app/public/' . $news->image);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
             $this->deleteFromPublic($news->image);
         }
 
@@ -174,7 +186,10 @@ class NewsController extends Controller
 
             foreach ($newsToDelete as $news) {
                 if ($news->image) {
-                    Storage::disk('public')->delete($news->image);
+                    $oldPath = storage_path('app/public/' . $news->image);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                     $this->deleteFromPublic($news->image);
                 }
             }

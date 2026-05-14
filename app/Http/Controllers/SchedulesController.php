@@ -66,25 +66,29 @@ class SchedulesController extends Controller
             'region' => 'required|string|max:255',
             'class' => 'required|string|max:255',
             'lesson' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'required|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'region.required' => 'Region wajib diisi',
             'class.required' => 'Kelas wajib diisi',
             'lesson.required' => 'Mata Praktikum wajib diisi',
             'image.required' => 'Gambar jadwal wajib diupload',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->region) . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('schedules', $namaImage, 'public');
-            $validated['image'] = $path;
 
-            // Copy ke public_html
-            $this->copyToPublic($path);
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/schedules');
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'schedules/' . $namaImage;
+            $this->copyToPublic('schedules/' . $namaImage);
         }
 
         Schedule::create($validated);
@@ -95,7 +99,7 @@ class SchedulesController extends Controller
 
     public function show(Schedule $schedule)
     {
-        return view('admin.schedules.show', compact('schedule'));
+        return view('admin.schedules.show', compact($schedule));
     }
 
     public function edit(Schedule $schedule)
@@ -109,30 +113,37 @@ class SchedulesController extends Controller
             'region' => 'required|string|max:255',
             'class' => 'required|string|max:255',
             'lesson' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'nullable|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'region.required' => 'Region wajib diisi',
             'class.required' => 'Kelas wajib diisi',
             'lesson.required' => 'Mata Praktikum wajib diisi',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max' => 'Ukuran gambar maksimal 5MB',
         ]);
 
         if ($request->hasFile('image')) {
             // Hapus gambar lama
             if ($schedule->image) {
-                Storage::disk('public')->delete($schedule->image);
+                $oldPath = storage_path('app/public/' . $schedule->image);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
                 $this->deleteFromPublic($schedule->image);
             }
 
             $image = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->region) . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('schedules', $namaImage, 'public');
-            $validated['image'] = $path;
 
-            // Copy ke public_html
-            $this->copyToPublic($path);
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/schedules');
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'schedules/' . $namaImage;
+            $this->copyToPublic('schedules/' . $namaImage);
         }
 
         $schedule->update($validated);
@@ -144,7 +155,10 @@ class SchedulesController extends Controller
     public function destroy(Schedule $schedule)
     {
         if ($schedule->image) {
-            Storage::disk('public')->delete($schedule->image);
+            $oldPath = storage_path('app/public/' . $schedule->image);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
             $this->deleteFromPublic($schedule->image);
         }
 
@@ -166,7 +180,10 @@ class SchedulesController extends Controller
 
             foreach ($schedulesToDelete as $schedule) {
                 if ($schedule->image) {
-                    Storage::disk('public')->delete($schedule->image);
+                    $oldPath = storage_path('app/public/' . $schedule->image);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                     $this->deleteFromPublic($schedule->image);
                 }
             }

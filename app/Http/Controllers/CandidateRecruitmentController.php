@@ -46,7 +46,7 @@ class CandidateRecruitmentController extends Controller
             'tanggal_lahir' => 'nullable|date',
             'agama' => 'nullable|string|in:Islam,Kristen,Katolik,Hindu,Konghucu,Buddha',
             'sosial_media' => 'nullable|string|max:255',
-            'berkas' => 'required|file|mimes:rar,zip|max:5120',
+            'berkas' => 'required|file|extensions:rar,zip|max:5120',
         ], [
             'nama.required' => 'Nama wajib diisi',
             'npm.required' => 'NPM wajib diisi',
@@ -60,7 +60,7 @@ class CandidateRecruitmentController extends Controller
             'posisi_dilamar.required' => 'Posisi yang dilamar wajib dipilih',
             'alamat.required' => 'Alamat wajib diisi',
             'berkas.required' => 'Berkas wajib diupload',
-            'berkas.mimes' => 'Berkas harus berformat RAR atau ZIP',
+            'berkas.extensions' => 'Berkas harus berformat RAR atau ZIP',
             'berkas.max' => 'Ukuran berkas maksimal 5MB',
         ]);
 
@@ -88,12 +88,14 @@ class CandidateRecruitmentController extends Controller
             // Contoh: ASD1_Kemal_Depok.rar
             $fileName = $validated['id_calas'] . '_' . $cleanNama . '_' . $cleanRegion . '.' . $file->getClientOriginalExtension();
 
-            // Simpan ke folder: recruitments/{tahun}/
-            // Path lengkap: storage/app/public/recruitments/2026/ASD1_Kemal_Depok.rar
-            $folderPath = 'recruitments/' . $recruitmentPeriod->tahun;
-            $filePath = $file->storeAs($folderPath, $fileName, 'public');
+            // Simpan ke folder: storage/app/public/recruitments/{tahun}/
+            $destinasi = storage_path('app/public/recruitments/' . $recruitmentPeriod->tahun);
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $file->move($destinasi, $fileName);
 
-            $validated['berkas'] = $filePath;
+            $validated['berkas'] = 'recruitments/' . $recruitmentPeriod->tahun . '/' . $fileName;
         }
 
         Recruitment::create($validated);

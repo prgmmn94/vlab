@@ -22,19 +22,19 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'super@admin.com',
-                'password' => Hash::make('super123'),
+                'password' => Hash::make('maljilbildam'),
                 'role' => 'Super Admin',
             ],
             [
                 'name' => 'Operation Admin',
                 'email' => 'operation@admin.com',
-                'password' => Hash::make('operation123'),
+                'password' => Hash::make('progterbaik'),
                 'role' => 'Operation Admin',
             ],
             [
                 'name' => 'Oprec Admin',
                 'email' => 'oprec@admin.com',
-                'password' => Hash::make('oprec123'),
+                'password' => Hash::make('kapanbultang'),
                 'role' => 'Oprec Admin',
             ]
         ]);

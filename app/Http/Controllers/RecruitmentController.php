@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Recruitment;
 use App\Models\RecruitmentPeriod;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use App\Exports\RecruitmentExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,7 +72,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Show thekspor form for creating a new resource.
+     * Show the form for creating a new resource.
      */
     public function create()
     {
@@ -124,7 +123,7 @@ class RecruitmentController extends Controller
             'tanggal_lahir' => 'nullable|date',
             'agama' => 'nullable|string|max:255',
             'sosial_media' => 'nullable|string|max:255',
-            'berkas' => 'nullable|file|mimes:rar,zip|max:5120',
+            'berkas' => 'nullable|file|extensions:rar,zip|max:5120',
         ]);
 
         // Update tahun jika periode berubah
@@ -132,9 +131,12 @@ class RecruitmentController extends Controller
 
         // Handle file upload dengan folder per periode
         if ($request->hasFile('berkas')) {
-            // Delete old file if exists
-            if ($recruitment->berkas && Storage::disk('public')->exists($recruitment->berkas)) {
-                Storage::disk('public')->delete($recruitment->berkas);
+            // Hapus file lama jika ada
+            if ($recruitment->berkas) {
+                $oldPath = storage_path('app/public/' . $recruitment->berkas);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
             }
 
             $file = $request->file('berkas');
@@ -145,11 +147,14 @@ class RecruitmentController extends Controller
 
             $fileName = ($validated['id_calas'] ?? $recruitment->id_calas) . '_' . $cleanNama . '_' . $cleanRegion . '.' . $file->getClientOriginalExtension();
 
-            // Simpan ke folder periode
-            $folderPath = 'recruitments/' . $recruitmentPeriod->tahun;
-            $filePath = $file->storeAs($folderPath, $fileName, 'public');
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/recruitments/' . $recruitmentPeriod->tahun);
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $file->move($destinasi, $fileName);
 
-            $validated['berkas'] = $filePath;
+            $validated['berkas'] = 'recruitments/' . $recruitmentPeriod->tahun . '/' . $fileName;
         }
 
         $recruitment->update($validated);
@@ -164,8 +169,11 @@ class RecruitmentController extends Controller
     public function destroy(RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
         // Hapus file dari storage
-        if ($recruitment->berkas && Storage::disk('public')->exists($recruitment->berkas)) {
-            Storage::disk('public')->delete($recruitment->berkas);
+        if ($recruitment->berkas) {
+            $oldPath = storage_path('app/public/' . $recruitment->berkas);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
         }
 
         $recruitment->delete();
@@ -409,14 +417,12 @@ class RecruitmentController extends Controller
      */
     public function export(RecruitmentPeriod $recruitmentPeriod)
     {
-        // Cek apakah ada data recruitment
         $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)->count();
 
         if ($count === 0) {
             return redirect()->back()->with('error', 'Tidak ada data yang tersedia untuk diekspor!');
         }
 
-        // Generate filename dengan timestamp
         $filename = 'Data_Calas_Periode_' . $recruitmentPeriod->tahun . '_' . date('d-m-Y_His') . '.xlsx';
 
         return Excel::download(

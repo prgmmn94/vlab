@@ -4,11 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Experience;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ExperienceController extends Controller
 {
+    protected $publicStoragePath = '/home/vlab/public_html/storage/';
+
+    private function copyToPublic($path)
+    {
+        $destination = $this->publicStoragePath . $path;
+        $dir = dirname($destination);
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        copy(storage_path('app/public/' . $path), $destination);
+    }
+
+    private function deleteFromPublic($path)
+    {
+        $file = $this->publicStoragePath . $path;
+        if (file_exists($file)) {
+            unlink($file);
+        }
+    }
+
     public function index(Request $request)
     {
         $query = Experience::query();
@@ -37,21 +58,28 @@ class ExperienceController extends Controller
         $validated = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'required|string',
-            'image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image'       => 'required|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'name.required'        => 'Nama wajib diisi',
             'description.required' => 'Deskripsi pengalaman wajib diisi',
             'image.required'       => 'Gambar wajib diupload',
-            'image.image'          => 'File harus berupa gambar',
-            'image.mimes'          => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions'     => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max'            => 'Ukuran gambar maksimal 5MB',
         ]);
 
         if ($request->hasFile('image')) {
             $image     = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $path      = $image->storeAs('experiences', $namaImage, 'public');
-            $validated['image'] = $path;
+
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/experiences');
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'experiences/' . $namaImage;
+            $this->copyToPublic($validated['image']);
         }
 
         Experience::create($validated);
@@ -75,24 +103,36 @@ class ExperienceController extends Controller
         $validated = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'required|string',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image'       => 'nullable|file|extensions:jpeg,png,jpg,gif|max:5120',
         ], [
             'name.required'        => 'Nama experience wajib diisi',
             'description.required' => 'Deskripsi experience wajib diisi',
-            'image.image'          => 'File harus berupa gambar',
-            'image.mimes'          => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.extensions'     => 'Format gambar harus jpeg, png, jpg, atau gif',
             'image.max'            => 'Ukuran gambar maksimal 5MB',
         ]);
 
         if ($request->hasFile('image')) {
-            if ($experience->image && Storage::disk('public')->exists($experience->image)) {
-                Storage::disk('public')->delete($experience->image);
+            // Hapus gambar lama
+            if ($experience->image) {
+                $oldPath = storage_path('app/public/' . $experience->image);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
+                $this->deleteFromPublic($experience->image);
             }
 
             $image     = $request->file('image');
             $namaImage = time() . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $path      = $image->storeAs('experiences', $namaImage, 'public');
-            $validated['image'] = $path;
+
+            // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
+            $destinasi = storage_path('app/public/experiences');
+            if (!file_exists($destinasi)) {
+                mkdir($destinasi, 0775, true);
+            }
+            $image->move($destinasi, $namaImage);
+
+            $validated['image'] = 'experiences/' . $namaImage;
+            $this->copyToPublic($validated['image']);
         }
 
         $experience->update($validated);
@@ -103,8 +143,12 @@ class ExperienceController extends Controller
 
     public function destroy(Experience $experience)
     {
-        if ($experience->image && Storage::disk('public')->exists($experience->image)) {
-            Storage::disk('public')->delete($experience->image);
+        if ($experience->image) {
+            $oldPath = storage_path('app/public/' . $experience->image);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+            $this->deleteFromPublic($experience->image);
         }
 
         $experience->delete();
@@ -124,8 +168,12 @@ class ExperienceController extends Controller
             $toDelete = Experience::whereIn('id', $request->experience_ids)->get();
 
             foreach ($toDelete as $experience) {
-                if ($experience->image && Storage::disk('public')->exists($experience->image)) {
-                    Storage::disk('public')->delete($experience->image);
+                if ($experience->image) {
+                    $oldPath = storage_path('app/public/' . $experience->image);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                    $this->deleteFromPublic($experience->image);
                 }
             }
 
