@@ -9,6 +9,11 @@ use Illuminate\View\View;
 use ZipArchive;
 use App\Exports\RecruitmentExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class RecruitmentController extends Controller
 {
@@ -19,7 +24,6 @@ class RecruitmentController extends Controller
     {
         $query = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id);
 
-        // Search functionality
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -34,7 +38,6 @@ class RecruitmentController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        // Statistik umum
         $stats = [
             'programmer' => Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
                 ->where('posisi_dilamar', 'programmer')
@@ -47,7 +50,6 @@ class RecruitmentController extends Controller
                 ->count(),
         ];
 
-        // Statistik per region
         $regions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
         $regionStats = [];
 
@@ -71,65 +73,48 @@ class RecruitmentController extends Controller
         return view('admin.recruitments.index', compact('recruitmentPeriod', 'recruitments', 'stats', 'regionStats', 'lastEntry'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request, RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
         return view('admin.recruitments.show', compact('recruitmentPeriod', 'recruitment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Request $request, RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
         return view('admin.recruitments.edit', compact('recruitmentPeriod', 'recruitment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
         $validated = $request->validate([
-            'id_calas' => 'nullable|string|max:255',
-            'nama' => 'nullable|string|max:255',
-            'npm' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'no_hp' => 'nullable|string|max:255',
-            'jurusan' => 'nullable|string|max:255',
-            'kelas' => 'nullable|string|max:255',
-            'region' => 'nullable|string|max:255',
+            'id_calas'       => 'nullable|string|max:255',
+            'nama'           => 'nullable|string|max:255',
+            'npm'            => 'nullable|string|max:255',
+            'email'          => 'nullable|email|max:255',
+            'no_hp'          => 'nullable|string|max:255',
+            'jurusan'        => 'nullable|string|max:255',
+            'kelas'          => 'nullable|string|max:255',
+            'region'         => 'nullable|string|max:255',
             'posisi_dilamar' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string',
-            'tempat_lahir' => 'nullable|string|max:255',
-            'tanggal_lahir' => 'nullable|date',
-            'agama' => 'nullable|string|max:255',
-            'sosial_media' => 'nullable|string|max:255',
-            'berkas' => 'nullable|file|extensions:rar,zip|max:5120',
+            'alamat'         => 'nullable|string',
+            'tempat_lahir'   => 'nullable|string|max:255',
+            'tanggal_lahir'  => 'nullable|date',
+            'agama'          => 'nullable|string|max:255',
+            'sosial_media'   => 'nullable|string|max:255',
+            'berkas'         => 'nullable|file|extensions:rar,zip|max:5120',
         ]);
 
-        // Update tahun jika periode berubah
         $validated['tahun'] = $recruitmentPeriod->tahun;
 
-        // Handle file upload dengan folder per periode
         if ($request->hasFile('berkas')) {
             // Hapus file lama jika ada
             if ($recruitment->berkas) {
@@ -139,13 +124,11 @@ class RecruitmentController extends Controller
                 }
             }
 
-            $file = $request->file('berkas');
-
-            $cleanNama = str_replace(' ', '_', $validated['nama']);
-            $cleanNama = preg_replace('/[^A-Za-z0-9_]/', '', $cleanNama);
+            $file        = $request->file('berkas');
+            $cleanNama   = str_replace(' ', '_', $validated['nama']);
+            $cleanNama   = preg_replace('/[^A-Za-z0-9_]/', '', $cleanNama);
             $cleanRegion = ucfirst($validated['region']);
-
-            $fileName = ($validated['id_calas'] ?? $recruitment->id_calas) . '_' . $cleanNama . '_' . $cleanRegion . '.' . $file->getClientOriginalExtension();
+            $fileName    = ($validated['id_calas'] ?? $recruitment->id_calas) . '_' . $cleanNama . '_' . $cleanRegion . '.' . $file->getClientOriginalExtension();
 
             // Gunakan move() langsung, tidak pakai storeAs (tidak butuh fileinfo)
             $destinasi = storage_path('app/public/recruitments/' . $recruitmentPeriod->tahun);
@@ -163,12 +146,8 @@ class RecruitmentController extends Controller
             ->with('success', 'Data recruitment berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(RecruitmentPeriod $recruitmentPeriod, Recruitment $recruitment)
     {
-        // Hapus file dari storage
         if ($recruitment->berkas) {
             $oldPath = storage_path('app/public/' . $recruitment->berkas);
             if (file_exists($oldPath)) {
@@ -187,36 +166,23 @@ class RecruitmentController extends Controller
      */
     public function downloadByRegion(RecruitmentPeriod $recruitmentPeriod, $region)
     {
-        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
-            ->where('region', $region)
-            ->whereNotNull('berkas')
-            ->count();
-
-        if ($count === 0) {
-            return redirect()->back()->with('error', "Tidak ada berkas untuk region {$region}!");
-        }
-
-        // Validasi region
         $validRegions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
         if (!in_array($region, $validRegions)) {
             return redirect()->back()->with('error', 'Region tidak valid!');
         }
 
-        // Ambil semua recruitment di region tersebut
         $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
             ->where('region', $region)
             ->whereNotNull('berkas')
             ->get();
 
         if ($recruitments->isEmpty()) {
-            return redirect()->back()->with('error', 'Tidak ada berkas di region ' . $region);
+            return redirect()->back()->with('error', "Tidak ada berkas untuk region {$region}!");
         }
 
-        // Buat ZIP file
         $zipFileName = 'Berkas_' . $region . '_' . $recruitmentPeriod->tahun . '.zip';
         $zipFilePath = storage_path('app/temp/' . $zipFileName);
 
-        // Pastikan folder temp ada
         if (!file_exists(storage_path('app/temp'))) {
             mkdir(storage_path('app/temp'), 0755, true);
         }
@@ -232,8 +198,9 @@ class RecruitmentController extends Controller
             $zip->close();
         }
 
-        // Download dan hapus file temporary
-        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        return response()->download($zipFilePath, $zipFileName, [
+            'Content-Type' => 'application/zip',
+        ])->deleteFileAfterSend(true);
     }
 
     /**
@@ -241,16 +208,6 @@ class RecruitmentController extends Controller
      */
     public function downloadByPosition(RecruitmentPeriod $recruitmentPeriod, $posisi)
     {
-        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
-            ->where('posisi_dilamar', $posisi)
-            ->whereNotNull('berkas')
-            ->count();
-
-        if ($count === 0) {
-            return redirect()->back()->with('error', "Tidak ada berkas untuk posisi {$posisi}!");
-        }
-
-        // Validasi posisi
         $validPositions = ['programmer', 'asisten'];
         if (!in_array(strtolower($posisi), $validPositions)) {
             return redirect()->back()->with('error', 'Posisi tidak valid!');
@@ -258,7 +215,6 @@ class RecruitmentController extends Controller
 
         $posisi = strtolower($posisi);
 
-        // Ambil semua recruitment di posisi tersebut
         $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
             ->where('posisi_dilamar', $posisi)
             ->whereNotNull('berkas')
@@ -268,11 +224,9 @@ class RecruitmentController extends Controller
             return redirect()->back()->with('error', 'Tidak ada berkas untuk posisi ' . ucfirst($posisi));
         }
 
-        // Buat ZIP file
         $zipFileName = 'Berkas_' . ucfirst($posisi) . '_' . $recruitmentPeriod->tahun . '.zip';
         $zipFilePath = storage_path('app/temp/' . $zipFileName);
 
-        // Pastikan folder temp ada
         if (!file_exists(storage_path('app/temp'))) {
             mkdir(storage_path('app/temp'), 0755, true);
         }
@@ -288,8 +242,9 @@ class RecruitmentController extends Controller
             $zip->close();
         }
 
-        // Download dan hapus file temporary
-        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        return response()->download($zipFilePath, $zipFileName, [
+            'Content-Type' => 'application/zip',
+        ])->deleteFileAfterSend(true);
     }
 
     /**
@@ -297,13 +252,11 @@ class RecruitmentController extends Controller
      */
     public function downloadByRegionAndPosition(RecruitmentPeriod $recruitmentPeriod, $region, $posisi)
     {
-        // Validasi region
         $validRegions = ['Depok', 'Kalimalang', 'Salemba', 'Karawaci', 'Cengkareng'];
         if (!in_array($region, $validRegions)) {
             return redirect()->back()->with('error', 'Region tidak valid!');
         }
 
-        // Validasi posisi
         $validPositions = ['programmer', 'asisten'];
         if (!in_array(strtolower($posisi), $validPositions)) {
             return redirect()->back()->with('error', 'Posisi tidak valid!');
@@ -311,7 +264,6 @@ class RecruitmentController extends Controller
 
         $posisi = strtolower($posisi);
 
-        // Ambil semua recruitment di region dan posisi tersebut
         $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
             ->where('region', $region)
             ->where('posisi_dilamar', $posisi)
@@ -322,11 +274,9 @@ class RecruitmentController extends Controller
             return redirect()->back()->with('error', 'Tidak ada berkas untuk ' . ucfirst($posisi) . ' di ' . $region);
         }
 
-        // Buat ZIP file
         $zipFileName = 'Berkas_' . ucfirst($posisi) . '_' . $region . '_' . $recruitmentPeriod->tahun . '.zip';
         $zipFilePath = storage_path('app/temp/' . $zipFileName);
 
-        // Pastikan folder temp ada
         if (!file_exists(storage_path('app/temp'))) {
             mkdir(storage_path('app/temp'), 0755, true);
         }
@@ -342,8 +292,9 @@ class RecruitmentController extends Controller
             $zip->close();
         }
 
-        // Download dan hapus file temporary
-        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        return response()->download($zipFilePath, $zipFileName, [
+            'Content-Type' => 'application/zip',
+        ])->deleteFileAfterSend(true);
     }
 
     /**
@@ -351,15 +302,6 @@ class RecruitmentController extends Controller
      */
     public function downloadAll(RecruitmentPeriod $recruitmentPeriod)
     {
-        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
-            ->whereNotNull('berkas')
-            ->count();
-
-        if ($count === 0) {
-            return redirect()->back()->with('error', 'Tidak ada berkas yang tersedia untuk didownload!');
-        }
-
-        // Ambil semua recruitment dalam periode
         $recruitments = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)
             ->whereNotNull('berkas')
             ->get();
@@ -368,11 +310,9 @@ class RecruitmentController extends Controller
             return redirect()->back()->with('error', 'Tidak ada berkas yang tersedia!');
         }
 
-        // Buat ZIP file
         $zipFileName = 'Semua_Berkas_' . $recruitmentPeriod->tahun . '.zip';
         $zipFilePath = storage_path('app/temp/' . $zipFileName);
 
-        // Pastikan folder temp ada
         if (!file_exists(storage_path('app/temp'))) {
             mkdir(storage_path('app/temp'), 0755, true);
         }
@@ -382,7 +322,6 @@ class RecruitmentController extends Controller
             foreach ($recruitments as $recruitment) {
                 $filePath = storage_path('app/public/' . $recruitment->berkas);
                 if (file_exists($filePath)) {
-                    // Buat subfolder per region dalam ZIP
                     $folderInZip = $recruitment->region . '/' . ucfirst($recruitment->posisi_dilamar) . '/';
                     $zip->addFile($filePath, $folderInZip . basename($recruitment->berkas));
                 }
@@ -390,8 +329,9 @@ class RecruitmentController extends Controller
             $zip->close();
         }
 
-        // Download dan hapus file temporary
-        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        return response()->download($zipFilePath, $zipFileName, [
+            'Content-Type' => 'application/zip',
+        ])->deleteFileAfterSend(true);
     }
 
     /**
@@ -409,25 +349,134 @@ class RecruitmentController extends Controller
             return redirect()->back()->with('error', 'File tidak ditemukan di server!');
         }
 
-        return response()->download($filePath, basename($recruitment->berkas));
+        // Tentukan Content-Type berdasarkan ekstensi, tanpa butuh fileinfo
+        $ext         = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+        $contentType = $ext === 'zip' ? 'application/zip' : 'application/octet-stream';
+
+        return response()->download($filePath, basename($recruitment->berkas), [
+            'Content-Type' => $contentType,
+        ]);
     }
 
     /**
-     * Export
+     * Export Excel
      */
     public function export(RecruitmentPeriod $recruitmentPeriod)
     {
-        $count = Recruitment::where('recruitment_period_id', $recruitmentPeriod->id)->count();
+        ini_set('display_errors', 0);
+        ini_set('zlib.output_compression', 'Off');
 
-        if ($count === 0) {
-            return redirect()->back()->with('error', 'Tidak ada data yang tersedia untuk diekspor!');
+        $data = Recruitment::where(
+            'recruitment_period_id',
+            $recruitmentPeriod->id
+        )->get();
+
+        if ($data->isEmpty()) {
+            return redirect()->back()
+                ->with('error', 'Tidak ada data!');
         }
 
-        $filename = 'Data_Calas_Periode_' . $recruitmentPeriod->tahun . '_' . date('d-m-Y_His') . '.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
-        return Excel::download(
-            new RecruitmentExport($recruitmentPeriod->id),
-            $filename
-        );
+        // Header
+        $headers = [
+            'No',
+            'ID Calas',
+            'Nama',
+            'NPM',
+            'Program Studi',
+            'Kelas',
+            'Region',
+            'Posisi',
+            'Agama',
+            'Email',
+            'No HP',
+            'Alamat',
+            'Sosial Media'
+        ];
+
+        $col = 'A';
+
+        foreach ($headers as $header) {
+            $sheet->setCellValue($col . '1', $header);
+            $col++;
+        }
+
+        // Style Header
+        $sheet->getStyle('A1:M1')->applyFromArray([
+            'font' => [
+                'bold' => true,
+                'color' => ['rgb' => 'FFFFFF']
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => '1F4E78'
+                ]
+            ]
+        ]);
+
+        // Data
+        $rowNum = 2;
+        $no = 1;
+
+        foreach ($data as $row) {
+
+            $sheet->setCellValue('A' . $rowNum, $no++);
+            $sheet->setCellValue('B' . $rowNum, $row->id_calas);
+            $sheet->setCellValue('C' . $rowNum, $row->nama);
+            $sheet->setCellValue('D' . $rowNum, $row->npm);
+            $sheet->setCellValue('E' . $rowNum, $row->jurusan);
+            $sheet->setCellValue('F' . $rowNum, $row->kelas);
+            $sheet->setCellValue('G' . $rowNum, $row->region);
+            $sheet->setCellValue('H' . $rowNum, $row->posisi_dilamar);
+            $sheet->setCellValue('I' . $rowNum, $row->agama);
+            $sheet->setCellValue('J' . $rowNum, $row->email);
+            $sheet->setCellValue('K' . $rowNum, $row->no_hp);
+            $sheet->setCellValue('L' . $rowNum, $row->alamat);
+            $sheet->setCellValue('M' . $rowNum, $row->sosial_media);
+
+            $rowNum++;
+        }
+
+        // Auto Width
+        foreach (range('A', 'M') as $column) {
+            $sheet->getColumnDimension($column)
+                ->setAutoSize(true);
+        }
+
+        // Border
+        $lastRow = $rowNum - 1;
+
+        $sheet->getStyle("A1:M{$lastRow}")
+            ->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+            ]);
+
+        $filename = 'Data_Calas_' . date('d-m-Y_H-i-s') . '.xlsx';
+
+        // Bersihkan buffer
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        return response()->streamDownload(function () use ($spreadsheet) {
+
+            $writer = new Xlsx($spreadsheet);
+
+            $writer->setPreCalculateFormulas(false);
+
+            $writer->save('php://output');
+        }, $filename, [
+            'Content-Type' =>
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Cache-Control' =>
+            'max-age=0',
+        ]);
     }
 }

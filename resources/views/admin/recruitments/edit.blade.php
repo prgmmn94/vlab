@@ -31,8 +31,8 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Edit -
-                                    {{ $recruitment->nama }}</span>
+                                <span
+                                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{{ $recruitment->nama }}</span>
                             </div>
                         </li>
                     </ol>
@@ -293,10 +293,10 @@
                     </div>
                 </div>
 
-                <hr class="h-px my-8 bg-gray-300 border-0">
+                <hr class="hidden md:block h-px my-8 bg-gray-300 border-0">
 
                 {{-- Berkas --}}
-                <div class="mb-6">
+                <div class="hidden md:block mb-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Berkas</h3>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -312,7 +312,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
-                                        Download Berkas
+                                        Download
                                     </a>
                                     <span class="text-sm text-gray-600">{{ basename($recruitment->berkas) }}</span>
                                 </div>

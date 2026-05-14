@@ -31,8 +31,7 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Detail -
-                                    {{ $recruitment->nama }}</span>
+                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{{ $recruitment->nama }}</span>
                             </div>
                         </li>
                     </ol>
@@ -145,33 +144,41 @@
                 </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-300 border-0">
+            <hr class="hidden md:block h-px my-8 bg-gray-300 border-0">
 
-            <div class="mb-6">
+            <div class="hidden md:block mb-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2">Berkas Pendaftaran</h3>
 
                 @if ($recruitment->berkas)
                     <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                         <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-900">{{ basename($recruitment->berkas) }}</p>
+                            <p class="text-sm font-medium text-gray-900">
+                                {{ basename($recruitment->berkas) }}
+                            </p>
+
                             <p class="text-xs text-gray-500 mt-1">
                                 Diupload: {{ $recruitment->created_at->format('d F Y, H:i') }}
                             </p>
                         </div>
+
                         <div>
                             <a href="{{ route('admin.recruitments.download.berkas', [$recruitmentPeriod->id, $recruitment->id]) }}"
                                 class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium shadow-sm transition">
+
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
+
                                 Download
                             </a>
                         </div>
                     </div>
                 @else
                     <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                        <p class="text-sm text-yellow-800">Belum ada berkas yang diupload</p>
+                        <p class="text-sm text-yellow-800">
+                            Belum ada berkas yang diupload
+                        </p>
                     </div>
                 @endif
             </div>
@@ -183,7 +190,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-500 mb-1">Tanggal Pendaftaran</label>
-                        <p class="text-base text-gray-900">{{ $recruitment->created_at->format('d F Y H:i') }} WIB</p>
+                        <p class="text-base text-gray-900">{{ $recruitment->created_at->format('d F Y H:i') }}</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500 mb-1">Terakhir Diupdate</label>
