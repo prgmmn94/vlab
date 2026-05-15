@@ -72,7 +72,7 @@ class Recruitment extends Model
 
         $lastRecord = self::where('id_calas', 'like', $posisiCode . $regionCode . '%')
             ->lockForUpdate()
-            ->orderBy('id_calas', 'desc')
+            ->orderByRaw('CAST(SUBSTRING(id_calas, ?) AS UNSIGNED) DESC', [strlen($posisiCode . $regionCode) + 1])
             ->first();
 
         if ($lastRecord) {
