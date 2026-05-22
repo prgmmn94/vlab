@@ -8,7 +8,7 @@
                         <li class="inline-flex items-center">
                             <a href="{{ route('recruitment_periods.index') }}"
                                 class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
-                                Periode Rekrutmen
+                                Periode
                             </a>
                         </li>
                         <li>
@@ -18,7 +18,7 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Rekrutmen
+                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">
                                     {{ $recruitmentPeriod->tahun }}</span>
                             </div>
                         </li>
@@ -386,7 +386,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <span
                                         class="px-2 py-1 rounded-full text-xs font-semibold
-                                        {{ $recruitment->posisi_dilamar == 'programmer' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800' }}">
+                                        {{ $recruitment->posisi_dilamar == 'Programmer' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800' }}">
                                         {{ ucfirst($recruitment->posisi_dilamar) }}
                                     </span>
                                 </td>

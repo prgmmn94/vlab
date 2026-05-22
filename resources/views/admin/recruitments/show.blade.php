@@ -8,7 +8,7 @@
                         <li class="inline-flex items-center">
                             <a href="{{ route('recruitment_periods.index') }}"
                                 class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
-                                Periode Rekrutmen
+                                Periode
                             </a>
                         </li>
                         <li>
@@ -20,7 +20,7 @@
                                 </svg>
                                 <a href="{{ route('admin.recruitments.index', $recruitment->recruitment_period_id) }}"
                                     class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2">
-                                    Rekrutmen {{ $recruitment->recruitmentPeriod->tahun }}
+                                    {{ $recruitment->recruitmentPeriod->tahun }}
                                 </a>
                             </div>
                         </li>
@@ -31,7 +31,8 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{{ $recruitment->nama }}</span>
+                                <span
+                                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Biodata</span>
                             </div>
                         </li>
                     </ol>
